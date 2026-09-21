@@ -1,0 +1,48 @@
+
+/* Optional cashier recommendation: fixed rows, no moving targets or carousel.
+   Palette: crimson CTA (#d93a51), wine depth (#a73b49), brass details (#c0a75f). */
+.upsell{position:relative;min-width:0}
+.upsell-intro{font-size:12px;line-height:1.5;color:#7d5f4b;margin-bottom:12px}
+.upsell-list{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}
+.upsell-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;border:1px solid #e9dcc3;border-radius:16px;padding:11px;background:#fffdf6;min-width:0}
+.upsell-card[data-added=true]{border-color:#c0a75f;background:#fdfbf1}
+.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:#f7ecd6;border:1px solid #efe2c8;overflow:hidden}
+.upsell-art img{width:100%;height:100%;object-fit:contain}
+.upsell-art.art-pije{background:#efe9d4}
+.upsell-art.art-shtesa{background:#fbeecc}
+.upsell-copy{min-width:0;overflow-wrap:anywhere}
+.upsell-group + .upsell-group{margin-top:18px}
+.upsell-group-header{font-family:var(--font-display);font-size:17.5px;font-weight:800;letter-spacing:-.35px;line-height:1.25;color:#2f1c12;margin-bottom:10px;overflow-wrap:anywhere}
+.upsell-copy h4{font-family:var(--font-display);font-size:15.5px;font-weight:800;letter-spacing:-.3px;line-height:1.2;color:#2f1c12}
+.upsell-copy p{font-size:11.5px;color:#7d5f4b;line-height:1.4;margin-top:1px}
+
+/* Inline receipt line — only rendered once the item is actually in the basket. */
+.upsell-added{display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-size:11px;font-weight:800;color:#6f5b18}
+.upsell-added svg{flex-shrink:0}
+.upsell-added.is-limit{color:#a73b49;font-weight:700}
+.upsell-added button{display:inline-flex;align-items:center;gap:3px;margin-left:4px;min-height:24px;font-size:11px;font-weight:700;color:#a73b49;text-decoration:underline;text-underline-offset:3px}
+
+/* One-tap add: solid CTA with the price riding inside it. Physical press. */
+.upsell-add{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:44px;padding:0 14px;border-radius:12px;background:#d93a51;color:#fffaf2;font-size:12.5px;font-weight:800;letter-spacing:.01em;box-shadow:0 2px 0 #a73b49;transition:background-color 120ms ease}
+.upsell-add:hover{background:#e54359}
+.upsell-add:active{transform:translateY(2px);box-shadow:0 0 0 #a73b49}
+.upsell-add:disabled{opacity:.5;box-shadow:none;cursor:not-allowed}
+.upsell-add strong{font-size:12px;font-weight:800;background:#ffffff2e;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.upsell-add svg{flex-shrink:0}
+.upsell-add-label{white-space:nowrap}
+
+.upsell-footer>div{display:flex;justify-content:space-between;gap:12px;font-size:13px}
+.upsell-footer strong{white-space:nowrap;color:#a73b49}
+.upsell-footer>p{font-size:10px;color:#7d5f4b;line-height:1.4;margin:5px 0 10px}
+.upsell-details-heading{font-size:12px;color:#7d5f4b;margin-bottom:10px}
+
+/* Two-up only where the dialog actually has room; keep the CTA compact. */
+@media(min-width:560px){
+  .upsell-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .upsell-card{grid-template-columns:46px minmax(0,1fr) auto;gap:9px;padding:10px}
+  .upsell-art{width:46px;height:46px;border-radius:12px}
+  .upsell-copy h4{font-size:14.5px}
+  .upsell-add{padding:0 11px;gap:6px}
+  .upsell-add-label{display:none}
+}
+@media(prefers-reduced-motion:no-preference){.upsell-check{animation:upsell-confirm 200ms cubic-bezier(.34,1.56,.64,1)}@keyframes upsell-confirm{from{transform:scale(.5)}to{transform:scale(1)}}}

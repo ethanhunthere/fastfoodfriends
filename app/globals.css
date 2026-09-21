@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens (Tailwind v4 CSS-first config)
+ *  Visual identity: dark charcoal base + warm red / mustard accents.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-charcoal-950: #fbf6ea;
+  --color-charcoal-900: #fffdf6;
+  --color-charcoal-850: #f7efdc;
+  --color-charcoal-800: #efe4cd;
+  --color-charcoal-700: #e5d7bd;
+  --color-charcoal-600: #c3ad8e;
+  --color-charcoal-500: #8f765c;
+
+  --color-cream-50: #241d18;
+  --color-cream-100: #30261f;
+  --color-cream-200: #56483e;
+
+  /* CTA crimson family. `flame-500` is the button base (white text passes AA);
+     `flame-600` is the wine depth used for strong text, pressed states and the
+     solid offset under CTAs. */
+  --color-flame-300: #e54359;
+  --color-flame-400: #d93a51;
+  --color-flame-500: #d93a51;
+  --color-flame-600: #a73b49;
+  --color-flame-700: #8a2b3c;
+
+  /* Warm accent family: bright yellow, amber, brass, terracotta — signage
+     colours for badges, rules and secondary labels. */
+  --color-mustard-300: #ffd636;
+  --color-mustard-400: #cfa151;
+  --color-mustard-500: #c0a75f;
+  --color-mustard-600: #995c40;
+
+  --color-open-400: #6f5b18;
+  --color-open-500: #7a651c;
+  --color-open-600: #6f5b18;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-outfit), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+
+  /* Surface language is hard, physical, paper-on-ink: every elevation is a crisp
+     offset stroke (see `.express-add`, `.express-stepper`, `.express-logo`). No
+     ambient lift / glow tokens — a printed board rests on a flat inked ground,
+     never inside a halo. */
+
+  --animate-sheet-up: sheet-up 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --animate-fade-in: fade-in 180ms ease-out;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes sheet-up {
+  from {
+    opacity: 0.4;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.86);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Base layer — a11y + CLS-safe defaults
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+    scroll-padding-bottom: 6rem;
+  }
+
+  body {
+    background-color: var(--color-charcoal-950);
+    color: var(--color-cream-100);
+    font-family: var(--font-sans);
+    /* Prevent iOS from inflating text on rotate (avoids reflow/CLS). */
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-flame-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-flame-500);
+    color: #fffaf2;
+  }
+
+  /* Respect user motion preferences (WCAG 2.3.3). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Utilities
+ * ------------------------------------------------------------------ */
+
+/* iOS safe-area padding for the sticky order bar. */
+@utility pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.625rem);
+}
+
+/* Numeric alignment so cart totals never reflow when a digit changes. */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Print-friendly receipt-ish output for the order summary. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,38 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="512"
+  height="512"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Fast Food Friends logo — hamburger"
+>
+  <title>Fast Food Friends</title>
+  <desc>Logo një hamburgeri me pak tej</desc>
+  <rect width="512" height="512" rx="96" fill="#0b0a08" />
+  <g transform="translate(256 256)">
+    {/* bun top */}
+    <path
+      d="M-150 -90a64 64 0 0 1 300 0z"
+      fill="#e0c9a8"
+      stroke="#e0c9a8"
+      stroke-width="2"
+    />
+    {/* fillings */}
+    <rect x="-150" y="-26" width="300" height="22" rx="4" fill="#e63b2e" />
+    <circle cx="-55" cy="8" r="14" fill="#f5b301" />
+    <rect x="-150" y="2" width="300" height="30" rx="4" fill="#fff7ec" />
+    <rect x="-150" y="36" width="300" height="22" rx="4" fill="#e63b2e" />
+    <path
+      d="M-150 60a30 30 0 0 1 300 0z"
+      fill="#e0c9a8"
+      stroke="#e0c9a8"
+      stroke-width="2"
+    />
+    {/* flame accent */}
+    <path
+      d="M0 110c-18-12-30-36-30-58a30 30 0 0 1 60 0c0 22-12 46-30 58z"
+      fill="#ff6b4a"
+      opacity="0.85"
+    />
+  </g>
+</svg>

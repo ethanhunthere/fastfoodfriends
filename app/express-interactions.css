@@ -1,0 +1,55 @@
+/* One responsive dialog shell, shared by customization, basket and checkout. */
+.modal-overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;padding-top:max(8px,env(safe-area-inset-top))}
+.modal-backdrop{position:absolute;inset:0;background:rgb(28 20 15 / .48)}
+.express-dialog{position:relative;display:flex;flex-direction:column;width:100%;min-width:0;max-width:560px;max-height:calc(100dvh - max(8px,env(safe-area-inset-top)));background:#fffdf6;border:1px solid #e5d7bd;border-bottom:0;border-radius:24px 24px 0 0;box-shadow:0 2px 0 #2a1a11;overflow:hidden;animation:sheet-up 160ms ease-out}
+.modal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px var(--dialog-gutter);border-bottom:1px solid #efe4cd;flex-shrink:0}
+.modal-heading h2{font-size:clamp(17px,3vw,22px);line-height:1.2;letter-spacing:-.5px;min-width:0;overflow-wrap:anywhere}
+.modal-heading button{height:44px;width:44px;background:#f7efdc;border:0}
+.modal-content{padding:12px var(--dialog-gutter);min-height:0;overflow-y:auto;overscroll-behavior:contain;flex:1}
+.modal-footer{background:#fffdf6;padding:12px var(--dialog-gutter) max(16px,env(safe-area-inset-bottom));border-top:1px solid #e9ddcc;flex-shrink:0}
+.express-customizer-intro{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.express-customizer-intro>span{display:grid;place-items:center;min-width:78px;height:78px;border-radius:16px;background:#f7ecd6;font-size:44px}
+.express-customizer-intro p{font-size:12px;line-height:1.6;color:#7d5f4b}
+.express-options{display:grid;gap:18px}.express-options legend{font-size:14px;color:#30261f;font-weight:800;margin-bottom:7px}
+.express-options fieldset>p{display:none}
+.express-choice-grid{display:flex;flex-wrap:wrap;gap:7px}
+.express-choice{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;padding:9px 12px;border:1px solid #e3d7c6;border-radius:12px;font-size:12px;font-weight:600;color:#614c3b;background:#fbf6ea;cursor:pointer;flex-grow:1}
+.express-choice input{position:absolute;width:1px;height:1px;opacity:0}
+.express-choice:has(input:checked){border-color:#d93a51;background:#fde7ea;color:#a73b49;box-shadow:inset 0 0 0 1px #d93a51}
+.express-choice:has(input:focus-visible){outline:2px solid #a73b49;outline-offset:3px}
+.express-choice small{font-size:10px}.express-allergens{font-size:10px;color:#766453;margin-top:16px}
+.express-customizer-footer{display:flex;gap:12px;align-items:center}
+.express-quantity{display:flex;align-items:center;gap:3px;border:1px solid #e2d4c1;border-radius:14px;flex-shrink:0}
+.express-quantity button{border:0!important;min-width:40px;min-height:48px}
+.express-primary{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 16px;border-radius:15px;background:#d93a51;color:#fffaf2;font-size:13px;font-weight:750;flex:1;width:100%;box-shadow:0 4px 0 #a73b49}
+.express-primary span{margin-left:auto;white-space:nowrap}.express-primary:disabled{opacity:.55;box-shadow:none}
+.express-checkout-form{display:grid;gap:13px}
+.express-checkout-form>fieldset>legend{display:none}
+.express-checkout-form>fieldset label{min-height:54px;padding:8px 10px;border-radius:12px}
+.express-checkout-form>fieldset label span span{font-size:11px}
+.express-checkout-form>fieldset label span span:last-child{font-size:10px}
+.express-checkout-form>fieldset label input{width:14px;height:14px;flex-shrink:0}
+.express-checkout-form label{font-size:12px}
+.express-checkout-form input:not([type=hidden]):not([type=radio]),.express-checkout-form textarea{background:#fbf6ea;font-size:16px}
+.express-checkout-form p[id$="-hint"]{font-size:10px;margin-top:3px}
+.express-order-summary{padding:10px 12px;border-radius:12px;background:#f7efdc;max-height:110px;overflow:auto}
+.express-order-summary li{font-size:12px;align-items:flex-start}
+.express-fee{font-size:10px;color:#7d5f4b;text-align:center;margin-bottom:8px}
+.express-notes summary{font-size:12px;color:#7d5f4b;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px}
+.express-notes summary span{font-size:10px;color:#806d59}
+.express-checkout-form #phone-ok{font-size:10px}
+.express-cart-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fbf6ea;border-top:1px solid #eadfc4;padding:10px 16px max(12px,env(safe-area-inset-bottom))}
+.express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:center}
+.express-cart-review{min-height:52px;display:flex;align-items:center;gap:10px;text-align:left;flex-shrink:0;font-size:11px}
+.express-cart-count{display:grid;place-items:center;width:37px;height:40px;border:1px solid #dacebd;border-radius:12px;font-size:16px;font-weight:800}
+.express-cart-review strong{display:block;font-size:14px}.express-cart-review small{font-size:9px;color:#76614d}
+.express-cart-bar .express-primary{max-width:480px;margin-left:auto}.express-cart-bar .express-primary svg{flex-shrink:0}
+@media(min-width:640px){.express-welcome{padding:26px 0 18px}.express-welcome h1{font-size:46px}.express-welcome p:last-child{max-width:none;font-size:13.5px}.express-item-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.express-item{padding:13px}.express-food-art{width:104px;height:104px}.express-item-body{min-height:104px}.express-item-copy h3{font-size:17.5px}.express-section-heading h2{font-size:22px}.express-item-copy p{font-size:12.5px}.express-categories{grid-template-columns:repeat(4,140px)}.express-categories button{font-size:12px}.express-dialog{border-radius:24px!important}.express-footer address{width:auto}.express-location{font-size:12px}}
+@media(max-width:350px){.express-item{gap:8px;padding:10px}.express-food-art{width:88px;height:88px}.express-item-copy h3{font-size:14px}.express-categories button{font-size:10px;gap:3px}.express-customizer-footer{gap:6px}.express-primary{font-size:12px;padding:12px}.express-service{gap:8px}.express-cart-review small{display:none}}
+@media(prefers-reduced-motion:no-preference){button{transition:transform 120ms ease,background-color 120ms ease}button:active{transform:scale(.97)}}
+@media print{.express-categories,.express-cart-bar,.express-header-cart{display:none}.express-menu [data-category]{display:block!important}}
+
+/* Navbar cart badge pops when the count changes (re-mounted via key={count}). */
+@media(prefers-reduced-motion:no-preference){.express-cart-badge{animation:badge-pop 320ms cubic-bezier(.34,1.56,.64,1)}@keyframes badge-pop{from{transform:scale(.4)}to{transform:scale(1)}}}
+/* Scroll-linked elevation — progressive enhancement, no JavaScript. */
+@supports (animation-timeline:scroll()){.express-header{animation:header-lift linear both;animation-timeline:scroll();animation-range:0 120px}@keyframes header-lift{to{border-bottom-color:#3b2418}}}

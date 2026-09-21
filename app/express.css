@@ -1,0 +1,65 @@
+/* Friends Express: paper, tomato, ink. No animation or image dependencies. */
+.express-header{position:sticky;top:0;z-index:40;background:#fbf6ea;border-bottom:1px solid #eadfc4}
+/* Bold identity stripe — solid color band, absolute so bar height never shifts. */
+.express-header::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#ffd636}
+.express-header-inner{height:var(--header-height);max-width:1024px;margin:auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.express-brand{display:flex;align-items:center;gap:11px;min-height:44px;text-decoration:none}
+.express-wordmark{display:flex;flex-direction:column;justify-content:center;line-height:1}
+.express-wordmark small{font-size:8.5px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#d93a51;margin-bottom:3px}
+.express-wordmark strong{font-size:22px;font-family:var(--font-display);font-weight:800;letter-spacing:-1px;color:#3b2418}
+.express-logo{font-size:34px;font-weight:800;font-family:var(--font-display);background:#d93a51;color:#fffaef;display:grid;place-content:center;position:relative;width:48px;height:48px;border-radius:17px 17px 17px 5px;letter-spacing:-3px;padding-right:5px;box-shadow:3px 3px 0 #3b241822}
+.express-logo span{position:absolute;right:7px;bottom:6px;font-size:21px;color:#ffd636}
+.express-nav-mid{display:flex;align-items:center;gap:12px;min-width:0;flex:1;justify-content:center}
+.express-nav-divider{display:none;width:1px;height:20px;background:#e5d7bd;flex-shrink:0}
+.express-nav-status{display:none;align-items:center;gap:8px;min-height:28px;padding:5px 11px;border-radius:7px;background:#f6eed6;color:#6f5b18;border:1px solid #c0a75f;font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;white-space:nowrap}
+.express-nav-status[data-open=false]{background:#f8e3e6;color:#a73b49}
+.express-nav-status-detail{font-weight:700;letter-spacing:.02em;text-transform:none;font-size:10.5px;color:#77683d}
+.express-nav-status[data-open=false] .express-nav-status-detail{color:#a73b49}
+.express-location{display:flex;align-items:center;gap:6px;min-height:44px;padding-inline:4px;font-size:11.5px;font-weight:700;color:#9a7f68;border-radius:10px;transition:color 120ms ease}
+.express-location:hover{color:#3b2418}
+.express-location:hover .express-location-city{color:#d93a51}
+.express-location svg{color:#d93a51;flex-shrink:0}
+.express-location-city{color:#3b2418;transition:color 120ms ease}
+.express-location-street{display:none;font-weight:500;color:#9a7f68;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.express-header-cart{display:flex;align-items:center;justify-content:center;gap:9px;min-width:48px;min-height:46px;padding:0 17px;border-radius:12px;background:#3b2418;color:#fff7ea;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 3px 0 #241610;transition:background-color 120ms ease}
+.express-header-cart:hover{background:#4a2f22}
+.express-header-cart:active{transform:translateY(2px);box-shadow:0 1px 0 #241610}
+.express-header-cart-label{display:none}
+.express-cart-badge{display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:7px;background:#ffd636;color:#3b2418;font-size:11px;font-weight:800;letter-spacing:0}
+.express-welcome{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:18px 0 14px}
+.express-eyebrow{font-size:9px;letter-spacing:.15em;font-weight:800;color:#a73b49}
+.express-welcome h1{font-family:var(--font-display);font-size:clamp(30px,8.6vw,40px);font-weight:800;line-height:1.06;letter-spacing:-1.5px;margin:6px 0 0}
+.express-welcome h1 span{color:#d93a51}
+.express-welcome p:last-child{max-width:270px;font-size:12.5px;line-height:1.55;color:#7d5f4b;margin-top:6px}
+.express-service{display:flex;align-items:center;gap:16px;border-top:1px solid #eadfc4;border-bottom:1px solid #eadfc4;padding:10px 0;font-size:11px;color:#7d5f4b}
+.express-service span,.express-service a{display:inline-flex;align-items:center;gap:5px}
+.express-service a{margin-left:auto;color:#995c40}
+.express-open{color:#6f5b18;font-weight:700}.express-closed{color:#a73b49;font-weight:700}
+
+.express-closed-note{font-size:12px;padding:8px;background:#f8e3e6;border-radius:8px}
+.express-categories{position:sticky;top:64px;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:12px 0;background:#fbf6ea}
+.express-categories button{min-height:46px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:700;letter-spacing:-.1px;border-radius:12px;border:1px solid #e9dcc3;white-space:nowrap;background:#ffffff;color:#4a3325}
+.express-categories button[aria-pressed=true]{background:#3b2418;color:#fff7ea;border-color:#3b2418}
+.express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),.express-menu[data-active=shtesa] [data-category]:not([data-category=shtesa]),.express-menu[data-active=pije] [data-category]:not([data-category=pije]){display:none}
+.express-section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0 10px}
+.express-section-heading h2{font-family:var(--font-display);font-size:21px;font-weight:800;letter-spacing:-.6px;color:#2f1c12}
+.express-section-heading span{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#995c40;white-space:nowrap}
+.express-item-list{display:grid;gap:10px;margin-bottom:24px}
+.express-item{display:grid;grid-template-columns:104px minmax(0,1fr);gap:13px;align-items:start;border:1px solid #e9dcc3;background:#ffffff;border-radius:20px;padding:11px;min-width:0}
+.express-food-art{width:104px;height:104px;min-width:0;border-radius:16px;display:grid;place-items:center;background:#f7ecd6;overflow:hidden;border:1px solid #efe2c8}
+.express-food-art span{min-width:0;max-width:100%;font-size:clamp(28px,8vw,43px);transform:rotate(-8deg)}
+.express-food-img{width:100%;height:100%;object-fit:contain}
+.art-pije .express-food-img{object-fit:contain;padding:4px}
+.art-pije{background:#efe9d4}.art-shtesa{background:#fbeecc}
+.express-item-body{display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-width:0;min-height:104px;padding:2px 2px 0 0}
+.express-item-copy{text-align:left;display:flex;flex-direction:column;gap:3px;min-width:0}
+.express-item-copy h3{font-family:var(--font-display);font-size:16.5px;line-height:1.15;font-weight:800;letter-spacing:-.35px;color:#2f1c12}
+.express-item-copy p{font-size:12px;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:#7d5f4b;margin:0}
+.express-item-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+.express-item-price{font-family:var(--font-display);font-size:17px;font-weight:800;letter-spacing:-.4px;color:#a73b49;white-space:nowrap}
+.express-item-tag{align-self:flex-start;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b4a12;background:#ffd636;border-radius:5px;padding:2.5px 6px;margin-bottom:2px}
+.express-footer{max-width:1024px;width:100%;margin:12px auto 0;padding:18px 16px;color:#8a6a52;border-top:1px solid #eadfc4;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.express-footer strong{color:#a73b49;font-size:18px}.express-footer nav{display:flex;gap:14px}.express-footer address{width:100%;font-style:normal;font-size:10px}
+
+/* Pre-baked product art: <picture> must not interfere with the fixed-size tile. */
+.express-food-art picture,.upsell-art picture,.menu-item-hero picture{display:contents}

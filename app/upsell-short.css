@@ -1,0 +1,7 @@
+
+/* Keep the fast exit visible even when the general short-screen dialog uses
+   a single scrolling surface. Only the recommendation body scrolls here. */
+@media(max-height:540px){
+  .express-dialog:has(.upsell){overflow:hidden}
+  .express-dialog:has(.upsell) .modal-content{overflow-y:auto;flex:1;min-height:0}
+}
