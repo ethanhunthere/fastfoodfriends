@@ -147,7 +147,7 @@ export function Modal({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-charcoal-700 text-cream-200 transition-colors hover:border-flame-400 hover:text-flame-700"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-charcoal-700 text-cream-200 transition-colors hover:border-flame-400 hover:text-flame-700"
           >
             <X aria-hidden="true" className="h-5 w-5" />
             <span className="sr-only">Mbyll</span>

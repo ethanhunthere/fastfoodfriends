@@ -28,14 +28,14 @@ export default function NotFoundPage() {
       <div className="flex flex-col gap-3 sm:flex-row">
         <Link
           href="/"
-          className="flex min-h-11 items-center justify-center gap-2 rounded-pill bg-flame-500 px-5 text-sm font-semibold text-charcoal-900 transition-colors hover:bg-flame-400"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-md bg-flame-500 px-5 text-sm font-semibold text-charcoal-900 transition-colors hover:bg-flame-400"
         >
           <House aria-hidden="true" className="h-4 w-4" />
           Ballina
         </Link>
         <a
           href={getRestaurantPhoneHref()}
-          className="flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-5 text-sm font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-md border border-charcoal-700 px-5 text-sm font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
         >
           <Phone aria-hidden="true" className="h-4 w-4" />
           Telefono {RESTAURANT.phoneE164}

@@ -22,7 +22,7 @@ export function OpeningStatusBadge({
 
   return (
     <span
-      className={`inline-flex flex-wrap items-center gap-2 rounded-pill border px-3 py-1.5 text-sm font-medium ${
+      className={`inline-flex flex-wrap items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium ${
         isOpen
           ? "border-open-500/40 bg-open-500/10 text-open-400"
           : "border-flame-500/40 bg-flame-500/10 text-flame-300"
@@ -63,7 +63,7 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
 
       <Link
         href="/menu"
-        className="inline-flex min-h-11 items-center justify-center rounded-pill bg-flame-500 px-4 text-sm font-semibold text-white hover:bg-flame-700"
+        className="inline-flex min-h-11 items-center justify-center rounded-md bg-flame-500 px-4 text-sm font-semibold text-white hover:bg-flame-700"
       >
         Shiko menunë
       </Link>
@@ -89,7 +89,7 @@ export function OpeningStatusPanel({
           <OpeningStatusBadge status={status} />
       <Link
         href="/#menu-browse"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
       >
         Porosit online
       </Link>

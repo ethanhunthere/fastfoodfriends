@@ -104,14 +104,14 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
             <button
               type="button"
               onClick={onClose}
-              className="flex min-h-12 w-full items-center justify-center rounded-pill border border-charcoal-700 px-5 font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
+              className="flex min-h-12 w-full items-center justify-center rounded-md border border-charcoal-700 px-5 font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
             >
               Mbyll
             </button>
           ) : (
             <a
               href={getRestaurantPhoneHref()}
-              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-pill bg-flame-500 px-5 font-semibold text-cream-50 transition-colors hover:bg-flame-700"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-flame-500 px-5 font-semibold text-cream-50 transition-colors hover:bg-flame-700"
             >
               <Phone aria-hidden="true" className="h-4.5 w-4.5" />
               Telefono {RESTAURANT.phoneE164}
@@ -208,7 +208,7 @@ function CheckoutForm({
       {state.formError ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-xl border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-sm text-flame-300"
+          className="flex items-start gap-2 rounded-lg border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-sm text-flame-300"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {state.formError}
@@ -325,7 +325,7 @@ function CheckoutForm({
           />
         </Field>
       ) : (
-        <p className="rounded-xl border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200">
+        <p className="rounded-lg border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200">
           <Store aria-hidden="true" className="mr-2 inline h-4 w-4 text-flame-700" />
           Marrje në lokal: {RESTAURANT.address.street}, {RESTAURANT.address.city} —{" "}
           {RESTAURANT.landmarkShort}. Të telefonojmë kur porosia të jetë gati.{" "}
@@ -368,7 +368,7 @@ function CheckoutForm({
       {errors.items ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-xl border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-sm text-flame-300"
+          className="flex items-start gap-2 rounded-lg border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-sm text-flame-300"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {errors.items}
@@ -381,7 +381,7 @@ function CheckoutForm({
 /** Shared input styling: 44px+ hit area, visible error state, no CLS on focus. */
 export function inputClass(hasError: boolean): string {
   return [
-    "mt-1 w-full min-h-12 rounded-xl border bg-charcoal-850 px-3.5 py-2.5 text-base text-cream-50",
+    "mt-1 w-full min-h-12 rounded-lg border bg-charcoal-850 px-3.5 py-2.5 text-base text-cream-50",
     "placeholder:text-cream-200/45 transition-colors",
     hasError
       ? "border-flame-500 focus:border-flame-400"
@@ -451,7 +451,7 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
   return (
     <label
       htmlFor={inputId}
-      className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors ${
+      className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 transition-colors ${
         checked
           ? "border-flame-500 bg-flame-500/10"
           : "border-charcoal-700 bg-charcoal-850 hover:border-charcoal-600"
@@ -515,7 +515,7 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
       {!state.notificationDelivered && state.notificationNote ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-xl border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm text-flame-700"
+          className="flex items-start gap-2 rounded-lg border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm text-flame-700"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {state.notificationNote}

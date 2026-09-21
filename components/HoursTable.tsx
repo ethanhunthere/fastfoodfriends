@@ -40,7 +40,7 @@ export function HoursTable({ rows }: { rows: readonly HoursRow[] }) {
               <span className="sm:hidden">{DAY_LABELS_SHORT_SQ[row.weekday]}</span>
               <span className="hidden sm:inline">{row.label}</span>
               {row.isToday ? (
-                <span className="ml-2 rounded-pill bg-flame-500/15 px-2 py-0.5 text-xs text-flame-700">
+                <span className="ml-2 rounded-md bg-flame-500/15 px-2 py-0.5 text-xs text-flame-700">
                   sot
                 </span>
               ) : null}
@@ -105,7 +105,7 @@ export function ContactCard() {
         </p>
       </address>
 
-      <p className="mt-4 rounded-xl bg-charcoal-850 p-3 text-xs text-cream-200">
+      <p className="mt-4 rounded-lg bg-charcoal-850 p-3 text-xs text-cream-200">
         Porositë konfirmohen me telefon ose në WhatsApp brenda pak minutash.
         Për porosi të mëdha (mbi 10 persona) të lutem telefono drejtpërdrejt.
       </p>

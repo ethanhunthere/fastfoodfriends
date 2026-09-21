@@ -260,7 +260,7 @@ function QuantityRow({
         type="button"
         onClick={() => setQuantity(Math.max(1, quantity - 1))}
         disabled={quantity <= 1}
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-charcoal-700 text-cream-100 disabled:opacity-40"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-charcoal-700 text-cream-100 disabled:opacity-40"
         aria-label="Zbrit sasinë"
       >
         <Minus aria-hidden="true" className="h-4 w-4" />
@@ -274,7 +274,7 @@ function QuantityRow({
           setQuantity(Math.min(quantity + 1, ORDER_CONFIG.maxQuantityPerLine))
         }
         disabled={quantity >= ORDER_CONFIG.maxQuantityPerLine}
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-charcoal-700 text-cream-100 disabled:opacity-40"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-charcoal-700 text-cream-100 disabled:opacity-40"
         aria-label="Shto një copë"
       >
         <Plus aria-hidden="true" className="h-4 w-4" />

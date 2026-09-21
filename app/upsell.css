@@ -4,9 +4,9 @@
 .upsell{position:relative;min-width:0}
 .upsell-intro{font-size:12px;line-height:1.5;color:#4a3020;margin-bottom:12px}
 .upsell-list{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}
-.upsell-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;border:1px solid #dcc7a0;border-radius:16px;padding:11px;background:#fffdf6;min-width:0}
+.upsell-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;border:1px solid #dcc7a0;border-radius:10px;padding:11px;background:#fffdf6;min-width:0}
 .upsell-card[data-added=true]{border-color:#c0a75f;background:#fdfbf1}
-.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:#f7ecd6;border:1px solid #efe2c8;overflow:hidden}
+.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:6px;background:#f7ecd6;border:1px solid #efe2c8;overflow:hidden}
 .upsell-art img{width:100%;height:100%;object-fit:contain}
 .upsell-art.art-pije{background:#efe9d4}
 .upsell-art.art-shtesa{background:#fbeecc}
@@ -23,11 +23,11 @@
 .upsell-added button{display:inline-flex;align-items:center;gap:3px;margin-left:4px;min-height:24px;font-size:11px;font-weight:700;color:#8f2333;text-decoration:underline;text-underline-offset:3px}
 
 /* One-tap add: solid CTA with the price riding inside it. Physical press. */
-.upsell-add{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:44px;padding:0 14px;border-radius:12px;background:#d93a51;color:#fffaf2;font-size:12.5px;font-weight:800;letter-spacing:.01em;box-shadow:0 2px 0 #8f2333;transition:background-color 120ms ease}
-.upsell-add:hover{background:#e54359}
+.upsell-add{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:44px;padding:0 14px;border-radius:6px;border:2px solid #241409;background:#d93a51;color:#fffaf2;font-size:12.5px;font-weight:800;letter-spacing:.01em;box-shadow:0 3px 0 #241409;transition:background-color 120ms ease}
+.upsell-add:hover{background:#c23047}
 .upsell-add:active{transform:translateY(2px);box-shadow:0 0 0 #8f2333}
 .upsell-add:disabled{opacity:.5;box-shadow:none;cursor:not-allowed}
-.upsell-add strong{font-size:12px;font-weight:800;background:#ffffff2e;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.upsell-add strong{font-size:12px;font-weight:800;background:#8f2333;border-radius:4px;padding:2px 6px;white-space:nowrap}
 .upsell-add svg{flex-shrink:0}
 .upsell-add-label{white-space:nowrap}
 

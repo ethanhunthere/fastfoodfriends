@@ -67,7 +67,7 @@ export function CartSheet() {
             </dl>
 
             {belowMinimum ? (
-              <p className="rounded-xl bg-flame-500/10 px-3 py-2 text-xs text-flame-300">
+              <p className="rounded-lg bg-flame-500/10 px-3 py-2 text-xs text-flame-300">
                 Porosia minimale për dorëzim është {minimumOrderLabel()}. Shto edhe një
                 artikull, ose zgjidh &quot;Marrje në lokal&quot; në hapin tjetër.
               </p>
@@ -99,7 +99,7 @@ export function CartSheet() {
           <Link
             href="/#menu"
             onClick={closeCart}
-            className="mt-1 inline-flex min-h-11 items-center rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 hover:border-flame-500 hover:text-flame-700"
+            className="mt-1 inline-flex min-h-11 items-center rounded-md border border-charcoal-700 px-4 text-sm font-medium text-cream-100 hover:border-flame-500 hover:text-flame-700"
           >
             Shiko menunë
           </Link>
@@ -151,7 +151,7 @@ export function CartLineList({
 
             <div className="mt-3 flex items-center justify-between gap-3">
               <div
-                className="inline-flex items-center rounded-pill border border-charcoal-700"
+                className="inline-flex items-center rounded-md border border-charcoal-700"
                 role="group"
                 aria-label={`Sasia për ${line.name}`}
               >
@@ -159,7 +159,7 @@ export function CartLineList({
                   type="button"
                   onClick={() => setQuantity(line.key, line.quantity - 1)}
                   disabled={line.quantity <= 1}
-                  className="flex h-11 w-11 items-center justify-center rounded-l-pill text-cream-100 disabled:opacity-40"
+                  className="flex h-11 w-11 items-center justify-center rounded-l-md text-cream-100 disabled:opacity-40"
                   aria-label={`Zbrit sasinë e ${line.name}`}
                 >
                   <Minus aria-hidden="true" className="h-4 w-4" />
@@ -171,7 +171,7 @@ export function CartLineList({
                   type="button"
                   onClick={() => setQuantity(line.key, line.quantity + 1)}
                   disabled={line.quantity >= ORDER_CONFIG.maxQuantityPerLine}
-                  className="flex h-11 w-11 items-center justify-center rounded-r-pill text-cream-100 disabled:opacity-40"
+                  className="flex h-11 w-11 items-center justify-center rounded-r-md text-cream-100 disabled:opacity-40"
                   aria-label={`Shto sasinë e ${line.name}`}
                 >
                   <Plus aria-hidden="true" className="h-4 w-4" />
@@ -181,7 +181,7 @@ export function CartLineList({
               <button
                 type="button"
                 onClick={() => removeLine(line.key)}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-xs font-medium text-cream-200 hover:text-flame-700"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-xs font-medium text-cream-200 hover:text-flame-700"
               >
                 <Trash aria-hidden="true" className="h-4 w-4" />
                 Hiq

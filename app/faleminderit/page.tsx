@@ -37,7 +37,7 @@ export default function ThankYouPage() {
 
       <a
         href={getRestaurantPhoneHref()}
-        className="flex min-h-12 items-center justify-center gap-2 rounded-pill bg-flame-500 px-6 text-base font-semibold text-white transition-colors hover:bg-flame-700"
+        className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-flame-500 px-6 text-base font-semibold text-white transition-colors hover:bg-flame-700"
       >
         <Phone aria-hidden="true" className="h-5 w-5" />
         Telefono {RESTAURANT.phoneE164}

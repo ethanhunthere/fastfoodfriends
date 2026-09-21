@@ -45,7 +45,7 @@
   --font-sans: var(--font-rokkitt), Georgia, "Times New Roman", serif;
   --font-display: var(--font-rokkitt), Georgia, "Times New Roman", serif;
 
-  --radius-card: 1rem;
+  --radius-card: 0.625rem;
   --radius-pill: 999px;
 
   /* Surface language is hard, physical, paper-on-ink: every elevation is a crisp

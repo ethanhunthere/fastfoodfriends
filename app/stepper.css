@@ -1,10 +1,17 @@
 
 /* Card action: compact tomato button that morphs into an ink stepper once the
    item's default configuration is in the basket. Hard shadow, never full-width. */
-.express-add{display:inline-flex;align-items:center;justify-content:center;background:#d93a51;color:#fffaf2;border:0;box-shadow:0 2px 0 #8f2333;padding:0 17px;min-height:44px;border-radius:12px;font-size:13.5px;font-weight:800;letter-spacing:.01em;flex-shrink:0}
-.express-add:active{transform:translateY(2px);box-shadow:0 0 0 #8f2333}
-.express-stepper{display:inline-flex;align-items:center;flex-shrink:0;background:#3b2418;border-radius:12px;box-shadow:0 2px 0 #2a1a11;overflow:hidden}
+.express-add{display:inline-flex;align-items:center;justify-content:center;background:#d93a51;color:#fffaf2;border:2px solid #241409;box-shadow:0 3px 0 #241409;padding:0 17px;min-height:44px;border-radius:6px;font-size:13.5px;font-weight:800;letter-spacing:.01em;flex-shrink:0}
+.express-add:active{transform:translateY(3px);box-shadow:0 0 0 #241409}
+.express-stepper{display:inline-flex;align-items:center;flex-shrink:0;background:#3b2418;border-radius:6px;border:2px solid #241409;box-shadow:0 3px 0 #241409;overflow:hidden}
 .express-stepper button{display:flex;align-items:center;justify-content:center;min-width:38px;min-height:40px;border:0;background:transparent;color:#fff7ea}
 .express-stepper button:disabled{opacity:.45}
 .express-stepper-count{min-width:22px;text-align:center;font-weight:800;font-size:14px;color:#fffdf6}
-@media(prefers-reduced-motion:no-preference){.express-stepper{animation:stepper-in 160ms ease-out}@keyframes stepper-in{from{transform:scale(.94);opacity:.6}to{transform:scale(1);opacity:1}}}
+/* Mechanical mount: the stepper lands on the card like a stamped part. */
+@media(prefers-reduced-motion:no-preference){
+  .express-stepper{animation:stepper-in 120ms ease-out}
+  @keyframes stepper-in{
+    from{transform:translateY(3px)}
+    to{transform:translateY(0)}
+  }
+}

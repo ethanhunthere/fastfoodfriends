@@ -35,7 +35,7 @@ export function CategoryNav() {
           <Link
             key={category.id}
             href={`#${CATEGORY_ANCHORS[category.id]}`}
-            className="inline-flex items-center gap-2 rounded-full border border-charcoal-700 bg-charcoal-850 px-4 py-2 text-sm font-medium text-cream-100 transition-all hover:border-flame-500 hover:bg-charcoal-700 hover:text-flame-700"
+            className="inline-flex items-center gap-2 rounded-md border border-charcoal-700 bg-charcoal-850 px-4 py-2 text-sm font-medium text-cream-100 transition-all hover:border-flame-500 hover:bg-charcoal-700 hover:text-flame-700"
           >
             <span aria-hidden="true">{CATEGORY_ICONS[category.icon]}</span>
             {category.name}
