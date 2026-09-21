@@ -9,20 +9,20 @@
 .modal-footer{background:#fffdf6;padding:12px var(--dialog-gutter) max(16px,env(safe-area-inset-bottom));border-top:1px solid #e9ddcc;flex-shrink:0}
 .express-customizer-intro{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .express-customizer-intro>span{display:grid;place-items:center;min-width:78px;height:78px;border-radius:16px;background:#f7ecd6;font-size:44px}
-.express-customizer-intro p{font-size:12px;line-height:1.6;color:#7d5f4b}
+.express-customizer-intro p{font-size:12px;line-height:1.6;color:#4a3020}
 .express-options{display:grid;gap:18px}.express-options legend{font-size:14px;color:#30261f;font-weight:800;margin-bottom:7px}
 .express-options fieldset>p{display:none}
 .express-choice-grid{display:flex;flex-wrap:wrap;gap:7px}
 .express-choice{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;padding:9px 12px;border:1px solid #e3d7c6;border-radius:12px;font-size:12px;font-weight:600;color:#614c3b;background:#fbf6ea;cursor:pointer;flex-grow:1}
 .express-choice input{position:absolute;width:1px;height:1px;opacity:0}
-.express-choice:has(input:checked){border-color:#d93a51;background:#fde7ea;color:#a73b49;box-shadow:inset 0 0 0 1px #d93a51}
-.express-choice:has(input:focus-visible){outline:2px solid #a73b49;outline-offset:3px}
-.express-choice small{font-size:10px}.express-allergens{font-size:10px;color:#766453;margin-top:16px}
+.express-choice:has(input:checked){border-color:#d93a51;background:#fde7ea;color:#8f2333;box-shadow:inset 0 0 0 1px #d93a51}
+.express-choice:has(input:focus-visible){outline:2px solid #8f2333;outline-offset:3px}
+.express-choice small{font-size:10px}.express-allergens{font-size:10px;color:#5d3a1e;margin-top:16px}
 .express-customizer-footer{display:flex;gap:12px;align-items:center}
 .express-quantity{display:flex;align-items:center;gap:3px;border:1px solid #e2d4c1;border-radius:14px;flex-shrink:0}
 .express-quantity button{border:0!important;min-width:40px;min-height:48px}
-.express-primary{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 16px;border-radius:15px;background:#d93a51;color:#fffaf2;font-size:13px;font-weight:750;flex:1;width:100%;box-shadow:0 4px 0 #a73b49}
-.express-primary span{margin-left:auto;white-space:nowrap}.express-primary:disabled{opacity:.55;box-shadow:none}
+.express-primary{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:12px 16px;border-radius:14px;background:#d93a51;color:#fffaf2;font-size:14.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;flex:1;width:100%;box-shadow:0 4px 0 #8f2333}
+.express-primary span{margin-left:auto;white-space:nowrap}.express-primary:disabled{opacity:.55;box-shadow:none;letter-spacing:.04em;text-transform:none}
 .express-checkout-form{display:grid;gap:13px}
 .express-checkout-form>fieldset>legend{display:none}
 .express-checkout-form>fieldset label{min-height:54px;padding:8px 10px;border-radius:12px}
@@ -34,16 +34,22 @@
 .express-checkout-form p[id$="-hint"]{font-size:10px;margin-top:3px}
 .express-order-summary{padding:10px 12px;border-radius:12px;background:#f7efdc;max-height:110px;overflow:auto}
 .express-order-summary li{font-size:12px;align-items:flex-start}
-.express-fee{font-size:10px;color:#7d5f4b;text-align:center;margin-bottom:8px}
-.express-notes summary{font-size:12px;color:#7d5f4b;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px}
-.express-notes summary span{font-size:10px;color:#806d59}
+.express-fee{font-size:10px;color:#4a3020;text-align:center;margin-bottom:8px}
+.express-notes summary{font-size:12px;color:#4a3020;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px}
+.express-notes summary span{font-size:10px;color:#5d3a1e}
 .express-checkout-form #phone-ok{font-size:10px}
-.express-cart-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fbf6ea;border-top:1px solid #eadfc4;padding:10px 16px max(12px,env(safe-area-inset-bottom))}
-.express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:center}
-.express-cart-review{min-height:52px;display:flex;align-items:center;gap:10px;text-align:left;flex-shrink:0;font-size:11px}
-.express-cart-count{display:grid;place-items:center;width:37px;height:40px;border:1px solid #dacebd;border-radius:12px;font-size:16px;font-weight:800}
-.express-cart-review strong{display:block;font-size:14px}.express-cart-review small{font-size:9px;color:#76614d}
-.express-cart-bar .express-primary{max-width:480px;margin-left:auto}.express-cart-bar .express-primary svg{flex-shrink:0}
+/* ── The ticket rail ────────────────────────────────────────────────────────
+   The conversion anchor: a full-bleed ink bar cut off from the paper page by a
+   mustard signage rule. Price reads like a counter display — big, tabular,
+   mustard-on-ink. CTA is thumb-high with a hard pressed-stamp shadow. */
+.express-cart-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#241409;border-top:4px solid #ffd636;padding:12px 16px max(12px,env(safe-area-inset-bottom))}
+.express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:stretch}
+.express-cart-review{min-height:64px;display:flex;align-items:center;gap:12px;text-align:left;flex-shrink:0;font-size:11px;color:#f8ecd9}
+.express-cart-count{display:grid;place-items:center;min-width:40px;height:44px;padding:0 9px;border-radius:10px;background:#ffd636;color:#241409;font-family:var(--font-display);font-size:19px;font-weight:900}
+.express-cart-review strong{display:block;font-family:var(--font-display);font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1;color:#ffd636}
+.express-cart-review small{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c9a97f;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.express-cart-bar .express-primary{max-width:480px;margin-left:auto;min-height:64px;font-size:14.5px;font-weight:900;letter-spacing:.08em;white-space:nowrap;overflow-wrap:normal;box-shadow:0 5px 0 #7c1017}.express-cart-bar .express-primary svg{flex-shrink:0}
+.express-cart-bar .express-primary:active{transform:translateY(5px);box-shadow:0 0 0 #7c1017}
 @media(min-width:640px){.express-welcome{padding:26px 0 18px}.express-welcome h1{font-size:46px}.express-welcome p:last-child{max-width:none;font-size:13.5px}.express-item-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.express-item{padding:13px}.express-food-art{width:104px;height:104px}.express-item-body{min-height:104px}.express-item-copy h3{font-size:17.5px}.express-section-heading h2{font-size:22px}.express-item-copy p{font-size:12.5px}.express-categories{grid-template-columns:repeat(4,140px)}.express-categories button{font-size:12px}.express-dialog{border-radius:24px!important}.express-footer address{width:auto}.express-location{font-size:12px}}
 @media(max-width:350px){.express-item{gap:8px;padding:10px}.express-food-art{width:88px;height:88px}.express-item-copy h3{font-size:14px}.express-categories button{font-size:10px;gap:3px}.express-customizer-footer{gap:6px}.express-primary{font-size:12px;padding:12px}.express-service{gap:8px}.express-cart-review small{display:none}}
 @media(prefers-reduced-motion:no-preference){button{transition:transform 120ms ease,background-color 120ms ease}button:active{transform:scale(.97)}}

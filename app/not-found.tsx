@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         <h1 className="font-display text-2xl font-bold text-cream-50 sm:text-3xl">
           404 — Nuk u gjet
         </h1>
-        <p className="mt-3 max-w-md text-sm text-cream-200/75">
+        <p className="mt-3 max-w-md text-sm text-cream-200">
           Faqja që kerkosh s’ekziston. Mund që të ket dhe futur një link të
           vjetër, ose një gabim e kam regjistruar.
         </p>
@@ -35,7 +35,7 @@ export default function NotFoundPage() {
         </Link>
         <a
           href={getRestaurantPhoneHref()}
-          className="flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-5 text-sm font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-600"
+          className="flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-5 text-sm font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
         >
           <Phone aria-hidden="true" className="h-4 w-4" />
           Telefono {RESTAURANT.phoneE164}

@@ -37,7 +37,7 @@ export function OpeningStatusBadge({
       </span>
       <span>{status.label}</span>
       {status.detail ? (
-        <span className="text-cream-200/70">· {status.detail}</span>
+        <span className="text-cream-200">· {status.detail}</span>
       ) : null}
     </span>
   );
@@ -55,7 +55,7 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
           <p className="font-semibold text-flame-300">
             Mbyllur tani — {status.detail}
           </p>
-          <p className="text-sm text-cream-200/80">
+          <p className="text-sm text-cream-200">
             Mund të dërgosh porosinë gjithsesi; e konfirmojmë sapo hapim.
           </p>
         </div>
@@ -63,7 +63,7 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
 
       <Link
         href="/menu"
-        className="inline-flex min-h-11 items-center justify-center rounded-pill bg-flame-500 px-4 text-sm font-semibold text-white hover:bg-flame-600"
+        className="inline-flex min-h-11 items-center justify-center rounded-pill bg-flame-500 px-4 text-sm font-semibold text-white hover:bg-flame-700"
       >
         Shiko menunë
       </Link>
@@ -89,7 +89,7 @@ export function OpeningStatusPanel({
           <OpeningStatusBadge status={status} />
       <Link
         href="/#menu-browse"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-600"
+        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
       >
         Porosit online
       </Link>

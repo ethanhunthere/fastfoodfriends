@@ -186,7 +186,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
     if (!item.variants || item.variants.length <= 1) return null;
     return (
       <fieldset className="space-y-2">
-        <legend className="text-xs font-semibold text-cream-200/80">
+        <legend className="text-xs font-semibold text-cream-200">
           Varianta
         </legend>
         <div className="express-choice-grid">
@@ -212,11 +212,11 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
     if (!item.modifierGroups || item.modifierGroups.length === 0) return null;
     return item.modifierGroups.map((group: ModifierGroup) => (
       <fieldset key={group.id} className="space-y-2">
-        <legend className="text-xs font-semibold text-cream-200/80">
+        <legend className="text-xs font-semibold text-cream-200">
           {group.label}
         </legend>
         {group.helpText ? (
-          <p className="text-[11px] text-cream-200/55">{group.helpText}</p>
+          <p className="text-[11px] text-cream-200">{group.helpText}</p>
         ) : null}
         <div className="express-choice-grid">
           {group.options.map((option) => {
@@ -233,7 +233,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
                 />
                 {option.label}
                 {option.priceDeltaCents > 0 ? (
-                  <span className="tnum text-xs text-cream-200/60">
+                  <span className="tnum text-xs text-cream-200">
                     (+{formatPrice(option.priceDeltaCents)})
                   </span>
                 ) : null}

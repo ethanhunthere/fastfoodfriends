@@ -38,7 +38,7 @@ const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800", "900"],
 });
 
 export default function RootLayout({ children }: { children: ReactNode }) {

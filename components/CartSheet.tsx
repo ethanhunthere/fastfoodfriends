@@ -45,13 +45,13 @@ export function CartSheet() {
           <div className="space-y-3">
             <dl className="space-y-1.5 text-sm">
               <div className="flex items-center justify-between">
-                <dt className="text-cream-200/75">Nënshuma</dt>
+                <dt className="text-cream-200">Nënshuma</dt>
                 <dd className="tnum text-cream-50">
                   {formatPrice(totals.subtotalCents)}
                 </dd>
               </div>
               <div className="flex items-center justify-between">
-                <dt className="text-cream-200/75">Dorëzimi</dt>
+                <dt className="text-cream-200">Dorëzimi</dt>
                 <dd className="tnum text-cream-50">
                   {totals.deliveryFeeCents === 0
                     ? "Falas"
@@ -60,7 +60,7 @@ export function CartSheet() {
               </div>
               <div className="flex items-center justify-between border-t border-charcoal-700 pt-2 text-base">
                 <dt className="font-semibold text-cream-50">Totali</dt>
-                <dd className="tnum font-display text-xl font-bold text-flame-600">
+                <dd className="tnum font-display text-xl font-bold text-flame-700">
                   {formatPrice(totals.totalCents)}
                 </dd>
               </div>
@@ -81,7 +81,7 @@ export function CartSheet() {
               Porosit Tani
             </button>
 
-            <p className="text-center text-xs text-cream-200/60">
+            <p className="text-center text-xs text-cream-200">
               Konfirmimi bëhet me telefon pas dërgimit të porosisë.
             </p>
           </div>
@@ -92,14 +92,14 @@ export function CartSheet() {
         <div className="flex flex-col items-center gap-3 py-8 text-center">
           <ShoppingBag aria-hidden="true" className="h-11 w-11 text-charcoal-500" />
           <p className="font-medium text-cream-100">Shporta është bosh</p>
-          <p className="max-w-xs text-sm text-cream-200/70">
+          <p className="max-w-xs text-sm text-cream-200">
             Zgjidh një hamburger, hotdog ose pomfrit nga menuja dhe ai do të shfaqet
             këtu.
           </p>
           <Link
             href="/#menu"
             onClick={closeCart}
-            className="mt-1 inline-flex min-h-11 items-center rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 hover:border-flame-500 hover:text-flame-600"
+            className="mt-1 inline-flex min-h-11 items-center rounded-pill border border-charcoal-700 px-4 text-sm font-medium text-cream-100 hover:border-flame-500 hover:text-flame-700"
           >
             Shiko menunë
           </Link>
@@ -140,11 +140,11 @@ export function CartLineList({
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <p className="font-medium text-cream-50">{describeCartLine(line)}</p>
-                <p className="tnum mt-0.5 text-xs text-cream-200/65">
+                <p className="tnum mt-0.5 text-xs text-cream-200">
                   {formatPrice(line.unitPriceCents)} / copë
                 </p>
               </div>
-              <p className="tnum shrink-0 font-semibold text-flame-600">
+              <p className="tnum shrink-0 font-semibold text-flame-700">
                 {formatPrice(line.unitPriceCents * line.quantity)}
               </p>
             </div>
@@ -181,7 +181,7 @@ export function CartLineList({
               <button
                 type="button"
                 onClick={() => removeLine(line.key)}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-xs font-medium text-cream-200/70 hover:text-flame-300"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-xs font-medium text-cream-200 hover:text-flame-700"
               >
                 <Trash aria-hidden="true" className="h-4 w-4" />
                 Hiq
@@ -195,7 +195,7 @@ export function CartLineList({
         <button
           type="button"
           onClick={clearCart}
-          className="inline-flex min-h-11 items-center text-xs font-medium text-cream-200/60 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-300"
+          className="inline-flex min-h-11 items-center text-xs font-medium text-cream-200 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-700"
         >
           Zbraz shportën
         </button>

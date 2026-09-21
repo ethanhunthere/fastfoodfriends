@@ -104,14 +104,14 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
             <button
               type="button"
               onClick={onClose}
-              className="flex min-h-12 w-full items-center justify-center rounded-pill border border-charcoal-700 px-5 font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-600"
+              className="flex min-h-12 w-full items-center justify-center rounded-pill border border-charcoal-700 px-5 font-semibold text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
             >
               Mbyll
             </button>
           ) : (
             <a
               href={getRestaurantPhoneHref()}
-              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-pill bg-flame-500 px-5 font-semibold text-cream-50 transition-colors hover:bg-flame-600"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-pill bg-flame-500 px-5 font-semibold text-cream-50 transition-colors hover:bg-flame-700"
             >
               <Phone aria-hidden="true" className="h-4.5 w-4.5" />
               Telefono {RESTAURANT.phoneE164}
@@ -194,10 +194,10 @@ function CheckoutForm({
           {lines.map((line) => (
             <li key={line.key} className="flex items-center justify-between gap-3">
               <span className="min-w-0 text-cream-100">
-                <span className="tnum font-semibold text-flame-600">{line.quantity}×</span>{" "}
+                <span className="tnum font-semibold text-flame-700">{line.quantity}×</span>{" "}
                 {describeCartLine(line)}
               </span>
-              <span className="tnum shrink-0 text-cream-200/80">
+              <span className="tnum shrink-0 text-cream-200">
                 {formatPrice(line.unitPriceCents * line.quantity)}
               </span>
             </li>
@@ -224,7 +224,7 @@ function CheckoutForm({
             value="delivery"
             checked={mode === "delivery"}
             onChange={onModeChange}
-            icon={<MapPin aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+            icon={<MapPin aria-hidden="true" className="h-4 w-4 text-flame-700" />}
             label="Dorëzim në adresë"
             hint={
               totals.deliveryFeeCents === 0
@@ -236,7 +236,7 @@ function CheckoutForm({
             value="pickup"
             checked={mode === "pickup"}
             onChange={onModeChange}
-            icon={<Store aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+            icon={<Store aria-hidden="true" className="h-4 w-4 text-flame-700" />}
             label="Marrje në lokal"
             hint="Pa tarifë dorëzimi"
           />
@@ -246,7 +246,7 @@ function CheckoutForm({
       <Field
         id="fullName"
         label="Emri dhe Mbiemri"
-        icon={<User aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+        icon={<User aria-hidden="true" className="h-4 w-4 text-flame-700" />}
         error={errors.fullName}
         required
       >
@@ -268,7 +268,7 @@ function CheckoutForm({
       <Field
         id="phone"
         label="Numri i Telefonit"
-        icon={<Phone aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+        icon={<Phone aria-hidden="true" className="h-4 w-4 text-flame-700" />}
         hint="044 · 045 · 049 · 043 · 048"
         error={errors.phone}
         required
@@ -305,7 +305,7 @@ function CheckoutForm({
         <Field
           id="address"
           label="Adresa e saktë / Lagjja"
-          icon={<MapPin aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+          icon={<MapPin aria-hidden="true" className="h-4 w-4 text-flame-700" />}
           hint={`Rruga, numri dhe hyrja — p.sh. afër ${RESTAURANT.landmarkShort.toLowerCase()}.`}
           error={errors.address}
           required
@@ -325,15 +325,15 @@ function CheckoutForm({
           />
         </Field>
       ) : (
-        <p className="rounded-xl border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200/80">
-          <Store aria-hidden="true" className="mr-2 inline h-4 w-4 text-flame-600" />
+        <p className="rounded-xl border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200">
+          <Store aria-hidden="true" className="mr-2 inline h-4 w-4 text-flame-700" />
           Marrje në lokal: {RESTAURANT.address.street}, {RESTAURANT.address.city} —{" "}
           {RESTAURANT.landmarkShort}. Të telefonojmë kur porosia të jetë gati.{" "}
           <a
             href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-semibold text-flame-600 underline underline-offset-4"
+            className="inline-flex items-center gap-1 font-semibold text-flame-700 underline underline-offset-4"
           >
             Navigo <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
           </a>
@@ -345,7 +345,7 @@ function CheckoutForm({
       <Field
         id="notes"
         label="Shënime Shtesë"
-        icon={<NotebookPen aria-hidden="true" className="h-4 w-4 text-flame-600" />}
+        icon={<NotebookPen aria-hidden="true" className="h-4 w-4 text-flame-700" />}
         hint="P.sh. kodi i hyrjes, pa krip, ndaj porosinë në dy pjata…"
         error={errors.notes}
       >
@@ -382,7 +382,7 @@ function CheckoutForm({
 export function inputClass(hasError: boolean): string {
   return [
     "mt-1 w-full min-h-12 rounded-xl border bg-charcoal-850 px-3.5 py-2.5 text-base text-cream-50",
-    "placeholder:text-cream-200/35 transition-colors",
+    "placeholder:text-cream-200/45 transition-colors",
     hasError
       ? "border-flame-500 focus:border-flame-400"
       : "border-charcoal-700 focus:border-flame-500",
@@ -414,12 +414,12 @@ function Field({ id, label, icon, hint, error, required, children }: FieldProps)
             *
           </span>
         ) : (
-          <span className="text-xs font-normal text-cream-200/50">(opsionale)</span>
+          <span className="text-xs font-normal text-cream-200">(opsionale)</span>
         )}
       </label>
 
       {hint ? (
-        <p id={`${id}-hint`} className="mt-1 text-xs text-cream-200/60">
+        <p id={`${id}-hint`} className="mt-1 text-xs text-cream-200">
           {hint}
         </p>
       ) : null}
@@ -471,7 +471,7 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
           {icon}
           {label}
         </span>
-        <span className="tnum text-xs text-cream-200/65">{hint}</span>
+        <span className="tnum text-xs text-cream-200">{hint}</span>
       </span>
     </label>
   );
@@ -487,7 +487,7 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
           <p className="font-display text-lg font-semibold text-cream-50">
             Porosia u pranua me sukses!
           </p>
-          <p className="mt-1 text-sm text-cream-200/80">
+          <p className="mt-1 text-sm text-cream-200">
             Ju telefonojmë brenda 2 minutave për ta konfirmuar.
           </p>
         </div>
@@ -495,18 +495,18 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
 
       <dl className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm">
         <div className="flex items-center justify-between">
-          <dt className="text-cream-200/75">Numri i porosisë</dt>
-          <dd className="tnum font-display text-base font-bold text-flame-600">
+          <dt className="text-cream-200">Numri i porosisë</dt>
+          <dd className="tnum font-display text-base font-bold text-flame-700">
             {state.orderNumber}
           </dd>
         </div>
         <div className="mt-2 flex items-center justify-between">
-          <dt className="text-cream-200/75">Totali</dt>
+          <dt className="text-cream-200">Totali</dt>
           <dd className="tnum text-cream-50">{formatPrice(state.totalCents)}</dd>
         </div>
         <div className="mt-2 flex items-center justify-between">
-          <dt className="text-cream-200/75">Njoftimi push</dt>
-          <dd className={state.notificationDelivered ? "text-open-400" : "text-flame-600"}>
+          <dt className="text-cream-200">Njoftimi push</dt>
+          <dd className={state.notificationDelivered ? "text-open-400" : "text-flame-700"}>
             {state.notificationDelivered ? "U dërgua" : "Nuk u konfirmua"}
           </dd>
         </div>
@@ -515,14 +515,14 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
       {!state.notificationDelivered && state.notificationNote ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-xl border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm text-flame-600"
+          className="flex items-start gap-2 rounded-xl border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm text-flame-700"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {state.notificationNote}
         </p>
       ) : null}
 
-      <div className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm text-cream-200/80">
+      <div className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm text-cream-200">
         <p className="font-medium text-cream-100">Hapi tjetër</p>
         <ol className="mt-2 list-decimal space-y-1 pl-5">
           <li>Telefonojmë numrin që dhatë për të konfirmuar adresën dhe kohën.</li>

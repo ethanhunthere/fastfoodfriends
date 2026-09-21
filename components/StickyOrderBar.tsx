@@ -26,11 +26,14 @@ export function StickyOrderBar() {
         <button type="button" className="express-cart-review" onClick={openCart}
           aria-label={`Shiko Shportën, ${count} artikuj, ${formatPrice(subtotal)}`} aria-haspopup="dialog">
           <span className="express-cart-count tnum">{count}</span>
-          <span><strong className="tnum">{formatPrice(subtotal)}</strong><small>Shiko Shportën · pa dorëzim</small></span>
+          <span>
+            <strong className="tnum">{formatPrice(subtotal)}</strong>
+            <small>Shiko Shportën</small>
+          </span>
         </button>
         <button type="button" className="express-primary" onClick={openCheckout}
           disabled={!hasItems} aria-haspopup="dialog">
-          Porosit Tani <ArrowRight size={18} aria-hidden="true" />
+          Porosit Tani <ArrowRight size={20} aria-hidden="true" />
         </button>
       </div>
     </div>

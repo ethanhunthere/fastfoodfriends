@@ -23,7 +23,7 @@
   --color-flame-300: #e54359;
   --color-flame-400: #d93a51;
   --color-flame-500: #d93a51;
-  --color-flame-600: #a73b49;
+  --color-flame-600: #8f2333;
   --color-flame-700: #8a2b3c;
 
   /* Warm accent family: bright yellow, amber, brass, terracotta — signage
@@ -31,7 +31,7 @@
   --color-mustard-300: #ffd636;
   --color-mustard-400: #cfa151;
   --color-mustard-500: #c0a75f;
-  --color-mustard-600: #995c40;
+  --color-mustard-600: #6b4426;
 
   --color-open-400: #6f5b18;
   --color-open-500: #7a651c;
@@ -94,7 +94,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     scrollbar-gutter: stable;
-    scroll-padding-bottom: 6rem;
+    scroll-padding-bottom: 8rem;
   }
 
   body {
