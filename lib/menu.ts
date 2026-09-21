@@ -85,33 +85,29 @@ export const MENU_CATEGORIES: readonly MenuCategory[] = [
  *  Reusable modifier groups
  * ------------------------------------------------------------------ */
 
-/** Full sandwich topping list — the classic Kosovo "pa qepë / ekstra majonez" set. */
+/** Sandwich toppings — the essentials only. Anything unusual goes in the
+    free-text field at checkout. */
 const SANDWICH_GROUP: ModifierGroup = {
   id: "perberesit",
   label: "Përbërësit",
-  helpText: "Zgjidh çka do të heqësh ose shtosh. Mund të zgjedhësh disa.",
+  helpText: "Hiq ose shto sipas dëshirës.",
   options: [
     { id: "pa-qepe", label: "Pa qepë", priceDeltaCents: 0 },
     { id: "pa-domate", label: "Pa domate", priceDeltaCents: 0 },
     { id: "pa-sallate", label: "Pa sallatë", priceDeltaCents: 0 },
-    { id: "sallate-ekstra", label: "Sallatë ekstra", priceDeltaCents: 30 },
     { id: "ekstra-majonez", label: "Ekstra majonez", priceDeltaCents: 20 },
-    { id: "keqap", label: "Keçap", priceDeltaCents: 20 },
     { id: "ekstra-djath", label: "Ekstra djath", priceDeltaCents: 50 },
-    { id: "pikante", label: "Pikante (salcë e nxehtë)", priceDeltaCents: 20 },
   ],
 };
 
 const GRILL_GROUP: ModifierGroup = {
   id: "perberesit",
   label: "Përbërësit",
-  helpText: "Shto ose hiq përbërës sipas dëshirës.",
+  helpText: "Hiq ose shto sipas dëshirës.",
   options: [
     { id: "pa-qepe", label: "Pa qepë", priceDeltaCents: 0 },
     { id: "pa-sallate", label: "Pa sallatë", priceDeltaCents: 0 },
     { id: "ekstra-majonez", label: "Ekstra majonez", priceDeltaCents: 20 },
-    { id: "keqap", label: "Keçap", priceDeltaCents: 20 },
-    { id: "ekstra-ketchup-speciale", label: "Salcë speciale e shtëpisë", priceDeltaCents: 30 },
     { id: "pikante", label: "Pikante", priceDeltaCents: 20 },
   ],
 };
@@ -119,61 +115,22 @@ const GRILL_GROUP: ModifierGroup = {
 const TOST_GROUP: ModifierGroup = {
   id: "perberesit",
   label: "Përbërësit",
-  helpText: "Personalizo tostin.",
+  helpText: "Hiq ose shto sipas dëshirës.",
   options: [
     { id: "pa-gjalpe", label: "Pa gjalpë", priceDeltaCents: 0 },
     { id: "ekstra-djath", label: "Ekstra djath", priceDeltaCents: 50 },
-    { id: "keqap", label: "Keçap", priceDeltaCents: 20 },
-    { id: "ekstra-majonez", label: "Ekstra majonez", priceDeltaCents: 20 },
     { id: "pa-domate", label: "Pa domate", priceDeltaCents: 0 },
   ],
 };
 
 const FRIES_GROUP: ModifierGroup = {
   id: "shtesat",
-  label: "Shtesa për pomfrit",
+  label: "Shtesa",
   helpText: "Bëj pomfritin si e do ti.",
   options: [
     { id: "pa-krip", label: "Pa krip", priceDeltaCents: 0 },
-    { id: "ekstra-majonez", label: "Ekstra majonez", priceDeltaCents: 20 },
-    { id: "keqap", label: "Keçap", priceDeltaCents: 20 },
     { id: "djath-i-shkrire", label: "Djath i shkrirë", priceDeltaCents: 50 },
     { id: "pikante", label: "Pluhur pikant", priceDeltaCents: 0 },
-  ],
-};
-
-const SODA_GROUP: ModifierGroup = {
-  id: "sherbimi",
-  label: "Shërbimi",
-  helpText: "Zgjidh temperaturën / akullin.",
-  maxSelections: 1,
-  options: [
-    { id: "pa-akull", label: "Pa akull", priceDeltaCents: 0 },
-    { id: "me-akull", label: "Me akull", priceDeltaCents: 0 },
-    { id: "i-ftohte", label: "I ftohtë", priceDeltaCents: 0 },
-  ],
-};
-
-const WATER_GROUP: ModifierGroup = {
-  id: "sherbimi",
-  label: "Shërbimi",
-  helpText: "Zgjidh temperaturën.",
-  maxSelections: 1,
-  options: [
-    { id: "i-ftohte", label: "I ftohtë", priceDeltaCents: 0 },
-    { id: "i-vaket", label: "I vakët (temperaturë dhome)", priceDeltaCents: 0 },
-  ],
-};
-
-const DAIRY_GROUP: ModifierGroup = {
-  id: "sherbimi",
-  label: "Shërbimi",
-  helpText: "Zgjidh stilin e servimit.",
-  maxSelections: 1,
-  options: [
-    { id: "i-ftohte", label: "I ftohtë", priceDeltaCents: 0 },
-    { id: "pa-akull", label: "Pa akull", priceDeltaCents: 0 },
-    { id: "me-krip", label: "Me krip (ajran tradicional)", priceDeltaCents: 0 },
   ],
 };
 
@@ -284,13 +241,7 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     name: "Coca-Cola",
     category: "pije",
     description: "Coca-Cola e ftohtë, në shishe qelqi ose plastikë.",
-    priceCents: 120,
-    variants: [
-      { id: "330ml", label: "330 ml", priceDeltaCents: 0, isDefault: true },
-      { id: "500ml", label: "500 ml", priceDeltaCents: 60 },
-      { id: "1l", label: "1 L", priceDeltaCents: 130 },
-    ],
-    modifierGroups: [SODA_GROUP],
+        priceCents: 120,
     available: true,
     prepMinutes: 1,
   },
@@ -301,12 +252,6 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     category: "pije",
     description: "Fanta portokall e ftohtë, e gazuar.",
     priceCents: 120,
-    variants: [
-      { id: "330ml", label: "330 ml", priceDeltaCents: 0, isDefault: true },
-      { id: "500ml", label: "500 ml", priceDeltaCents: 60 },
-      { id: "1l", label: "1 L", priceDeltaCents: 130 },
-    ],
-    modifierGroups: [SODA_GROUP],
     available: true,
     prepMinutes: 1,
   },
@@ -315,13 +260,8 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     slug: "uje-natyral",
     name: "Ujë Natyral",
     category: "pije",
-    description: "Ujë mineral natyral pa gaz.",
+        description: "Ujë mineral natyral pa gaz.",
     priceCents: 80,
-    variants: [
-      { id: "500ml", label: "500 ml", priceDeltaCents: 0, isDefault: true },
-      { id: "1l", label: "1 L", priceDeltaCents: 70 },
-    ],
-    modifierGroups: [WATER_GROUP],
     available: true,
     prepMinutes: 1,
   },
@@ -332,7 +272,6 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     category: "pije",
     description: "Jogurt i freskët, i servuar i ftohtë — shoqëruesi klasik i hamburgerit.",
     priceCents: 90,
-    modifierGroups: [DAIRY_GROUP],
     allergens: ["Qumësht"],
     vegetarianOption: true,
     available: true,
@@ -345,7 +284,6 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     category: "pije",
     description: "Pije tradicionale e jogurtit me kripë, e ftohtë dhe oshtuese.",
     priceCents: 100,
-    modifierGroups: [DAIRY_GROUP],
     allergens: ["Qumësht"],
     vegetarianOption: true,
     available: true,

@@ -93,14 +93,17 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
     setOpen(false);
   }
 
-  const hasOptions = Boolean(
-    (item.variants && item.variants.length > 1) ||
-      (item.modifierGroups && item.modifierGroups.length > 0),
+  /** The customization sheet exists only when there are topping choices. */
+  const hasSheet = Boolean(
+    item.modifierGroups && item.modifierGroups.length > 0,
   );
+  /** Size-only products (drinks): pick the size right on the card, no sheet. */
+  const variantsOnly =
+    !hasSheet && Boolean(item.variants && item.variants.length > 1);
 
-  /** The quick action either opens the customiser or adds a default line. */
+  /** Shto: opens the sheet for food with toppings, adds to the bag instantly otherwise. */
   function onQuickAdd() {
-    if (hasOptions) {
+    if (hasSheet) {
       setOpen(true);
     } else {
       handleAdd();
@@ -112,7 +115,9 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
    * Custom configurations live as separate lines and are never hijacked here.
    */
   const defaultVariantId = getDefaultVariantId(item);
-  const canonicalKey = buildLineKey(item.id, defaultVariantId, []);
+  /** Drinks track the size currently selected on the card; everything else tracks its default. */
+  const canonicalVariantId = variantsOnly ? variantId : defaultVariantId;
+  const canonicalKey = buildLineKey(item.id, canonicalVariantId, []);
   const canonicalLine = lines.find((line) => line.key === canonicalKey);
 
   function incrementCanonical() {
@@ -132,18 +137,43 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
 
   return (
     <article className="express-item">
-      <button className={`express-food-art art-${item.category}`} type="button"
-        aria-label={`Personalizo ${item.name}`} onClick={() => setOpen(true)}>
-        <ItemArt item={item} className="express-food-img" eager={eager} sizes="(max-width: 639px) 104px, 112px" />
-      </button>
-      <div className="express-item-body">
-        <button type="button" className="express-item-copy" onClick={() => setOpen(true)} aria-haspopup="dialog">
-          {item.featured && <span className="express-item-tag">E preferuara</span>}
-          <h3>{item.name}</h3>
-          <p>{item.description}</p>
+      {hasSheet ? (
+        <button className={`express-food-art art-${item.category}`} type="button"
+          aria-label={`Personalizo ${item.name}`} onClick={() => setOpen(true)}>
+          <ItemArt item={item} className="express-food-img" eager={eager} sizes="(max-width: 639px) 104px, 112px" />
         </button>
+      ) : (
+        <div className={`express-food-art art-${item.category}`}>
+          <ItemArt item={item} className="express-food-img" eager={eager} sizes="(max-width: 639px) 104px, 112px" />
+        </div>
+      )}
+      <div className="express-item-body">
+        {hasSheet ? (
+          <button type="button" className="express-item-copy" onClick={() => setOpen(true)} aria-haspopup="dialog">
+            {item.featured && <span className="express-item-tag">E preferuara</span>}
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
+          </button>
+        ) : (
+          <div className="express-item-copy">
+            {item.featured && <span className="express-item-tag">E preferuara</span>}
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
+          </div>
+        )}
+        {variantsOnly && (
+          <div className="express-size-row" role="group" aria-label={`Madhësia — ${item.name}`}>
+            {item.variants!.map((variant: ItemVariant) => (
+              <button key={variant.id} type="button" className="express-size-chip"
+                aria-pressed={variantId === variant.id}
+                onClick={() => setVariantId(variant.id)}>
+                {variant.label}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="express-item-foot">
-          <strong className="express-item-price tnum">{formatPrice(item.priceCents)}</strong>
+          <strong className="express-item-price tnum">{formatPrice(unitPriceCents)}</strong>
           {canonicalLine ? (
             <div className="express-stepper" role="group" aria-label={`Sasia e ${item.name} në shportë`}>
               <button type="button" onClick={decrementCanonical}
@@ -158,7 +188,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
             </div>
           ) : (
             <button type="button" onClick={onQuickAdd} className="express-add"
-              aria-label={`Shto ${item.name}`} aria-haspopup={hasOptions ? "dialog" : undefined}>
+              aria-label={`Shto ${item.name}`} aria-haspopup={hasSheet ? "dialog" : undefined}>
               Shto
             </button>
           )}

@@ -340,30 +340,30 @@ function CheckoutForm({
         </p>
       )}
 
-      <details className="express-notes" open={errors.notes ? true : undefined}>
-        <summary>+ Shënime Shtesë <span>opsionale</span></summary>
-      <Field
-        id="notes"
-        label="Shënime Shtesë"
-        icon={<NotebookPen aria-hidden="true" className="h-4 w-4 text-flame-700" />}
-        hint="P.sh. kodi i hyrjes, pa krip, ndaj porosinë në dy pjata…"
-        error={errors.notes}
-      >
-        <textarea
+      {/* Kitchen notes — always visible, never collapsed. This is where guests
+          say what they want or don't want on their food. */}
+      <div className="express-notes-panel">
+        <Field
           id="notes"
-          name="notes"
-          rows={2}
-          maxLength={ORDER_CONFIG.maxNotesLength}
-          enterKeyHint="done"
-          defaultValue={state.values.notes}
-          aria-invalid={Boolean(errors.notes)}
-          aria-describedby="notes-hint notes-error"
-          placeholder="Shënime për kuzhinën ose dorëzuesin"
-          className={`${inputClass(Boolean(errors.notes))} resize-y`}
-        />
-      </Field>
-
-      </details>
+          label="Çka do / nuk do në ushqim?"
+          icon={<NotebookPen aria-hidden="true" className="h-4 w-4 text-flame-700" />}
+          hint="Shkruaj lirshëm për kuzhinën — p.sh. pa qepë, ekstra majonez, pa pikante."
+          error={errors.notes}
+        >
+          <textarea
+            id="notes"
+            name="notes"
+            rows={3}
+            maxLength={ORDER_CONFIG.maxNotesLength}
+            enterKeyHint="done"
+            defaultValue={state.values.notes}
+            aria-invalid={Boolean(errors.notes)}
+            aria-describedby="notes-hint notes-error"
+            placeholder="P.sh. pa domate, ekstra salcë, pa krip…"
+            className={`${inputClass(Boolean(errors.notes))} resize-y`}
+          />
+        </Field>
+      </div>
 
       {errors.items ? (
         <p
