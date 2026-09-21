@@ -12,8 +12,8 @@
 .upsell-art.art-shtesa{background:#fbeecc}
 .upsell-copy{min-width:0;overflow-wrap:anywhere}
 .upsell-group + .upsell-group{margin-top:18px}
-.upsell-group-header{font-family:var(--font-display);font-size:17.5px;font-weight:800;letter-spacing:-.35px;line-height:1.25;color:#241409;margin-bottom:10px;overflow-wrap:anywhere}
-.upsell-copy h4{font-family:var(--font-display);font-size:15.5px;font-weight:800;letter-spacing:-.3px;line-height:1.2;color:#241409}
+.upsell-group-header{font-family:var(--font-display);font-size:17.5px;font-weight:800;letter-spacing:-.01em;line-height:1.25;color:#241409;margin-bottom:10px;overflow-wrap:anywhere}
+.upsell-copy h4{font-family:var(--font-display);font-size:15.5px;font-weight:800;letter-spacing:-.01em;line-height:1.2;color:#241409}
 .upsell-copy p{font-size:11.5px;color:#4a3020;line-height:1.4;margin-top:1px}
 
 /* Inline receipt line — only rendered once the item is actually in the basket. */

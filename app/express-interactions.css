@@ -46,7 +46,7 @@
 .express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:stretch}
 .express-cart-review{min-height:64px;display:flex;align-items:center;gap:12px;text-align:left;flex-shrink:0;font-size:11px;color:#f8ecd9}
 .express-cart-count{display:grid;place-items:center;min-width:40px;height:44px;padding:0 9px;border-radius:10px;background:#ffd636;color:#241409;font-family:var(--font-display);font-size:19px;font-weight:900}
-.express-cart-review strong{display:block;font-family:var(--font-display);font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1;color:#ffd636}
+.express-cart-review strong{display:block;font-family:var(--font-display);font-size:23px;font-weight:900;letter-spacing:-.015em;line-height:1;color:#ffd636}
 .express-cart-review small{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c9a97f;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .express-cart-bar .express-primary{max-width:480px;margin-left:auto;min-height:64px;font-size:14.5px;font-weight:900;letter-spacing:.08em;white-space:nowrap;overflow-wrap:normal;box-shadow:0 5px 0 #7c1017}.express-cart-bar .express-primary svg{flex-shrink:0}
 .express-cart-bar .express-primary:active{transform:translateY(5px);box-shadow:0 0 0 #7c1017}

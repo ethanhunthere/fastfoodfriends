@@ -5,13 +5,13 @@
 .express-header-inner{height:var(--header-height);max-width:1024px;margin:auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .express-brand{display:flex;align-items:center;gap:11px;min-height:44px;text-decoration:none}
 .express-wordmark{display:flex;flex-direction:column;justify-content:center;line-height:1}
-.express-wordmark small{font-size:8.5px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#d93a51;margin-bottom:3px}
-.express-wordmark strong{font-size:22px;font-family:var(--font-display);font-weight:800;letter-spacing:-1px;color:#3b2418}
-.express-logo{font-size:34px;font-weight:800;font-family:var(--font-display);background:#d93a51;color:#fffaef;display:grid;place-content:center;position:relative;width:48px;height:48px;border-radius:17px 17px 17px 5px;letter-spacing:-3px;padding-right:5px;box-shadow:3px 3px 0 #3b241822}
+.express-wordmark small{font-size:9px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#d93a51;margin-bottom:3px}
+.express-wordmark strong{font-size:23px;font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;color:#3b2418}
+.express-logo{font-size:34px;font-weight:800;font-family:var(--font-display);background:#d93a51;color:#fffaef;display:grid;place-content:center;position:relative;width:48px;height:48px;border-radius:17px 17px 17px 5px;letter-spacing:-2px;padding-right:5px;box-shadow:3px 3px 0 #3b241822}
 .express-logo span{position:absolute;right:7px;bottom:6px;font-size:21px;color:#ffd636}
 .express-nav-mid{display:flex;align-items:center;gap:12px;min-width:0;flex:1;justify-content:center}
 .express-nav-divider{display:none;width:1px;height:20px;background:#e5d7bd;flex-shrink:0}
-.express-nav-status{display:none;align-items:center;gap:8px;min-height:28px;padding:5px 11px;border-radius:7px;background:#f6eed6;color:#6f5b18;border:1px solid #c0a75f;font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;white-space:nowrap}
+.express-nav-status{display:none;align-items:center;gap:8px;min-height:28px;padding:5px 11px;border-radius:7px;background:#f6eed6;color:#6f5b18;border:1px solid #c0a75f;font-size:9.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;white-space:nowrap}
 .express-nav-status[data-open=false]{background:#f8e3e6;color:#8f2333}
 .express-nav-status-detail{font-weight:700;letter-spacing:.02em;text-transform:none;font-size:10.5px;color:#5d3a1e}
 .express-nav-status[data-open=false] .express-nav-status-detail{color:#8f2333}
@@ -28,7 +28,7 @@
 .express-cart-badge{display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:7px;background:#ffd636;color:#3b2418;font-size:11px;font-weight:800;letter-spacing:0}
 .express-welcome{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:18px 0 14px}
 .express-eyebrow{font-size:10px;letter-spacing:.15em;font-weight:800;color:#8f2333}
-.express-welcome h1{font-family:var(--font-display);font-size:clamp(30px,8.6vw,40px);font-weight:900;line-height:1.06;letter-spacing:-1.5px;margin:6px 0 0}
+.express-welcome h1{font-family:var(--font-display);font-size:clamp(30px,8.6vw,40px);font-weight:900;line-height:1.06;letter-spacing:-.02em;margin:6px 0 0}
 .express-welcome h1 span{color:#d93a51}
 .express-welcome p:last-child{max-width:270px;font-size:13px;line-height:1.55;color:#4a3020;margin-top:6px}
 .express-service{display:flex;align-items:center;gap:16px;border-top:1px solid #eadfc4;border-bottom:1px solid #eadfc4;padding:10px 0;font-size:11px;color:#4a3020}
@@ -42,7 +42,7 @@
 .express-categories button[aria-pressed=true]{background:#3b2418;color:#fff7ea;border-color:#3b2418}
 .express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),.express-menu[data-active=shtesa] [data-category]:not([data-category=shtesa]),.express-menu[data-active=pije] [data-category]:not([data-category=pije]){display:none}
 .express-section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0 10px}
-.express-section-heading h2{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.6px;color:#241409}
+.express-section-heading h2{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.015em;color:#241409}
 .express-section-heading span{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#6b4426;white-space:nowrap}
 .express-item-list{display:grid;gap:10px;margin-bottom:24px}
 .express-item{display:grid;grid-template-columns:104px minmax(0,1fr);gap:13px;align-items:start;border:1px solid #dcc7a0;background:#ffffff;border-radius:20px;padding:11px;min-width:0}
@@ -53,11 +53,11 @@
 .art-pije{background:#efe9d4}.art-shtesa{background:#fbeecc}
 .express-item-body{display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-width:0;min-height:104px;padding:2px 2px 0 0}
 .express-item-copy{text-align:left;display:flex;flex-direction:column;gap:3px;min-width:0}
-.express-item-copy h3{font-family:var(--font-display);font-size:18px;line-height:1.15;font-weight:800;letter-spacing:-.35px;color:#241409}
+.express-item-copy h3{font-family:var(--font-display);font-size:18px;line-height:1.15;font-weight:800;letter-spacing:-.01em;color:#241409}
 .express-item-copy p{font-size:12px;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:#4a3020;margin:0}
 .express-item-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
-.express-item-price{font-family:var(--font-display);font-size:19.5px;font-weight:900;letter-spacing:-.4px;color:#8f2333;white-space:nowrap}
-.express-item-tag{align-self:flex-start;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b4a12;background:#ffd636;border-radius:5px;padding:2.5px 6px;margin-bottom:2px}
+.express-item-price{font-family:var(--font-display);font-size:21px;font-weight:900;letter-spacing:-.01em;color:#8f2333;white-space:nowrap}
+.express-item-tag{align-self:flex-start;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b4a12;background:#ffd636;border-radius:5px;padding:2.5px 6px;margin-bottom:2px}
 .express-footer{max-width:1024px;width:100%;margin:12px auto 0;padding:18px 16px;color:#4a3020;border-top:1px solid #eadfc4;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .express-footer strong{color:#8f2333;font-size:18px}.express-footer nav{display:flex;gap:14px}.express-footer address{width:100%;font-style:normal;font-size:10px}
 

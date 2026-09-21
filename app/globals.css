@@ -37,10 +37,13 @@
   --color-open-500: #7a651c;
   --color-open-600: #6f5b18;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: var(--font-outfit), var(--font-inter), ui-sans-serif,
-    system-ui, sans-serif;
+  /* ── Brand voice ── Rokkitt everywhere: one condensed vintage slab across
+     display and text roles. Fallbacks are serif system fonts; the brand never
+     degrades into a generic grotesque. Weight scale (variable 100–900):
+     400 body · 500 UI labels · 600–700 emphasis/buttons · 800 headings ·
+     900 display numerals & headlines. */
+  --font-sans: var(--font-rokkitt), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-rokkitt), Georgia, "Times New Roman", serif;
 
   --radius-card: 1rem;
   --radius-pill: 999px;
@@ -103,6 +106,7 @@
     font-family: var(--font-sans);
     /* Prevent iOS from inflating text on rotate (avoids reflow/CLS). */
     text-size-adjust: 100%;
+    font-weight: 500;
     -webkit-tap-highlight-color: transparent;
   }
 

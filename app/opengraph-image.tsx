@@ -31,7 +31,7 @@ export default function OGImage() {
           background: "#0b0a08",
           color: "#fff7ec",
           fontFamily:
-            "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+            "Rokkitt, Georgia, 'Times New Roman', serif",
         }}
       >
         <div style={{ fontSize: 64, lineHeight: 1, display: "flex" }}>

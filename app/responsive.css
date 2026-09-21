@@ -9,7 +9,7 @@ html,body{max-width:100%;overflow-x:clip}
 .express-header-inner{height:var(--header-height)}
 .express-welcome{max-width:none!important;gap:16px;padding-block:clamp(18px,3vw,36px)}
 .express-welcome>div{min-width:0}
-.express-welcome h1{font-size:clamp(34px,5vw,64px);letter-spacing:-.04em}
+.express-welcome h1{font-size:clamp(34px,5vw,64px);letter-spacing:-.015em}
 .express-welcome p:last-child{font-size:clamp(12px,1vw,15px)}
 
 .express-brand,.express-location,.express-service a,.express-footer a{min-height:44px;display:inline-flex;align-items:center}
@@ -66,7 +66,7 @@ html,body{max-width:100%;overflow-x:clip}
   .storefront-layout{grid-template-columns:minmax(0,1fr) 340px;gap:28px}
   .desktop-cart{display:flex;flex-direction:column;position:sticky;top:calc(var(--header-height) + 16px);max-height:calc(100dvh - var(--header-height) - 32px);min-width:0;background:#fffdf6;border:1px solid #eadfc4;border-radius:20px;overflow:hidden}
   .desktop-cart>header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid #dcc7a0;flex-shrink:0}
-  .desktop-cart h2{font:700 24px var(--font-display);letter-spacing:-.5px}
+  .desktop-cart h2{font:700 24px var(--font-display);letter-spacing:-.015em}
   .desktop-cart-content{overflow:auto;overscroll-behavior:contain;min-height:0;padding:16px;flex:1}
   .desktop-cart-empty{min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;color:#5d3a1e}
   .desktop-cart-empty h3{font:600 22px var(--font-display);color:#30261f}
