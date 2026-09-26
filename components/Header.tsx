@@ -10,20 +10,21 @@ export function Header() {
   return <header className="express-header">
     <div className="express-header-inner">
       <Link href="/" className="express-brand" aria-label={`${RESTAURANT.name} — ballina`}>
-        {/* Official badge, full quality: a lossless-WebP density ladder derived
-            from the 4K master (48/96/144/192 = DPR 1–4). Deliberately a plain
-            <img> — next/image re-encodes through its optimizer (VP8 mandates
-            4:2:0 chroma), which measurably degrades the badge's saturated gold.
+        {/* Official emblem, full quality: a lossless PNG density ladder cut from
+            the 4K badge master (48/96/144/192 = DPR 1–4) — disc ground removed,
+            only the burger and its FRIENDS wordmark. Deliberately a plain <img>:
+            next/image re-encodes through its optimizer (VP8/AV1 mandate 4:2:0
+            chroma), which measurably degrades the emblem's saturated gold.
             Each DPR slot downloads only what its screen needs. */}
         <span className="express-logo" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- deliberate: next/image's
               optimizer would re-encode this losslessly-authored asset (WebP VP8 forces
-              4:2:0 chroma, measured 22 dB chroma loss on the badge's gold ring). */}
+              4:2:0 chroma, measured 22 dB chroma loss on the badge's gold). */}
           <img
-            src="/fastfoodfriendslogo-144.webp"
-            srcSet="/fastfoodfriendslogo-48.webp 1x, /fastfoodfriendslogo-96.webp 2x, /fastfoodfriendslogo-144.webp 3x, /fastfoodfriendslogo-192.webp 4x"
+            src="/fastfoodfriendslogo-144.png"
+            srcSet="/fastfoodfriendslogo-48.png 1x, /fastfoodfriendslogo-96.png 2x, /fastfoodfriendslogo-144.png 3x, /fastfoodfriendslogo-192.png 4x"
             alt=""
-            width={48}
+            width={53}
             height={48}
             fetchPriority="high"
             decoding="async"

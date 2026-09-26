@@ -36,15 +36,17 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
-      // Brand badge assets (lossless DPR ladder + 4K master + original):
-      // fixed filenames, cache forever so the navbar badge never re-downloads.
+      // Brand emblem assets (lossless PNG DPR ladder cut from the 4K master,
+      // plus the masters and the original): fixed filenames, cache forever so
+      // the navbar emblem never re-downloads.
       ...[
         "/fastfoodfriendslogo.jpg",
         "/fastfoodfriendslogo-4k.jpg",
-        "/fastfoodfriendslogo-48.webp",
-        "/fastfoodfriendslogo-96.webp",
-        "/fastfoodfriendslogo-144.webp",
-        "/fastfoodfriendslogo-192.webp",
+        "/fastfoodfriendslogo-cutout.png",
+        "/fastfoodfriendslogo-48.png",
+        "/fastfoodfriendslogo-96.png",
+        "/fastfoodfriendslogo-144.png",
+        "/fastfoodfriendslogo-192.png",
       ].map((source) => ({
         source,
         headers: [
