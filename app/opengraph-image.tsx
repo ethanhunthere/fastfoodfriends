@@ -28,8 +28,8 @@ export default function OGImage() {
           /* Flat, appetite-focused matte field — no ambient gradient mesh. The
              food emojis carry the color; the deep ink ground is a printed-menu
              backdrop, not a glow. */
-          background: "#0b0a08",
-          color: "#fff7ec",
+          background: "#0F0A06",
+          color: "#FDF5E0",
           fontFamily:
             "Rokkitt, Georgia, 'Times New Roman', serif",
         }}

@@ -1,16 +1,26 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { HeaderCartButton } from "@/components/HeaderCartButton";
 import { RESTAURANT } from "@/lib/restaurant";
 import { getOpeningStatus } from "@/lib/hours";
 
-/** Authoritative sticky brand anchor: identity · live status · location · cart. */
+/** Authoritative sticky brand anchor: official badge · live status · location · cart. */
 export function Header() {
   const status = getOpeningStatus();
   return <header className="express-header">
     <div className="express-header-inner">
       <Link href="/" className="express-brand" aria-label={`${RESTAURANT.name} — ballina`}>
-        <span className="express-logo" aria-hidden="true">ff<span>•</span></span>
+        <span className="express-logo" aria-hidden="true">
+          <Image
+            src="/fastfoodfriendslogo-512.jpg"
+            alt=""
+            width={48}
+            height={48}
+            priority
+            sizes="48px"
+          />
+        </span>
         <span className="express-wordmark">
           <small>Fast Food</small>
           <strong>friends.</strong>

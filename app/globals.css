@@ -17,25 +17,28 @@
   --color-cream-100: #30261f;
   --color-cream-200: #56483e;
 
-  /* CTA crimson family. `flame-500` is the button base (white text passes AA);
-     `flame-600` is the wine depth used for strong text, pressed states and the
-     solid offset under CTAs. */
-  --color-flame-300: #e54359;
-  --color-flame-400: #d93a51;
-  --color-flame-500: #d93a51;
-  --color-flame-600: #8f2333;
-  --color-flame-700: #8a2b3c;
+  /* Bun-orange action family (logo-derived). `flame-500` is the button base
+     (#BC4D08 — white text passes AA at 4.8:1); `flame-600` is the burnt-sienna
+     depth used for prices, strong text and pressed states; `flame-700` anchors
+     the solid offset under CTAs. */
+  --color-flame-300: #A8490A;
+  --color-flame-400: #BC4D08;
+  --color-flame-500: #BC4D08;
+  --color-flame-600: #8F3A06;
+  --color-flame-700: #7E3305;
 
-  /* Warm accent family: bright yellow, amber, brass, terracotta — signage
-     colours for badges, rules and secondary labels. */
-  --color-mustard-300: #ffd636;
+  /* Signage golds pulled straight from the badge: `mustard-300` is the cheese
+     amber (#FDBB05) for fills, chips and the cart badge; the thin header rule
+     and ticket-rail cut use the brighter ring gold (#FFE03F) — non-text only. */
+  --color-mustard-300: #FDBB05;
   --color-mustard-400: #cfa151;
   --color-mustard-500: #c0a75f;
   --color-mustard-600: #6b4426;
 
-  --color-open-400: #6f5b18;
-  --color-open-500: #7a651c;
-  --color-open-600: #6f5b18;
+  /* Lettuce green (logo) for the open lamp — deep enough for AA on paper. */
+  --color-open-400: #3E6B10;
+  --color-open-500: #467715;
+  --color-open-600: #3E6B10;
 
   /* ── Brand voice ── Rokkitt everywhere: one condensed vintage slab across
      display and text roles. Fallbacks are serif system fonts; the brand never

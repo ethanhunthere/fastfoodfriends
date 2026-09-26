@@ -8,30 +8,30 @@
 >
   <title>Fast Food Friends</title>
   <desc>Logo një hamburgeri me pak tej</desc>
-  <rect width="512" height="512" rx="96" fill="#0b0a08" />
+  <rect width="512" height="512" rx="96" fill="#0F0A06" />
   <g transform="translate(256 256)">
     {/* bun top */}
     <path
       d="M-150 -90a64 64 0 0 1 300 0z"
-      fill="#e0c9a8"
-      stroke="#e0c9a8"
+      fill="#EA7C03"
+      stroke="#EA7C03"
       stroke-width="2"
     />
     {/* fillings */}
-    <rect x="-150" y="-26" width="300" height="22" rx="4" fill="#e63b2e" />
-    <circle cx="-55" cy="8" r="14" fill="#f5b301" />
-    <rect x="-150" y="2" width="300" height="30" rx="4" fill="#fff7ec" />
-    <rect x="-150" y="36" width="300" height="22" rx="4" fill="#e63b2e" />
+    <rect x="-150" y="-26" width="300" height="22" rx="4" fill="#5C1C01" />
+    <circle cx="-55" cy="8" r="14" fill="#FDBB05" />
+    <rect x="-150" y="2" width="300" height="30" rx="4" fill="#FDF5E0" />
+    <rect x="-150" y="36" width="300" height="22" rx="4" fill="#97E34D" />
     <path
       d="M-150 60a30 30 0 0 1 300 0z"
-      fill="#e0c9a8"
-      stroke="#e0c9a8"
+      fill="#EA7C03"
+      stroke="#EA7C03"
       stroke-width="2"
     />
-    {/* flame accent */}
+    {/* ring accent — the glow ring of the official badge */}
     <path
       d="M0 110c-18-12-30-36-30-58a30 30 0 0 1 60 0c0 22-12 46-30 58z"
-      fill="#ff6b4a"
+      fill="#FFE03F"
       opacity="0.85"
     />
   </g>
