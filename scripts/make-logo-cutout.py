@@ -2,7 +2,9 @@
 """
 Build the navbar logo: burger + "FRIENDS" wordmark only, on transparency.
 
-Source of truth is the official badge (public/fastfoodfriendslogo-4k.jpg).
+Source of truth is the official badge (assets/logo/fastfoodfriendslogo-4k.jpg).
+Masters live outside public/ so they are never served or deployed; only the
+DPR ladder lands in public/.
 The badge places the burger on a near-black painterly disc with a warm glow,
 a "FAST FOOD" sub-line and side dashes — none of which belong on paper.
 
@@ -44,8 +46,9 @@ from PIL import Image, ImageFilter
 from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "public" / "fastfoodfriendslogo-4k.jpg"
-OUT = ROOT / "public"
+MASTERS = ROOT / "assets" / "logo"     # working files — never served
+SRC = MASTERS / "fastfoodfriendslogo-4k.jpg"
+OUT = ROOT / "public"                  # only the DPR ladder ships
 LADDER = (48, 96, 144, 192)   # heights in CSS px × DPR 1..4
 R_KEEP = 1895                  # outer grain of the disc dies here
 CONTENT_MIN = 140              # ground glow maxes at ≈125; artwork starts ≈140
@@ -148,7 +151,7 @@ def main() -> int:
     print(f"bbox: ({x0},{y0})-({x1},{y1})  {bw}x{bh}  aspect w/h={bw/bh:.3f}")
 
     # master + DPR ladder (premultiplied resample)
-    out.save(OUT / "fastfoodfriendslogo-cutout.png", optimize=True)
+    out.save(MASTERS / "fastfoodfriendslogo-cutout.png", optimize=True)
     aspect = bw / bh
     cropped = out.crop((x0, y0, x1 + 1, y1 + 1))
     for target in LADDER:
