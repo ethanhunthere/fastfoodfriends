@@ -36,6 +36,21 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
+      // Brand badge assets (lossless DPR ladder + 4K master + original):
+      // fixed filenames, cache forever so the navbar badge never re-downloads.
+      ...[
+        "/fastfoodfriendslogo.jpg",
+        "/fastfoodfriendslogo-4k.jpg",
+        "/fastfoodfriendslogo-48.webp",
+        "/fastfoodfriendslogo-96.webp",
+        "/fastfoodfriendslogo-144.webp",
+        "/fastfoodfriendslogo-192.webp",
+      ].map((source) => ({
+        source,
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      })),
     ];
   },
 };

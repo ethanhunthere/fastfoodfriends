@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { HeaderCartButton } from "@/components/HeaderCartButton";
 import { RESTAURANT } from "@/lib/restaurant";
@@ -11,14 +10,23 @@ export function Header() {
   return <header className="express-header">
     <div className="express-header-inner">
       <Link href="/" className="express-brand" aria-label={`${RESTAURANT.name} — ballina`}>
+        {/* Official badge, full quality: a lossless-WebP density ladder derived
+            from the 4K master (48/96/144/192 = DPR 1–4). Deliberately a plain
+            <img> — next/image re-encodes through its optimizer (VP8 mandates
+            4:2:0 chroma), which measurably degrades the badge's saturated gold.
+            Each DPR slot downloads only what its screen needs. */}
         <span className="express-logo" aria-hidden="true">
-          <Image
-            src="/fastfoodfriendslogo-512.jpg"
+          {/* eslint-disable-next-line @next/next/no-img-element -- deliberate: next/image's
+              optimizer would re-encode this losslessly-authored asset (WebP VP8 forces
+              4:2:0 chroma, measured 22 dB chroma loss on the badge's gold ring). */}
+          <img
+            src="/fastfoodfriendslogo-144.webp"
+            srcSet="/fastfoodfriendslogo-48.webp 1x, /fastfoodfriendslogo-96.webp 2x, /fastfoodfriendslogo-144.webp 3x, /fastfoodfriendslogo-192.webp 4x"
             alt=""
             width={48}
             height={48}
-            priority
-            sizes="48px"
+            fetchPriority="high"
+            decoding="async"
           />
         </span>
         <span className="express-wordmark">
