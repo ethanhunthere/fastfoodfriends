@@ -47,6 +47,10 @@ const nextConfig: NextConfig = {
         "/fastfoodfriendslogo-96.png",
         "/fastfoodfriendslogo-144.png",
         "/fastfoodfriendslogo-192.png",
+        "/fastfoodfriendslogo-v2-48.png",
+        "/fastfoodfriendslogo-v2-96.png",
+        "/fastfoodfriendslogo-v2-144.png",
+        "/fastfoodfriendslogo-v2-192.png",
       ].map((source) => ({
         source,
         headers: [

@@ -21,8 +21,8 @@ export function Header() {
               optimizer would re-encode this losslessly-authored asset (WebP VP8 forces
               4:2:0 chroma, measured 22 dB chroma loss on the badge's gold). */}
           <img
-            src="/fastfoodfriendslogo-144.png"
-            srcSet="/fastfoodfriendslogo-48.png 1x, /fastfoodfriendslogo-96.png 2x, /fastfoodfriendslogo-144.png 3x, /fastfoodfriendslogo-192.png 4x"
+            src="/fastfoodfriendslogo-v2-144.png"
+            srcSet="/fastfoodfriendslogo-v2-48.png 1x, /fastfoodfriendslogo-v2-96.png 2x, /fastfoodfriendslogo-v2-144.png 3x, /fastfoodfriendslogo-v2-192.png 4x"
             alt=""
             width={53}
             height={48}
