@@ -20,6 +20,12 @@ Extraction pipeline (4096px master):
                         to the sub-line.
   4. hole fill        — the patty shares the ground's colour, but it is fully
                         enclosed by cheese/bun/outline: holes come back in.
+                        Its outer waist (two rows) is NOT enclosed — that edge
+                        was severed with the ground; those rows are bridged
+                        first. Meat is dark red-brown (R-G >= 25, G <= 45)
+                        contiguous with the mask edge; the silhouette is
+                        interpolated between the last complete rows above and
+                        below.
   5. components       — keep the burger component (seeded on the lettuce) plus
                         strays within 60px (wordmark fragments) that do not hang
                         below the bun. The "FAST FOOD" band's tallest arcs clear
@@ -87,8 +93,19 @@ def main() -> int:
     rr = np.hypot(xx - w // 2, yy - h // 2)
     radial = np.clip((R_KEEP - rr) / 3.0, 0.0, 1.0)
 
-    # 2 — content: bright artwork (the ground glow never reaches 140)
-    content = (rgb.max(axis=2) >= CONTENT_MIN) & (radial > 0)
+    # 2 — content: bright artwork + the burger patty (rich red-brown meat)
+    bright = (rgb.max(axis=2) >= CONTENT_MIN) & (radial > 0)
+    patty = (
+        (rgb[..., 0] >= 30)
+        & (rgb[..., 0] - rgb[..., 1] >= 18)
+        & (rgb[..., 1] <= 50)
+        & (yy >= 2300)
+        & (yy <= 2650)
+        & (xx >= 900)
+        & (xx <= 3150)
+        & (radial > 0)
+    )
+    content = bright | patty
 
     # 3 — silhouette: per-row content span (padded over horizontal outlines)
     cols = np.arange(w)
@@ -103,7 +120,7 @@ def main() -> int:
     near = ndimage.distance_transform_edt(~content) <= N_PX
     base = content | span | near
 
-    # 4 — hole fill: the patty is ground-coloured but enclosed by artwork
+    # 4 — hole fill: patty and internal artwork are fully sealed and enclosed
     base = ndimage.binary_fill_holes(base)
 
     # 5 — keep the burger component + near strays; the sub-line's band is
@@ -151,7 +168,7 @@ def main() -> int:
     print(f"bbox: ({x0},{y0})-({x1},{y1})  {bw}x{bh}  aspect w/h={bw/bh:.3f}")
 
     # master + DPR ladder (premultiplied resample)
-    out.save(MASTERS / "fastfoodfriendslogo-cutout.png", optimize=True)
+    out.save(MASTERS / "fastfoodfriendslogo-cutout.png", compress_level=4)
     aspect = bw / bh
     cropped = out.crop((x0, y0, x1 + 1, y1 + 1))
     for target in LADDER:
