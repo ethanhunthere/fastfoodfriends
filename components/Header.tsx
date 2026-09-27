@@ -31,8 +31,7 @@ export function Header() {
           />
         </span>
         <span className="express-wordmark">
-          <small>Fast Food</small>
-          <strong>friends.</strong>
+          <strong>Fast Food</strong>
         </span>
       </Link>
       <div className="express-nav-mid">
