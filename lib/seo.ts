@@ -40,7 +40,7 @@ export const rootMetadata: Metadata = {
     "hamburger Pejë",
     "porosi hamburger Pejë",
     "hotdog Pejë",
-    "tost Pejë",
+    "hamburger me mish pule Pejë",
     "pomfrit Pejë",
     "porosi ushqimi Pejë",
     "dërgim ushqim Pejë",

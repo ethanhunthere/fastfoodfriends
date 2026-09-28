@@ -1,11 +1,11 @@
 import { itemEmoji, itemImage, type MenuItem } from "@/lib/menu";
 import { IMAGE_DIMS } from "@/lib/image-dims";
 
-/** Width tiers baked into /public/menu/v2 by scripts/bake-images.cjs. */
+/** Width tiers baked into /public/menu/v4 by scripts/bake-images.cjs. */
 const WIDTHS = { tile: [240, 480], hero: [480, 720] } as const;
 
 function srcSetFor(id: string, ext: "avif" | "webp", widths: readonly number[]) {
-  return widths.map((w) => `/menu/v2/${id}-${w}.${ext} ${w}w`).join(", ");
+  return widths.map((w) => `/menu/v4/${id}-${w}.${ext} ${w}w`).join(", ");
 }
 
 /**
@@ -41,7 +41,7 @@ export function ItemArt({
       <source type="image/avif" srcSet={srcSetFor(item.id, "avif", WIDTHS[variant])} sizes={sizes} />
       <source type="image/webp" srcSet={srcSetFor(item.id, "webp", WIDTHS[variant])} sizes={sizes} />
       <img
-        src={`/menu/v2/${item.id}-${WIDTHS[variant][0]}.webp`}
+        src={`/menu/v4/${item.id}-${WIDTHS[variant][0]}.webp`}
         alt={alt}
         aria-hidden={alt ? undefined : "true"}
         width={dims?.w ?? 240}

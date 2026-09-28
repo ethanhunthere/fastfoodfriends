@@ -43,8 +43,12 @@ try {
       assert.equal(s.display.unitPriceCents, resolveLine(s.item, s.input.variantId, []).unitPriceCents);
     }
   }
-  assert.equal(evaluate(["hotdog"])[0].suggestions.length, 5);
-  assert.equal(evaluate(["coca-cola"])[0].suggestions.length, 6);
+  // Suggestion lists cover the whole target slot — derive the expected sizes from
+  // the menu so adding/removing an item never breaks this assertion.
+  const drinks = getAvailableItems().filter(item => item.category === "pije").length;
+  const nonDrinks = getAvailableItems().filter(item => item.category !== "pije").length;
+  assert.equal(evaluate(["hotdog"])[0].suggestions.length, drinks);
+  assert.equal(evaluate(["coca-cola"])[0].suggestions.length, nonDrinks);
   for (const item of getAvailableItems()) {
     const groups = evaluate([item.id]);
     assert.deepEqual(groups.map(g => g.kind), item.category === "pije" ? ["eat"] : item.category === "shtesa" ? ["drink", "eat"] : ["drink", "side"]);

@@ -17,9 +17,9 @@ html,body{max-width:100%;overflow-x:clip}
 .express-footer{row-gap:0}.express-footer nav{flex-wrap:wrap;gap:0 16px}
 .storefront-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start}
 #menu-browse{min-width:0;scroll-margin-top:var(--header-height);container-type:inline-size}
-.express-categories{top:var(--header-height);grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.express-categories button{white-space:normal;min-width:44px;padding:6px 3px;line-height:1.2}
-.express-categories svg{flex-shrink:0;width:16px;height:16px}
+.express-categories{top:var(--header-height);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.express-categories button{white-space:normal;min-width:44px;padding:8px 12px;line-height:1.2;font-size:14px}
+.express-categories svg{flex-shrink:0;width:18px;height:18px}
 .express-item-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:10px}
 .express-item-copy p{margin:0}
 .express-item{height:100%;min-width:0}
@@ -46,16 +46,20 @@ html,body{max-width:100%;overflow-x:clip}
 .express-dialog p,.cart-line p{overflow-wrap:anywhere}
 .express-dialog dl>div{gap:8px;flex-wrap:wrap}
 .desktop-cart{display:none}
+@container (min-width:520px){
+  [data-category="pije"] .express-item-list{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+}
 @container (min-width:740px){
   .express-item-list{gap:14px}
-  .express-item{grid-template-columns:118px minmax(0,1fr);padding:14px;gap:15px}
-  .express-food-art{width:118px;height:118px}
+  .express-item:not(.express-item-pije){grid-template-columns:118px minmax(0,1fr);padding:14px;gap:15px}
+  .express-food-art:not(.art-pije){width:118px;height:118px}
   .express-food-art span{font-size:46px}
-  .express-item-body{min-height:118px}
+  .express-item:not(.express-item-pije) .express-item-body{min-height:118px}
   .express-item-copy h3{font-size:18px}
   .express-item-copy p{font-size:12.5px;line-height:1.5;color:#4a3020}
   .express-item-price{font-size:18px}
-  .express-categories{grid-template-columns:repeat(4,minmax(100px,160px))}
+  .express-categories{grid-template-columns:repeat(2,minmax(120px,200px))}
+  [data-category="pije"] .express-item-list{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
 }
 @media(min-width:640px){
   :root{--header-height:78px}

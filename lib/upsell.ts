@@ -11,19 +11,19 @@ import type { CartLineInput } from "../types/order";
 
 /**
  * Cross-sell taxonomy — menu categories map to three merchandising slots:
- *   food  → hamburgers, hotdog, tost            (ushqime-kryesore)
- *   drink → coca-cola, fanta, ujë, jogurt, ajran (pije)
+ *   food  → hamburgers, hotdog                   (ushqime-kryesore)
+ *   drink → coca-cola, ujë, jogurt, ajran        (pije)
  *   side  → pomfrit                              (shtesa)
  * The engine reasons about which slots the basket covers — not about specific
  * items — so adding a menu item never requires changes here.
  */
 export type UpsellSlot = "food" | "drink" | "side";
 
-const SLOT_BY_CATEGORY: Record<CategoryId, UpsellSlot> = {
-  "ushqime-kryesore": "food",
-  pije: "drink",
-  shtesa: "side",
-};
+function slotForItem(item: MenuItem): UpsellSlot {
+  if (item.id === "pomfrit") return "side";
+  if (item.category === "pije") return "drink";
+  return "food";
+}
 
 export type UpsellGroupKind = "drink" | "eat" | "side";
 
@@ -84,7 +84,7 @@ function makeGroup(kind: UpsellGroupKind, cartItemIds: ReadonlySet<string>): Ups
     suggestions: getAvailableItems()
       .filter(
         (item) =>
-          slots.has(SLOT_BY_CATEGORY[item.category] ?? "") &&
+          slots.has(slotForItem(item)) &&
           !cartItemIds.has(item.id),
       )
       .map(buildSuggestion)
@@ -113,7 +113,7 @@ export function getUpsellGroups(
     const item = getItemById(line.itemId);
     if (!item) continue;
     cartItemIds.add(item.id);
-    const slot = SLOT_BY_CATEGORY[item.category];
+    const slot = slotForItem(item);
     if (slot) slots.add(slot);
   }
   if (!slots.size) return [];

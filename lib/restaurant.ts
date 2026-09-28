@@ -8,9 +8,9 @@ export const RESTAURANT = {
   name: process.env.NEXT_PUBLIC_RESTAURANT_NAME ?? "Fast Food Friends",
   legalName: process.env.NEXT_PUBLIC_RESTAURANT_NAME ?? "Fast Food Friends",
   shortName: "FF Friends",
-  tagline: "Hamburger, hotdog, tost & pomfrit — zgjidh, personalizo dhe porosit online.",
+  tagline: "Hamburger, hotdog & pomfrit — zgjidh, personalizo dhe porosit online.",
   description:
-    "Fast Food Friends — hamburger tradicional me ose pa ve, hamburger me mish pule, me qyfte, hotdog, tost, pomfrit dhe pije të ftohta. Porosit online dhe konfirmo me një telefonatë.",
+    "Fast Food Friends — hamburger tradicional me ose pa ve, hamburger me mish pule, hotdog, pomfrit dhe pije të ftohta. Porosit online dhe konfirmo me një telefonatë.",
   phoneE164: process.env.NEXT_PUBLIC_RESTAURANT_PHONE ?? "+38344123456",
   email: process.env.NEXT_PUBLIC_RESTAURANT_EMAIL ?? "porosi@fastfoodfriends.example",
   address: {

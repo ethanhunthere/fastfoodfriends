@@ -1,0 +1,74 @@
+[
+  {
+    "id": "hamburger-tradicional",
+    "src": "assets/raw_sources/hamburger-tradicional.png",
+    "out": "assets/cutouts/hamburger-tradicional.png",
+    "source_alpha": true,
+    "erode": 0,
+    "blur": 0,
+    "pad": 12
+  },
+  {
+    "id": "hamburger-mish-pule",
+    "src": "assets/raw_sources/hamburger-mish-pule.png",
+    "out": "assets/cutouts/hamburger-mish-pule.png",
+    "source_alpha": true,
+    "erode": 0,
+    "blur": 0,
+    "pad": 12
+  },
+  {
+    "id": "hotdog",
+    "src": "assets/raw_sources/hotdog.png",
+    "out": "assets/cutouts/hotdog.png",
+    "model": "u2net",
+    "erode": 1,
+    "blur": 0.6,
+    "pad": 12
+  },
+  {
+    "id": "pomfrit",
+    "src": "assets/raw_sources/pomfrit.png",
+    "out": "assets/cutouts/pomfrit.png",
+    "source_alpha": true,
+    "erode": 0,
+    "blur": 0,
+    "pad": 12
+  },
+  {
+    "id": "coca-cola",
+    "src": "assets/raw_sources/coca-cola.png",
+    "out": "assets/cutouts/coca-cola.png",
+    "model": "u2net",
+    "erode": 1,
+    "blur": 0.6,
+    "pad": 12
+  },
+  {
+    "id": "jogurt",
+    "src": "assets/raw_sources/jogurt.png",
+    "out": "assets/cutouts/jogurt.png",
+    "source_alpha": true,
+    "erode": 0,
+    "blur": 0,
+    "pad": 12
+  },
+  {
+    "id": "ajran",
+    "src": "assets/raw_sources/ajran.png",
+    "out": "assets/cutouts/ajran.png",
+    "source_alpha": true,
+    "erode": 0,
+    "blur": 0,
+    "pad": 12
+  },
+  {
+    "id": "uje-rugove",
+    "src": "assets/raw_sources/uje-rugove.png",
+    "out": "assets/cutouts/uje-rugove.png",
+    "model": "u2net",
+    "erode": 1,
+    "blur": 0.6,
+    "pad": 12
+  }
+]

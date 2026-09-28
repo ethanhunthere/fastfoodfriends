@@ -9,7 +9,7 @@ import { ImageResponse } from "next/og";
 import { RESTAURANT } from "@/lib/restaurant";
 
 export const runtime = "nodejs";
-export const alt = `Menuja e ${RESTAURANT.name} — hamburger, hotdog, tost & pomfrit`;
+export const alt = `Menuja e ${RESTAURANT.name} — hamburger, hotdog & pomfrit`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default function OGImage() {
         >
           <div style={{ fontSize: 44, fontWeight: 700 }}>Fast Food Friends</div>
           <div style={{ fontSize: 22, opacity: 0.9 }}>
-            Hamburger · Hotdog · Tost · Pomfrit · Pije
+            Hamburger · Hotdog · Pomfrit · Pije
           </div>
           <div style={{ fontSize: 18, opacity: 0.8 }}>
             {`Porosit dhe konfirmo me telefon · ${RESTAURANT.address.city}`}

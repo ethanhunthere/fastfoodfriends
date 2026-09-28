@@ -71,8 +71,8 @@ export default async function ItemPage({
               <link
                 rel="preload"
                 as="image"
-                href={`/menu/v2/${item.id}-480.webp`}
-                imageSrcSet={`/menu/v2/${item.id}-480.avif 480w, /menu/v2/${item.id}-720.avif 720w`}
+                href={`/menu/v4/${item.id}-480.webp`}
+                imageSrcSet={`/menu/v4/${item.id}-480.avif 480w, /menu/v4/${item.id}-720.avif 720w`}
                 imageSizes="(max-width: 768px) 90vw, 384px"
                 fetchPriority="high"
               />
@@ -91,11 +91,7 @@ export default async function ItemPage({
         <div className="md:col-span-3">
           <header>
             <p className="text-sm font-medium text-flame-700">
-              {item.category === "ushqime-kryesore"
-                ? "Ushqim kryesor"
-                : item.category === "shtesa"
-                  ? "Shtesë"
-                  : "Pije"}
+              {item.category === "ushqime-kryesore" ? "Ushqim" : "Pije"}
             </p>
             <h1 className="mt-2 font-display text-2xl font-bold text-cream-50 sm:text-3xl">
               {item.name}

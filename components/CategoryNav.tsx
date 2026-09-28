@@ -8,13 +8,11 @@ import type { CategoryIcon } from "@/lib/menu";
  */
 const CATEGORY_ICONS: Record<CategoryIcon, string> = {
   beef: "🍔",
-  salad: "🍟",
   "cup-soda": "🥤",
 } as const;
 
 const CATEGORY_ANCHORS: Record<CategoryId, string> = {
   "ushqime-kryesore": "menu",
-  shtesa: "shtesa",
   pije: "pije",
 };
 

@@ -1,71 +1,37 @@
 # Product photo attributions
 
-All product images are transparent WebP cutouts derived from freely-licensed
-photographs hosted on Wikimedia Commons. Backgrounds were removed and assets
-were resized/optimized for this project.
+Every image shipped under `public/menu/` is derived from the artwork supplied by
+the restaurant in `foodimages/` (added 2026-09-28). These are the shop's own
+product photographs: they are used here with the owner's permission, and they
+replace the earlier Wikimedia Commons set (hamburger-me-qyfte, tost, fanta and
+uje-natyral are no longer on the menu at all).
 
-## hamburger-tradicional.webp
-- Source file: File:Big Mac hamburger.jpg
-- Author: Eva
-- License: CC0
-- Page: https://commons.wikimedia.org/wiki/File:Big_Mac_hamburger.jpg
+Delivery layout: one master per item in `assets-src/menu/`, baked by
+`scripts/bake-images.cjs` into 240 / 480 / 960 px AVIF + WebP tiers under
+`public/menu/v3/`, with `lib/image-dims.ts` regenerated from the same run.
 
-## hamburger-mish-pule.webp
-- Source file: File:Argentine chicken burger sandwiches with lettuce, tomato, fried egg, mozzarella cheese on Don Yeyo buns and Natura mayonnaise.jpg
-- Author: Horacio C
-- License: CC BY-SA 3.0
-- Page: https://commons.wikimedia.org/wiki/File:Argentine_chicken_burger_sandwiches_with_lettuce,_tomato,_fried_egg,_mozzarella_cheese_on_Don_Yeyo_buns_and_Natura_mayonnaise.jpg
+| Item | Supplied file | Native size | Processing |
+| --- | --- | --- | --- |
+| hamburger-tradicional | `normalburger.png` | 415x350 | none - delivered pre-cut, alpha used as-is |
+| hamburger-mish-pule | `chickenburger.png` | 360x360 | none - delivered pre-cut, alpha used as-is |
+| hotdog | `hotdog.png` | 740x416 | background removed (rembg u2net, 1px erode + 0.6px edge blur) |
+| pomfrit | `fires.png` | 350x350 | none - delivered pre-cut, alpha used as-is |
+| coca-cola | `cola.png` | 800x800 | background removed (rembg u2net, 1px erode + 0.6px edge blur) |
+| jogurt | `jogurt.png` | 1560x1500 | none - delivered pre-cut, alpha used as-is |
+| ajran | `ajran.png` | 860x827 | none - delivered pre-cut, alpha used as-is |
+| uje-rugove | `ujerugove.png` | 225x225 | background removed (rembg u2net, 1px erode + 0.6px edge blur) |
 
-## hamburger-me-qyfte.webp
-- Source file: File:Burgers and fries 1 2017-10-27.jpg
-- Author: <a href="//commons.wikimedia.org/wiki/User_talk:Fastily" title="User talk:Fastil
-- License: CC BY-SA 4.0
-- Page: https://commons.wikimedia.org/wiki/File:Burgers_and_fries_1_2017-10-27.jpg
+## Notes
 
-## hotdog.webp
-- Source file: File:Dodger Dog by Farmer John.jpg
-- Author: Farmer John
-- License: CC BY-SA 3.0
-- Page: https://commons.wikimedia.org/wiki/File:Dodger_Dog_by_Farmer_John.jpg
-
-## tost.webp
-- Source file: File:Grilled Cheese with Texas Toast @ Horne's.jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:Grilled_Cheese_with_Texas_Toast_@_Horne's.jpg
-
-## pomfrit.webp
-- Source file: File:French Fries.JPG
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:French_Fries.JPG
-
-## coca-cola.webp
-- Source file: File:15-09-26-RalfR-WLC-0098 - Coca-Cola glass bottle (Germany).jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:15-09-26-RalfR-WLC-0098_-_Coca-Cola_glass_bottle_(Germany).jpg
-
-## fanta.webp
-- Source file: File:Fanta-Orange-Can-330ml 84177 (7116950883).jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:Fanta-Orange-Can-330ml_84177_(7116950883).jpg
-
-## uje-natyral.webp
-- Source file: File:Bottle of Water.jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:Bottle_of_Water.jpg
-
-## jogurt.webp
-- Source file: File:Ayran (1.5 lt.).jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:Ayran_(1.5_lt.).jpg
-
-## ajran.webp
-- Source file: File:Ayran. Dnipro (cropped).jpg
-- Author: see source page
-- License: see source page
-- Page: https://commons.wikimedia.org/wiki/File:Ayran._Dnipro_(cropped).jpg
+- `hotdog.png`, `cola.png` and `ujerugove.png` arrived as flat RGB files on a
+  white backdrop (the other five arrived with alpha). Only the backdrop was
+  removed, mechanically, via `scripts/isolate_batch.py` with the settings in
+  `scripts/isolate-spec.json`. The artwork itself was not rescaled, retouched or
+  recoloured.
+- Several labels are third-party trademarks (Coca-Cola, drena, Rugove). They
+  appear because the shop sells those products; the marks stay with their owners.
+- `uje-rugove` has the smallest source (225x225 -> 69x217 cutout). That is fine
+  at card size but it should not be promoted to hero scale without new artwork.
+- 2026-09-28 - supersedes the previous Wikimedia-derived attributions. The old
+  `jogurt` provenance caveat is resolved: the shipped master now comes from the
+  supplied `jogurt.png` (drena cup), not from an unrecorded Dukat photo.

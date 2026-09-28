@@ -5,9 +5,7 @@ import { Hamburger, CupSoda, Utensils, LayoutGrid } from "lucide-react";
 
 const filters = [
   { id: "ushqime-kryesore", label: "Ushqime", icon: Hamburger },
-  { id: "shtesa", label: "Shtesa", icon: Utensils },
   { id: "pije", label: "Pije", icon: CupSoda },
-  { id: "all", label: "Të gjitha", icon: LayoutGrid },
 ];
 
 /** Keeps the server-rendered menu in the DOM; category changes need no fetch. */

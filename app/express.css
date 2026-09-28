@@ -42,11 +42,11 @@
 .express-open{color:#3E6B10;font-weight:700}.express-closed{color:#8F3A06;font-weight:700}
 
 .express-closed-note{font-size:12.5px;font-weight:600;color:#4a3020;padding:7px 0 7px 11px;border-left:4px solid #8F3A06;background:#f7edd8;border-radius:0 6px 6px 0;margin:10px 0}
-.express-categories{position:sticky;top:64px;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 0;background:#fbf6ea;border-bottom:1.5px solid #e0d0b2}
+.express-categories{position:sticky;top:64px;z-index:30;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px 0;background:#fbf6ea;border-bottom:1.5px solid #e0d0b2}
 .express-categories button{min-height:46px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:700;letter-spacing:-.1px;border-radius:6px;border:1.5px solid #d8c5a2;white-space:nowrap;background:#ffffff;color:#382415;box-shadow:0 2px 0 #d8c5a2;transition:all 120ms ease}
 .express-categories button:hover{border-color:#BC4D08;color:#BC4D08;box-shadow:0 2px 0 #BC4D08}
 .express-categories button[aria-pressed=true]{background:#191008;color:#fff7ea;border-color:#191008;box-shadow:0 2px 0 #000000}
-.express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),.express-menu[data-active=shtesa] [data-category]:not([data-category=shtesa]),.express-menu[data-active=pije] [data-category]:not([data-category=pije]){display:none}
+.express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),.express-menu[data-active=pije] [data-category]:not([data-category=pije]){display:none}
 .express-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid #2B1A0C}
 .express-section-heading h2{font-family:var(--font-display);font-size:24px;font-weight:900;letter-spacing:-.02em;color:#191008;white-space:nowrap}
 .express-section-heading span{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8F3A06;background:#f7ecd6;border:1px solid #dfcba5;border-radius:4px;padding:3px 8px;white-space:nowrap}
@@ -75,3 +75,156 @@
 
 /* Pre-baked product art: <picture> must not interfere with the fixed-size tile. */
 .express-food-art picture,.upsell-art picture,.menu-item-hero picture{display:contents}
+
+/* ── Drinks Showcase: Taller in height, shorter in width ─────────────────
+   Bottles & cups are vertical silhouettes. Instead of being squeezed into
+   horizontal row slots with a tiny 104x104 thumbnail, drinks get their own
+   heroic vertical showcase: tall bottle display stage, stacked typography,
+   and compact width. */
+[data-category="pije"] .express-item-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.express-item-pije,
+.express-item[data-category="pije"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  padding: 12px 10px 14px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #dcc7a0 !important;
+  box-shadow: 0 3px 0 #e4d5be !important;
+  min-height: 310px !important;
+  height: 100% !important;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease !important;
+}
+
+.express-item-pije:hover,
+.express-item[data-category="pije"]:hover {
+  transform: translateY(-2px);
+  border-color: #2B1A0C !important;
+  box-shadow: 0 5px 0 #2B1A0C !important;
+}
+
+/* Tall bottle stage: tall, dedicated display area */
+.express-item-pije .express-food-art,
+.express-item[data-category="pije"] .express-food-art {
+  width: 100% !important;
+  height: 185px !important;
+  min-height: 185px !important;
+  max-height: 185px !important;
+  margin: 0 0 10px 0 !important;
+  padding: 10px 8px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #ecd8b8 !important;
+  background: radial-gradient(ellipse at 50% 65%, #ffffff 0%, #f3ead7 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  box-shadow: inset 0 2px 4px rgba(43, 26, 12, 0.03);
+}
+
+.express-item-pije .express-food-img,
+.express-item[data-category="pije"] .express-food-img {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 165px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 6px 10px rgba(43, 26, 12, 0.16));
+  transition: transform 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.express-item-pije:hover .express-food-img,
+.express-item[data-category="pije"]:hover .express-food-img {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.express-item-pije .express-item-body,
+.express-item[data-category="pije"] .express-item-body {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  gap: 8px !important;
+}
+
+.express-item-pije .express-item-copy,
+.express-item[data-category="pije"] .express-item-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  text-align: left !important;
+}
+
+.express-item-pije .express-item-copy h3,
+.express-item[data-category="pije"] .express-item-copy h3 {
+  font-family: var(--font-display) !important;
+  font-size: 16.5px !important;
+  line-height: 1.15 !important;
+  font-weight: 800 !important;
+  color: #191008 !important;
+  margin: 0 !important;
+}
+
+.express-item-pije .express-item-copy p,
+.express-item[data-category="pije"] .express-item-copy p {
+  font-size: 11.5px !important;
+  line-height: 1.35 !important;
+  color: #5d3a1e !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
+
+.express-item-pije .express-item-foot,
+.express-item[data-category="pije"] .express-item-foot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  margin-top: auto !important;
+  padding-top: 8px !important;
+  border-top: 1px dashed #decba8 !important;
+}
+
+.express-item-pije .express-item-price,
+.express-item[data-category="pije"] .express-item-price {
+  font-family: var(--font-display) !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  color: #8F3A06 !important;
+}
+
+.express-item-pije .express-add,
+.express-item[data-category="pije"] .express-add {
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  font-size: 12.5px !important;
+  border-radius: 5px !important;
+}
+
+.express-item-pije .express-stepper,
+.express-item[data-category="pije"] .express-stepper {
+  min-height: 36px !important;
+}
+
+.express-item-pije .express-stepper button,
+.express-item[data-category="pije"] .express-stepper button {
+  min-width: 28px !important;
+  min-height: 36px !important;
+}
+
+.express-item-pije .express-stepper-count,
+.express-item[data-category="pije"] .express-stepper-count {
+  min-width: 18px !important;
+  font-size: 13px !important;
+}
+

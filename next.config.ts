@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
       {
         // Pre-baked, content-addressed product art: cache forever at the edge
         // and in browsers. New art ships under a new directory version.
-        source: "/menu/v2/:path*",
+        source: "/menu/v3/:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],

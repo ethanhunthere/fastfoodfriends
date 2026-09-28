@@ -6,10 +6,10 @@
  * module, so the client can never tamper with the total.
  */
 
-export type CategoryId = "ushqime-kryesore" | "shtesa" | "pije";
+export type CategoryId = "ushqime-kryesore" | "pije";
 
 /** Icon keys mapped to lucide-react components in the UI layer. */
-export type CategoryIcon = "beef" | "salad" | "cup-soda";
+export type CategoryIcon = "beef" | "cup-soda";
 
 export interface MenuCategory {
   id: CategoryId;
@@ -63,15 +63,10 @@ export interface MenuItem {
 export const MENU_CATEGORIES: readonly MenuCategory[] = [
   {
     id: "ushqime-kryesore",
-    name: "Ushqime Kryesore",
-    blurb: "Hamburger, hotdog dhe tost — të përgatitura në momentin e porosisë.",
+    name: "Ushqime",
+    blurb:
+      "Hamburger tradicional, me mish pule, hotdog dhe pomfrit — të përgatitura në momentin e porosisë.",
     icon: "beef",
-  },
-  {
-    id: "shtesa",
-    name: "Shtesa",
-    blurb: "Pomfrit e krokant, të skuqura në vaj të freskët.",
-    icon: "salad",
   },
   {
     id: "pije",
@@ -112,17 +107,6 @@ const GRILL_GROUP: ModifierGroup = {
   ],
 };
 
-const TOST_GROUP: ModifierGroup = {
-  id: "perberesit",
-  label: "Përbërësit",
-  helpText: "Hiq ose shto sipas dëshirës.",
-  options: [
-    { id: "pa-gjalpe", label: "Pa gjalpë", priceDeltaCents: 0 },
-    { id: "ekstra-djath", label: "Ekstra djath", priceDeltaCents: 50 },
-    { id: "pa-domate", label: "Pa domate", priceDeltaCents: 0 },
-  ],
-};
-
 const FRIES_GROUP: ModifierGroup = {
   id: "shtesat",
   label: "Shtesa",
@@ -144,8 +128,7 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     slug: "hamburger-tradicional",
     name: "Hamburger Tradicional",
     category: "ushqime-kryesore",
-    description:
-      "Mish i bluar i freskët i pjekur në zgara, bukë e butë e ngrohur, sallatë, domate, qepë dhe salcë e shtëpisë. Zgjedh me ve ose pa ve.",
+    description: "",
     priceCents: 250,
     variants: [
       { id: "me-ve", label: "Me ve", priceDeltaCents: 50 },
@@ -164,8 +147,7 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     slug: "hamburger-mish-pule",
     name: "Hamburger me Mish Pule",
     category: "ushqime-kryesore",
-    description:
-      "File i marinuar mishi pule, i pjekur derisa të jetë krokant nga jashtë e i butë brenda, me sallatë, domate dhe majonez.",
+    description: "",
     priceCents: 300,
     modifierGroups: [SANDWICH_GROUP],
     tags: ["I ri"],
@@ -175,27 +157,11 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     prepMinutes: 9,
   },
   {
-    id: "hamburger-me-qyfte",
-    slug: "hamburger-me-qyfte",
-    name: "Hamburger me Qyfte",
-    category: "ushqime-kryesore",
-    description:
-      "Qyfte tradicional i pjekur në zgara, me qepë, domate, sallatë dhe salcë pikante — shija e vërtetë e rrugës.",
-    priceCents: 320,
-    modifierGroups: [GRILL_GROUP],
-    tags: ["Specialiteti"],
-    allergens: ["Gluten", "Mustardë"],
-    available: true,
-    featured: true,
-    prepMinutes: 10,
-  },
-  {
     id: "hotdog",
     slug: "hotdog",
     name: "Hotdog",
     category: "ushqime-kryesore",
-    description:
-      "Suxhuk i pjekur në bukë hotdog, me keçap, majonez dhe qepë krokante sipas dëshirës.",
+    description: "",
     priceCents: 200,
     modifierGroups: [GRILL_GROUP],
     allergens: ["Gluten", "Ve", "Mustardë"],
@@ -203,25 +169,11 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     prepMinutes: 6,
   },
   {
-    id: "tost",
-    slug: "tost",
-    name: "Tost",
-    category: "ushqime-kryesore",
-    description:
-      "Tost i ngrohtë me djath të shkrirë, proshutë dhe domate, i shtypur në bukë të thekur.",
-    priceCents: 220,
-    modifierGroups: [TOST_GROUP],
-    allergens: ["Gluten", "Ve", "Qumësht"],
-    available: true,
-    prepMinutes: 7,
-  },
-  {
     id: "pomfrit",
     slug: "pomfrit",
     name: "Pomfrit",
-    category: "shtesa",
-    description:
-      "Pomfrit i prerë trashë, i skuqur në vaj të freskët dhe i kripur sapo del nga friteza.",
+    category: "ushqime-kryesore",
+    description: "",
     priceCents: 150,
     variants: [
       { id: "mesatar", label: "Mesatar", priceDeltaCents: 0, isDefault: true },
@@ -241,26 +193,17 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     name: "Coca-Cola",
     category: "pije",
     description: "Coca-Cola e ftohtë, në shishe qelqi ose plastikë.",
-        priceCents: 120,
-    available: true,
-    prepMinutes: 1,
-  },
-  {
-    id: "fanta",
-    slug: "fanta",
-    name: "Fanta",
-    category: "pije",
-    description: "Fanta portokall e ftohtë, e gazuar.",
     priceCents: 120,
     available: true,
     prepMinutes: 1,
   },
   {
-    id: "uje-natyral",
-    slug: "uje-natyral",
-    name: "Ujë Natyral",
+    id: "uje-rugove",
+    slug: "uje-rugove",
+    name: "Ujë Rugovë",
     category: "pije",
-        description: "Ujë mineral natyral pa gaz.",
+    description:
+      "Ujë i natyrshëm burimor Rugovë, i ftohtë — shoqëruesi ideal i çdo porosie.",
     priceCents: 80,
     available: true,
     prepMinutes: 1,
@@ -290,6 +233,7 @@ export const MENU_ITEMS: readonly MenuItem[] = [
     prepMinutes: 1,
   },
 ];
+
 /* ------------------------------------------------------------------ *
  *  Lookups
  * ------------------------------------------------------------------ */
@@ -467,13 +411,10 @@ export function itemEmoji(item: MenuItem): string {
   const map: Record<string, string> = {
     "hamburger-tradicional": "🍔",
     "hamburger-mish-pule": "🍗",
-    "hamburger-me-qyfte": "🔥",
     hotdog: "🌭",
-    tost: "🥪",
     pomfrit: "🍟",
     "coca-cola": "🥤",
-    fanta: "🥤",
-    "uje-natyral": "💧",
+    "uje-rugove": "💧",
     jogurt: "🥣",
     ajran: "🧋",
   };
@@ -490,17 +431,14 @@ export function itemImageAlt(item: MenuItem): string {
  * All items have a photo; the map keeps unknown ids safe (falls back to emoji).
  */
 const MENU_IMAGES: Record<string, string> = {
-  "hamburger-tradicional": "/menu/v2/hamburger-tradicional-480.webp",
-  "hamburger-mish-pule": "/menu/v2/hamburger-mish-pule-480.webp",
-  "hamburger-me-qyfte": "/menu/v2/hamburger-me-qyfte-480.webp",
-  hotdog: "/menu/v2/hotdog-480.webp",
-  tost: "/menu/v2/tost-480.webp",
-  pomfrit: "/menu/v2/pomfrit-480.webp",
-  "coca-cola": "/menu/v2/coca-cola-480.webp",
-  fanta: "/menu/v2/fanta-480.webp",
-  "uje-natyral": "/menu/v2/uje-natyral-480.webp",
-  jogurt: "/menu/v2/jogurt-480.webp",
-  ajran: "/menu/v2/ajran-480.webp",
+  "hamburger-tradicional": "/menu/v4/hamburger-tradicional-480.webp",
+  "hamburger-mish-pule": "/menu/v4/hamburger-mish-pule-480.webp",
+  hotdog: "/menu/v4/hotdog-480.webp",
+  pomfrit: "/menu/v4/pomfrit-480.webp",
+  "coca-cola": "/menu/v4/coca-cola-480.webp",
+  "uje-rugove": "/menu/v4/uje-rugove-480.webp",
+  jogurt: "/menu/v4/jogurt-480.webp",
+  ajran: "/menu/v4/ajran-480.webp",
 };
 
 export function itemImage(item: MenuItem): string | null {
