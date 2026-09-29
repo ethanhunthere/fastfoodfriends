@@ -3,24 +3,23 @@
 
 .modal-overlay {
   position: fixed;
-  top: var(--header-height);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 60;
+  inset: 0;
+  z-index: 80;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 12px 12px max(14px, env(safe-area-inset-bottom));
+  padding: calc(var(--header-height) + 12px) 12px max(14px, env(safe-area-inset-bottom));
   pointer-events: none;
 }
 
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(25, 16, 8, 0.45);
+  background: rgba(13, 7, 3, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
   pointer-events: auto;
-  animation: backdrop-fade 180ms ease-out;
+  animation: backdrop-fade 200ms ease-out;
 }
 
 .express-dialog {
