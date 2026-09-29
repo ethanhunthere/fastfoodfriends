@@ -137,7 +137,6 @@ export function Modal({
         data-variant={variant}
         className="express-dialog"
       >
-        <div className="modal-grab-handle" aria-hidden="true" />
         <header className="modal-heading">
           <h2
             id={titleId}
