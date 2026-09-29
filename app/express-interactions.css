@@ -4,18 +4,18 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 100;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: calc(var(--header-height) + 12px) 12px max(14px, env(safe-area-inset-bottom));
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
   pointer-events: none;
 }
 
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(13, 7, 3, 0.55);
+  background: rgba(13, 7, 3, 0.58);
   -webkit-backdrop-filter: blur(18px) saturate(135%);
   backdrop-filter: blur(18px) saturate(135%);
   pointer-events: auto;
@@ -29,24 +29,36 @@
   width: 100%;
   min-width: 0;
   max-width: 520px;
-  max-height: calc(100dvh - var(--header-height) - 24px);
+  max-height: min(calc(100dvh - 48px), 88dvh);
   background: #FFFDF6;
   border: 2px solid #0D0703;
   border-radius: 12px;
-  box-shadow: 0 4px 0 #0D0703, 0 16px 36px rgba(25, 16, 8, 0.28);
+  box-shadow: 0 4px 0 #0D0703, 0 24px 56px rgba(13, 7, 3, 0.45);
   overflow: hidden;
   pointer-events: auto;
-  animation: banner-float-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: banner-float-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 639px) {
+  .modal-overlay {
+    align-items: center;
+    justify-content: center;
+    padding: max(14px, env(safe-area-inset-top)) 14px max(36px, calc(env(safe-area-inset-bottom) + 24px));
+  }
+  .express-dialog {
+    margin-bottom: clamp(24px, 7vh, 52px);
+    max-height: calc(100dvh - max(32px, env(safe-area-inset-top)) - max(52px, env(safe-area-inset-bottom)));
+  }
 }
 
 @keyframes banner-float-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 18px, 0) scale(0.985);
+    transform: scale(0.96) translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 

@@ -64,8 +64,8 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media(min-width:640px){
   :root{--header-height:78px}
-  .modal-overlay{align-items:center;padding:20px}
-  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - var(--header-height) - 40px)}
+  .modal-overlay{align-items:center;padding:24px}
+  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - 56px);margin-bottom:0}
 }
 @media(min-width:1200px){
   .storefront-layout{grid-template-columns:minmax(0,1fr) 340px;gap:28px}
@@ -94,7 +94,7 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media(max-height:540px){
   .modal-overlay{padding:4px;align-items:center}
-  .express-dialog{max-height:calc(100dvh - var(--header-height) - 8px);overflow-y:auto;border-radius:10px}
+  .express-dialog{max-height:calc(100dvh - 12px);margin-bottom:0;overflow-y:auto;border-radius:10px}
   .modal-content{overflow:visible;flex:none}.modal-heading{padding-block:6px}.modal-footer{padding-block:8px}
   .desktop-cart{position:static;max-height:none}
   .express-customizer-intro{margin-bottom:8px}.express-customizer-intro>span{min-width:48px;height:48px;font-size:28px}
