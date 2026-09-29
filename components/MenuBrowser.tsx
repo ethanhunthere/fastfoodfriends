@@ -19,8 +19,8 @@ export function MenuBrowser({ children }: { children: ReactNode }) {
             onClick={() => {
               setActive(id);
               const menu = document.getElementById("menu-browse");
-              if (menu && menu.getBoundingClientRect().top < parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height"))) {
-                menu.scrollIntoView({ block: "start" });
+              if (menu && menu.getBoundingClientRect().top < 80) {
+                menu.scrollIntoView({ block: "start", behavior: "smooth" });
               }
             }}>
             <Icon size={17} aria-hidden="true" className="express-cat-icon" />

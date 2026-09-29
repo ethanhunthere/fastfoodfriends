@@ -57,6 +57,10 @@ export function Modal({
 
     previouslyFocused.current = document.activeElement as HTMLElement | null;
 
+    // Lock body scroll to prevent background jitter/lag on mobile devices
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     // Focus the dialog panel itself with preventScroll: true to establish
     // keyboard focus without forcing the browser window to scroll or shift.
     panelRef.current?.focus({ preventScroll: true });
@@ -96,6 +100,7 @@ export function Modal({
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      document.body.style.overflow = originalOverflow;
       document.removeEventListener("keydown", handleKeyDown);
       previouslyFocused.current?.focus?.({ preventScroll: true });
     };
