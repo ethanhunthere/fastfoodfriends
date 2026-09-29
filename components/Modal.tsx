@@ -57,20 +57,9 @@ export function Modal({
 
     previouslyFocused.current = document.activeElement as HTMLElement | null;
 
-    const { overflow, paddingRight } = document.body.style;
-    const stableGutter = getComputedStyle(document.documentElement).scrollbarGutter.includes("stable");
-    const scrollbarWidth = stableGutter ? 0 : window.innerWidth - document.documentElement.clientWidth;
-    const shell = document.getElementById("storefront-shell");
-    const wasInert = shell?.inert ?? false;
-    if (shell) shell.inert = true;
-    document.body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    const panel = panelRef.current;
-    const firstFocusable = panel?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR);
-    (firstFocusable ?? panel)?.focus({ preventScroll: true });
+    // Focus the dialog panel itself with preventScroll: true to establish
+    // keyboard focus without forcing the browser window to scroll or shift.
+    panelRef.current?.focus({ preventScroll: true });
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -97,10 +86,10 @@ export function Modal({
 
       if (!event.shiftKey && active === last) {
         event.preventDefault();
-        first.focus();
+        first.focus({ preventScroll: true });
       } else if (event.shiftKey && (active === first || active === panelRef.current)) {
         event.preventDefault();
-        last.focus();
+        last.focus({ preventScroll: true });
       }
     }
 
@@ -108,9 +97,6 @@ export function Modal({
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      if (shell) shell.inert = wasInert;
-      document.body.style.overflow = overflow;
-      document.body.style.paddingRight = paddingRight;
       previouslyFocused.current?.focus?.({ preventScroll: true });
     };
   }, [open]);
