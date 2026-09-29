@@ -73,7 +73,22 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
     setQuantityDraft(1);
   }
 
+  function triggerHaptic(duration = 15) {
+    if (typeof window !== "undefined" && "vibrate" in navigator) {
+      try {
+        navigator.vibrate(duration);
+      } catch {
+        // Ignored on platforms without vibration
+      }
+    }
+  }
+
+  const [justAdded, setJustAdded] = useState(false);
+
   function handleAdd() {
+    triggerHaptic(20);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 550);
     const display = {
       name: item.name,
       variantLabel: resolved?.variant?.label ?? null,
@@ -104,6 +119,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
   /** Shto: opens the sheet for food with toppings, adds to the bag instantly otherwise. */
   function onQuickAdd() {
     if (hasSheet) {
+      triggerHaptic(10);
       setOpen(true);
     } else {
       handleAdd();
@@ -122,6 +138,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
 
   function incrementCanonical() {
     if (!canonicalLine) return;
+    triggerHaptic(15);
     setQuantity(
       canonicalKey,
       Math.min(canonicalLine.quantity + 1, ORDER_CONFIG.maxQuantityPerLine),
@@ -131,6 +148,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
   /** Last step down removes the line entirely — one tap to undo an add. */
   function decrementCanonical() {
     if (!canonicalLine) return;
+    triggerHaptic(15);
     if (canonicalLine.quantity <= 1) removeLine(canonicalKey);
     else setQuantity(canonicalKey, canonicalLine.quantity - 1);
   }
@@ -188,30 +206,35 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
         )}
         <div className="express-item-foot">
           <strong className="express-item-price tnum">{formatPrice(unitPriceCents)}</strong>
-          {canonicalLine ? (
-            <div className="express-stepper" role="group" aria-label={`Sasia e ${item.name} në shportë`}>
-              <button type="button" onClick={decrementCanonical}
-                aria-label={canonicalLine.quantity === 1 ? `Hiq ${item.name} nga shporta` : `Hiq një ${item.name}`}>
-                <Minus size={15} strokeWidth={2.6} aria-hidden="true" />
+          <div className="express-action-wrapper">
+            {justAdded && (
+              <span className="express-add-burst" aria-hidden="true">+1</span>
+            )}
+            {canonicalLine ? (
+              <div className="express-stepper" role="group" aria-label={`Sasia e ${item.name} në shportë`}>
+                <button type="button" onClick={decrementCanonical}
+                  aria-label={canonicalLine.quantity === 1 ? `Hiq ${item.name} nga shporta` : `Hiq një ${item.name}`}>
+                  <Minus size={15} strokeWidth={2.6} aria-hidden="true" />
+                </button>
+                <span className="express-stepper-count tnum" aria-live="polite">{canonicalLine.quantity}</span>
+                <button type="button" onClick={incrementCanonical} disabled={canonicalLine.quantity >= ORDER_CONFIG.maxQuantityPerLine}
+                  aria-label={`Shto një ${item.name} tjetër`}>
+                  <Plus size={15} strokeWidth={2.6} aria-hidden="true" />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={onQuickAdd}
+                className="express-add"
+                aria-label={hasSheet ? `Zgjidh opsionet dhe shto ${item.name}` : `Shto ${item.name} në shportë`}
+                aria-haspopup={hasSheet ? "dialog" : undefined}
+              >
+                <Plus size={15} strokeWidth={3} className="express-add-icon" aria-hidden="true" />
+                <span>Shto</span>
               </button>
-              <span className="express-stepper-count tnum" aria-live="polite">{canonicalLine.quantity}</span>
-              <button type="button" onClick={incrementCanonical} disabled={canonicalLine.quantity >= ORDER_CONFIG.maxQuantityPerLine}
-                aria-label={`Shto një ${item.name} tjetër`}>
-                <Plus size={15} strokeWidth={2.6} aria-hidden="true" />
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={onQuickAdd}
-              className="express-add"
-              aria-label={hasSheet ? `Zgjidh opsionet dhe shto ${item.name}` : `Shto ${item.name} në shportë`}
-              aria-haspopup={hasSheet ? "dialog" : undefined}
-            >
-              <Plus size={15} strokeWidth={3} className="express-add-icon" aria-hidden="true" />
-              <span>Shto</span>
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <Modal open={open} onClose={() => setOpen(false)} title={item.name}
@@ -293,7 +316,6 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
   }
 }
 
-
 function QuantityRow({
   quantity,
   setQuantity,
@@ -301,11 +323,17 @@ function QuantityRow({
   quantity: number;
   setQuantity: (value: number) => void;
 }) {
+  function step(val: number) {
+    if (typeof window !== "undefined" && "vibrate" in navigator) {
+      try { navigator.vibrate(12); } catch {}
+    }
+    setQuantity(val);
+  }
   return (
     <div className="express-quantity">
       <button
         type="button"
-        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+        onClick={() => step(Math.max(1, quantity - 1))}
         disabled={quantity <= 1}
         className="flex h-11 w-11 items-center justify-center rounded-md border border-charcoal-700 text-cream-100 disabled:opacity-40"
         aria-label="Zbrit sasinë"
@@ -318,7 +346,7 @@ function QuantityRow({
       <button
         type="button"
         onClick={() =>
-          setQuantity(Math.min(quantity + 1, ORDER_CONFIG.maxQuantityPerLine))
+          step(Math.min(quantity + 1, ORDER_CONFIG.maxQuantityPerLine))
         }
         disabled={quantity >= ORDER_CONFIG.maxQuantityPerLine}
         className="flex h-11 w-11 items-center justify-center rounded-md border border-charcoal-700 text-cream-100 disabled:opacity-40"

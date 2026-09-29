@@ -86,9 +86,9 @@ html,body{max-width:100%;overflow-x:clip}
 @media(max-width:359px){
   .express-food-art{width:88px;height:88px}.express-food-art span{font-size:30px}
   .express-item{gap:8px;padding:10px}
-  .express-categories button{font-size:10px}.express-categories svg{width:14px;height:14px}
+  .express-categories button{font-size:12px}.express-categories svg{width:15px;height:15px}
   .express-cart-count{min-width:32px;height:38px;padding:0 6px;font-size:16px}.express-cart-review{gap:8px}
-  .express-cart-review strong{font-size:18px}.express-cart-bar .express-primary{min-height:56px;font-size:13.5px}
+  .express-cart-review strong{font-size:18px}.express-cart-bar .express-primary{min-height:52px;font-size:13.5px}
   .express-primary{padding-inline:10px}
 }
 @media(max-height:540px){

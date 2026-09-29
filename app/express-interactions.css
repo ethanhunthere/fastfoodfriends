@@ -1,21 +1,23 @@
 /* One responsive dialog shell, shared by customization, basket and checkout. */
 .modal-overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;padding-top:max(8px,env(safe-area-inset-top))}
 .modal-backdrop{position:absolute;inset:0;background:rgb(28 20 15 / .48)}
-.express-dialog{position:relative;display:flex;flex-direction:column;width:100%;min-width:0;max-width:560px;max-height:calc(100dvh - max(8px,env(safe-area-inset-top)));background:#fffdf6;border:2px solid #2B1A0C;border-bottom:0;border-radius:14px 14px 0 0;box-shadow:0 -4px 0 rgba(43,26,12,.12);overflow:hidden;animation:sheet-up 160ms ease-out}
-.modal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px var(--dialog-gutter);border-bottom:2px solid #2B1A0C;flex-shrink:0}
+.express-dialog{position:relative;display:flex;flex-direction:column;width:100%;min-width:0;max-width:560px;max-height:calc(100dvh - max(8px,env(safe-area-inset-top)));background:#FFFDF6;border:2px solid #2B1A0C;border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -8px 32px rgba(28,18,9,.32);overflow:hidden;animation:sheet-up 240ms cubic-bezier(0.32,0.72,0,1)}
+.modal-grab-handle{display:block;width:38px;height:4.5px;border-radius:3px;background:#D8C3A0;margin:10px auto 2px;flex-shrink:0}
+.modal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px var(--dialog-gutter) 14px;border-bottom:2px solid #2B1A0C;flex-shrink:0}
 .modal-heading h2{font-size:clamp(17px,3vw,22px);line-height:1.2;letter-spacing:-.5px;min-width:0;overflow-wrap:anywhere}
-.modal-heading button{height:44px;width:44px;background:#f7efdc;border:1.5px solid #dcc7a0;border-radius:6px}
-.modal-content{padding:14px var(--dialog-gutter);min-height:0;overflow-y:auto;overscroll-behavior:contain;flex:1}
+.modal-heading button{height:42px;width:42px;background:#f7efdc;border:1.5px solid #dcc7a0;border-radius:8px;cursor:pointer;touch-action:manipulation;transition:all 120ms ease}
+.modal-heading button:active{transform:scale(0.92)}
+.modal-content{padding:14px var(--dialog-gutter);min-height:0;overflow-y:auto;overscroll-behavior:contain;flex:1;-webkit-overflow-scrolling:touch}
 .modal-footer{background:#fffdf6;padding:14px var(--dialog-gutter) max(16px,env(safe-area-inset-bottom));border-top:1.5px dashed #d5c29d;flex-shrink:0}
 .express-customizer-intro{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .express-customizer-intro>span{display:grid;place-items:center;min-width:78px;height:78px;border-radius:8px;background:#f7ecd6;border:1.5px solid #ecd8b8;font-size:44px}
 .express-customizer-intro p{font-size:12px;line-height:1.6;color:#4a3020}
 .express-options{display:grid;gap:18px}.express-options legend{font-size:14px;color:#30261f;font-weight:800;margin-bottom:7px}
 .express-options fieldset>p{display:none}
-.express-choice-grid{display:flex;flex-wrap:wrap;gap:7px}
-.express-choice{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;padding:9px 12px;border:1.5px solid #d0bd9e;border-radius:6px;font-size:12px;font-weight:700;color:#4a3325;background:#fbf6ea;cursor:pointer;flex-grow:1;box-shadow:0 1.5px 0 #d0bd9e;transition:all 120ms ease}
+.express-choice-grid{display:flex;flex-wrap:wrap;gap:8px}
+.express-choice{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 14px;border:1.5px solid #D0BD9E;border-radius:8px;font-size:13px;font-weight:700;color:#4A3325;background:#FBF6EA;cursor:pointer;flex-grow:1;box-shadow:0 2px 0 #D0BD9E;touch-action:manipulation;user-select:none;transition:all 120ms ease}
 .express-choice input{position:absolute;width:1px;height:1px;opacity:0}
-.express-choice:has(input:checked){border-color:#2B1A0C;background:#191008;color:#fff7ea;box-shadow:0 1.5px 0 #000000}
+.express-choice:has(input:checked){border-color:#191008;background:#191008;color:#FFF8EB;box-shadow:0 2px 0 #000000;transform:scale(1.02)}
 .express-choice:has(input:focus-visible){outline:2px solid #BC4D08;outline-offset:2px}
 .express-choice small{font-size:10px}.express-allergens{font-size:10px;color:#5d3a1e;margin-top:16px}
 .express-customizer-footer{display:flex;gap:12px;align-items:center}
