@@ -1,5 +1,5 @@
 /* One responsive dialog shell, shared by customization, basket and checkout.
-   Industrial modernism: crisp ink, physical geometry, mechanical stamp shadows. */
+   Master-grade typography, authoritative contrast, effortless readability. */
 
 .modal-overlay {
   position: fixed;
@@ -32,9 +32,9 @@
   max-width: 520px;
   max-height: calc(100dvh - var(--header-height) - 24px);
   background: #FFFDF6;
-  border: 2px solid #2B1A0C;
+  border: 2px solid #0D0703;
   border-radius: 12px;
-  box-shadow: 0 4px 0 #2B1A0C, 0 16px 36px rgba(25, 16, 8, 0.28);
+  box-shadow: 0 4px 0 #0D0703, 0 16px 36px rgba(25, 16, 8, 0.28);
   overflow: hidden;
   pointer-events: auto;
   animation: banner-float-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -66,17 +66,18 @@
   justify-content: space-between;
   gap: 12px;
   padding: 14px var(--dialog-gutter);
-  border-bottom: 2px solid #2B1A0C;
+  border-bottom: 2px solid #0D0703;
   flex-shrink: 0;
+  background: #FFFDF6;
 }
 
 .modal-heading h2 {
   font-family: var(--font-display);
-  font-size: clamp(18px, 3.2vw, 22px);
+  font-size: clamp(20px, 3.6vw, 24px);
   font-weight: 900;
   line-height: 1.2;
   letter-spacing: -0.015em;
-  color: #191008;
+  color: #0D0703;
   min-width: 0;
   overflow-wrap: anywhere;
 }
@@ -84,26 +85,26 @@
 .modal-heading button {
   height: 40px;
   width: 40px;
-  background: #F6EDD8;
-  border: 1.5px solid #2B1A0C;
+  background: #F8EFE0;
+  border: 1.5px solid #0D0703;
   border-radius: 6px;
-  box-shadow: 0 2px 0 #2B1A0C;
+  box-shadow: 0 2px 0 #0D0703;
   cursor: pointer;
   touch-action: manipulation;
   transition: transform 100ms ease, box-shadow 100ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #191008;
+  color: #0D0703;
 }
 
 .modal-heading button:active {
   transform: translateY(2px);
-  box-shadow: 0 0 0 #2B1A0C;
+  box-shadow: 0 0 0 #0D0703;
 }
 
 .modal-content {
-  padding: 14px var(--dialog-gutter);
+  padding: 16px var(--dialog-gutter);
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -131,16 +132,17 @@
   min-width: 78px;
   height: 78px;
   border-radius: 6px;
-  background: #F6EDD8;
-  border: 1.5px solid #2B1A0C;
-  box-shadow: 0 2px 0 #2B1A0C;
+  background: #F8EFE0;
+  border: 2px solid #0D0703;
+  box-shadow: 0 2px 0 #0D0703;
   font-size: 44px;
 }
 
 .express-customizer-intro p {
-  font-size: 12px;
-  line-height: 1.5;
-  color: #4A3020;
+  font-size: 13.5px;
+  line-height: 1.55;
+  font-weight: 600;
+  color: #2C1A0E;
 }
 
 .express-options {
@@ -150,16 +152,19 @@
 
 .express-options legend {
   font-family: var(--font-display);
-  font-size: 14px;
-  color: #191008;
+  font-size: 15px;
+  color: #0D0703;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 7px;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
 }
 
 .express-options fieldset > p {
-  display: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2C1A0E;
+  margin-bottom: 6px;
 }
 
 .express-choice-grid {
@@ -174,17 +179,17 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 46px;
-  padding: 8px 14px;
-  border: 1.5px solid #2B1A0C;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 2px solid #0D0703;
   border-radius: 6px;
-  font-size: 13px;
-  font-weight: 800;
-  color: #191008;
+  font-size: 14.5px;
+  font-weight: 900;
+  color: #0D0703;
   background: #FBF6EA;
   cursor: pointer;
   flex-grow: 1;
-  box-shadow: 0 2px 0 #2B1A0C;
+  box-shadow: 0 2px 0 #0D0703;
   touch-action: manipulation;
   user-select: none;
   transition: transform 100ms ease, box-shadow 100ms ease, background-color 100ms ease;
@@ -198,10 +203,14 @@
 }
 
 .express-choice:has(input:checked) {
-  border-color: #191008;
-  background: #191008;
-  color: #FFF8EB;
+  border-color: #0D0703;
+  background: #0D0703;
+  color: #FFFDF8;
   box-shadow: 0 2px 0 #000000;
+}
+
+.express-choice:has(input:checked) small {
+  color: #FFC400;
 }
 
 .express-choice:has(input:focus-visible) {
@@ -210,13 +219,15 @@
 }
 
 .express-choice small {
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #7A2800;
 }
 
 .express-allergens {
-  font-size: 11px;
-  font-weight: 700;
-  color: #8F3A06;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #9E3703;
   margin-top: 16px;
 }
 
@@ -230,25 +241,27 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  border: 1.5px solid #2B1A0C;
+  border: 2px solid #0D0703;
   border-radius: 6px;
   flex-shrink: 0;
-  box-shadow: 0 2px 0 #2B1A0C;
+  box-shadow: 0 2px 0 #0D0703;
   background: #FFFFFF;
 }
 
 .express-quantity button {
   border: 0 !important;
-  min-width: 40px;
+  min-width: 42px;
   min-height: 48px;
   background: transparent;
   cursor: pointer;
-  color: #191008;
+  color: #0D0703;
+  font-size: 18px;
+  font-weight: 900;
   transition: background-color 100ms ease;
 }
 
 .express-quantity button:hover:not(:disabled) {
-  background: #F6EDD8;
+  background: #F8EFE0;
 }
 
 /* ── Primary Action Button: Solid Mechanical Power ─────────────────── */
@@ -261,17 +274,17 @@
   min-height: 52px;
   padding: 12px 18px;
   border-radius: 6px;
-  border: 2px solid #191008;
+  border: 2px solid #0D0703;
   background: #BC4D08;
   color: #FFFDF8;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   flex: 1;
   width: 100%;
-  box-shadow: 0 4px 0 #191008;
+  box-shadow: 0 4px 0 #0D0703;
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
@@ -281,12 +294,12 @@
 .express-primary:hover:not(:disabled) {
   background: #C84904;
   transform: translateY(-1.5px);
-  box-shadow: 0 5.5px 0 #191008;
+  box-shadow: 0 5.5px 0 #0D0703;
 }
 
 .express-primary:active:not(:disabled) {
   transform: translateY(4px);
-  box-shadow: 0 0 0 #191008;
+  box-shadow: 0 0 0 #0D0703;
   background: #9E3703;
 }
 
@@ -306,7 +319,7 @@
 
 .express-checkout-form {
   display: grid;
-  gap: 13px;
+  gap: 14px;
 }
 
 .express-checkout-form > fieldset > legend {
@@ -315,81 +328,93 @@
 
 .express-checkout-form > fieldset label {
   min-height: 52px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
-  border: 1.5px solid #2B1A0C;
-  box-shadow: 0 1.5px 0 #2B1A0C;
+  border: 2px solid #0D0703;
+  box-shadow: 0 1.5px 0 #0D0703;
 }
 
 .express-checkout-form > fieldset label span span {
-  font-size: 11px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0D0703;
 }
 
 .express-checkout-form > fieldset label span span:last-child {
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #26160B;
 }
 
 .express-checkout-form > fieldset label input {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
 .express-checkout-form label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #191008;
+  font-size: 13.5px;
+  font-weight: 900;
+  color: #0D0703;
 }
 
 .express-checkout-form input:not([type=hidden]):not([type=radio]),
 .express-checkout-form textarea {
   background: #FBF6EA;
   font-size: 16px;
-  border: 1.5px solid #2B1A0C;
+  font-weight: 700;
+  color: #0D0703;
+  border: 2px solid #0D0703;
   border-radius: 6px;
   box-shadow: 0 1.5px 0 #DECBA8;
 }
 
 .express-checkout-form p[id$="-hint"] {
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #26160B;
   margin-top: 3px;
 }
 
 .express-order-summary {
   padding: 12px;
   border-radius: 6px;
-  background: #F6EDD8;
-  border: 1.5px solid #2B1A0C;
-  box-shadow: 0 2px 0 #2B1A0C;
-  max-height: 110px;
+  background: #F8EFE0;
+  border: 2px solid #0D0703;
+  box-shadow: 0 2px 0 #0D0703;
+  max-height: 120px;
   overflow: auto;
 }
 
 .express-order-summary li {
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0D0703;
   align-items: flex-start;
 }
 
 .express-fee {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #4A3020;
+  font-size: 12px;
+  font-weight: 800;
+  color: #26160B;
   text-align: center;
   margin-bottom: 8px;
 }
 
 /* Kitchen-notes panel */
 .express-notes-panel {
-  border: 1.5px solid #2B1A0C;
-  border-left: 5px solid #BC4D08;
+  border: 2px solid #0D0703;
+  border-left: 6px solid #BC4D08;
   border-radius: 6px;
-  padding: 12px 12px 14px;
+  padding: 12px 14px 14px;
   background: #FFFDF6;
   box-shadow: 0 2px 0 #DECBA8;
 }
 
 .express-checkout-form #phone-ok {
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #26160B;
 }
 
 /* ── Sticky Conversion Rail ───────────────────────────────────────── */
@@ -399,7 +424,7 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background: #191008;
+  background: #0D0703;
   border-top: 3px solid #BC4D08;
   box-shadow: 0 -3px 0 #000000, 0 -12px 24px rgba(0, 0, 0, 0.32);
   padding: 10px 16px max(12px, env(safe-area-inset-bottom));
@@ -421,8 +446,8 @@
   gap: 12px;
   text-align: left;
   flex-shrink: 0;
-  font-size: 11px;
-  color: #F8ECD9;
+  font-size: 12px;
+  color: #FFFDF8;
   cursor: pointer;
   background: none;
   border: 0;
@@ -436,10 +461,10 @@
   height: 42px;
   padding: 0 8px;
   border-radius: 4px;
-  background: #FDBB05;
-  color: #191008;
+  background: #FFC400;
+  color: #0D0703;
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 900;
   border: 1.5px solid #000000;
   box-shadow: 0 2px 0 #000000;
@@ -448,20 +473,20 @@
 .express-cart-review strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   letter-spacing: -0.015em;
   line-height: 1;
-  color: #FDBB05;
+  color: #FFC400;
 }
 
 .express-cart-review small {
   display: block;
-  font-size: 9.5px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #D6BFA2;
+  color: #FFF3DD;
   margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
@@ -472,7 +497,7 @@
   max-width: 440px;
   margin-left: auto;
   min-height: 54px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 0.06em;
   border-radius: 6px;
@@ -499,49 +524,46 @@
     padding: 26px 0 18px;
   }
   .express-welcome h1 {
-    font-size: 46px;
+    font-size: 50px;
   }
   .express-welcome p:last-child {
     max-width: none;
-    font-size: 13.5px;
+    font-size: 16px;
   }
   .express-item-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 14px;
   }
   .express-item {
-    padding: 13px;
+    padding: 14px;
   }
   .express-food-art {
-    width: 104px;
-    height: 104px;
+    width: 110px;
+    height: 110px;
   }
   .express-item-body {
-    min-height: 104px;
+    min-height: 110px;
   }
   .express-item-copy h3 {
-    font-size: 17.5px;
+    font-size: 21px;
   }
   .express-section-heading h2 {
-    font-size: 22px;
+    font-size: 28px;
   }
   .express-item-copy p {
-    font-size: 12.5px;
+    font-size: 14px;
   }
-  .express-categories {
-    grid-template-columns: repeat(4, 140px);
+  .express-item-price {
+    font-size: 24px;
   }
   .express-categories button {
-    font-size: 12px;
-  }
-  .express-dialog {
-    border-radius: 8px !important;
+    font-size: 16px;
   }
   .express-footer address {
     width: auto;
   }
   .express-location {
-    font-size: 12px;
+    font-size: 13.5px;
   }
 }
 
@@ -555,17 +577,17 @@
     height: 88px;
   }
   .express-item-copy h3 {
-    font-size: 14px;
+    font-size: 17px;
   }
   .express-categories button {
-    font-size: 10px;
-    gap: 3px;
+    font-size: 13px;
+    gap: 4px;
   }
   .express-customizer-footer {
     gap: 6px;
   }
   .express-primary {
-    font-size: 12px;
+    font-size: 14px;
     padding: 12px;
   }
   .express-service {

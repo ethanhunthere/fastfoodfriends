@@ -29,7 +29,7 @@ export default function ContactPage() {
         <h1 className="font-display text-3xl font-extrabold tracking-tight text-cream-50 sm:text-4xl">
           Kontakt
         </h1>
-        <p className="mt-3 max-w-2xl text-sm text-cream-200">
+        <p className="mt-3 max-w-2xl text-base font-medium text-cream-100">
           Ne jemi në {RESTAURANT.address.street} ({RESTAURANT.address.neighborhood}),
           {RESTAURANT.address.city} — {RESTAURANT.landmarks}. Telefono për
           porosi, pyetje mbi menujën ose të gjeje rrugën në lokal.
@@ -94,13 +94,13 @@ export default function ContactPage() {
                 {RESTAURANT.name}
               </span>
 
-              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-charcoal-950/78 px-3 py-1.5 text-[10px] text-cream-200">
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-charcoal-950/78 px-3 py-1.5 text-xs font-semibold text-cream-50">
                 <span>© OpenStreetMap</span>
                 <span className="font-bold text-flame-700">Hape në Maps →</span>
               </figcaption>
             </figure>
           </a>
-          <p className="mt-2 text-xs text-cream-200">
+          <p className="mt-2 text-xs font-medium text-cream-100">
             {RESTAURANT.landmarks} —{" "}
             <a
               href={MAPS_URL}
@@ -120,12 +120,12 @@ export default function ContactPage() {
           <h2 id="hours-heading" className="font-display text-2xl font-bold text-cream-50">
             Orari i hapjes
           </h2>
-          <p className="mt-2 max-w-2xl text-sm text-cream-200">
+          <p className="mt-2 max-w-2xl text-sm font-medium text-cream-100">
             {RESTAURANT.name} — koha lokale në {RESTAURANT.address.city}.
           </p>
 
           <HoursTable rows={hoursRows} />
-          <p className="mt-3 text-xs text-cream-200">
+          <p className="mt-3 text-xs font-medium text-cream-100">
             <Clock aria-hidden="true" className="inline h-4 w-4 text-flame-700" />{" "}
             Telefono për porosi edhe në ekstremitetet e koheve:{" "}
             <a

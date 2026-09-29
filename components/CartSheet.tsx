@@ -45,29 +45,29 @@ export function CartSheet() {
           <div className="space-y-3">
             <dl className="space-y-1.5 text-sm">
               <div className="flex items-center justify-between">
-                <dt className="text-cream-200">Nënshuma</dt>
-                <dd className="tnum text-cream-50">
+                <dt className="font-semibold text-cream-100">Nënshuma</dt>
+                <dd className="tnum font-bold text-cream-50">
                   {formatPrice(totals.subtotalCents)}
                 </dd>
               </div>
               <div className="flex items-center justify-between">
-                <dt className="text-cream-200">Dorëzimi</dt>
-                <dd className="tnum text-cream-50">
+                <dt className="font-semibold text-cream-100">Dorëzimi</dt>
+                <dd className="tnum font-bold text-cream-50">
                   {totals.deliveryFeeCents === 0
                     ? "Falas"
                     : formatPrice(totals.deliveryFeeCents)}
                 </dd>
               </div>
               <div className="flex items-center justify-between border-t border-charcoal-700 pt-2 text-base">
-                <dt className="font-semibold text-cream-50">Totali</dt>
-                <dd className="tnum font-display text-xl font-bold text-flame-700">
+                <dt className="font-bold text-cream-50">Totali</dt>
+                <dd className="tnum font-display text-2xl font-black text-flame-700">
                   {formatPrice(totals.totalCents)}
                 </dd>
               </div>
             </dl>
 
             {belowMinimum ? (
-              <p className="rounded-lg bg-flame-500/10 px-3 py-2 text-xs text-flame-300">
+              <p className="rounded-lg bg-flame-500/10 px-3 py-2 text-xs font-semibold text-flame-700">
                 Porosia minimale për dorëzim është {minimumOrderLabel()}. Shto edhe një
                 artikull, ose zgjidh &quot;Marrje në lokal&quot; në hapin tjetër.
               </p>
@@ -81,7 +81,7 @@ export function CartSheet() {
               Porosit Tani
             </button>
 
-            <p className="text-center text-xs text-cream-200">
+            <p className="text-center text-xs font-semibold text-cream-100">
               Konfirmimi bëhet me telefon pas dërgimit të porosisë.
             </p>
           </div>
@@ -91,15 +91,15 @@ export function CartSheet() {
       {lines.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-8 text-center">
           <ShoppingBag aria-hidden="true" className="h-11 w-11 text-charcoal-500" />
-          <p className="font-medium text-cream-100">Shporta është bosh</p>
-          <p className="max-w-xs text-sm text-cream-200">
+          <p className="font-bold text-base text-cream-50">Shporta është bosh</p>
+          <p className="max-w-xs text-sm font-medium text-cream-100">
             Zgjidh një hamburger, hotdog ose pomfrit nga menuja dhe ai do të shfaqet
             këtu.
           </p>
           <Link
             href="/#menu"
             onClick={closeCart}
-            className="mt-1 inline-flex min-h-11 items-center rounded-md border border-charcoal-700 px-4 text-sm font-medium text-cream-100 hover:border-flame-500 hover:text-flame-700"
+            className="mt-1 inline-flex min-h-11 items-center rounded-md border border-charcoal-700 px-4 text-sm font-bold text-cream-50 hover:border-flame-500 hover:text-flame-700"
           >
             Shiko menunë
           </Link>
@@ -139,12 +139,12 @@ export function CartLineList({
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="font-medium text-cream-50">{describeCartLine(line)}</p>
-                <p className="tnum mt-0.5 text-xs text-cream-200">
+                <p className="font-bold text-cream-50">{describeCartLine(line)}</p>
+                <p className="tnum mt-0.5 text-xs font-semibold text-cream-100">
                   {formatPrice(line.unitPriceCents)} / copë
                 </p>
               </div>
-              <p className="tnum shrink-0 font-semibold text-flame-700">
+              <p className="tnum shrink-0 font-extrabold text-lg text-flame-700">
                 {formatPrice(line.unitPriceCents * line.quantity)}
               </p>
             </div>
@@ -164,7 +164,7 @@ export function CartLineList({
                 >
                   <Minus aria-hidden="true" className="h-4 w-4" />
                 </button>
-                <span className="tnum w-8 text-center text-sm font-semibold text-cream-50">
+                <span className="tnum w-8 text-center text-base font-extrabold text-cream-50">
                   {line.quantity}
                 </span>
                 <button
@@ -181,7 +181,7 @@ export function CartLineList({
               <button
                 type="button"
                 onClick={() => removeLine(line.key)}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-xs font-medium text-cream-200 hover:text-flame-700"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-xs font-bold text-cream-100 hover:text-flame-700"
               >
                 <Trash aria-hidden="true" className="h-4 w-4" />
                 Hiq
@@ -195,7 +195,7 @@ export function CartLineList({
         <button
           type="button"
           onClick={clearCart}
-          className="inline-flex min-h-11 items-center text-xs font-medium text-cream-200 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-700"
+          className="inline-flex min-h-11 items-center text-xs font-bold text-cream-100 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-700"
         >
           Zbraz shportën
         </button>

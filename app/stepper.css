@@ -7,18 +7,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   background: #BC4D08;
   color: #FFFDF8;
-  border: 1.5px solid #191008;
+  border: 2px solid #0D0703;
   border-radius: 6px;
-  box-shadow: 0 3px 0 #191008;
+  box-shadow: 0 3px 0 #0D0703;
   padding: 0 16px;
   min-height: 42px;
   font-family: var(--font-display);
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
@@ -33,7 +33,7 @@
 .express-add:hover {
   background: #C84904;
   transform: translateY(-1.5px);
-  box-shadow: 0 4.5px 0 #191008;
+  box-shadow: 0 4.5px 0 #0D0703;
 }
 
 .express-add .express-add-icon {
@@ -42,7 +42,7 @@
 
 .express-add:active {
   transform: translateY(3px);
-  box-shadow: 0 0 0 #191008;
+  box-shadow: 0 0 0 #0D0703;
   background: #9E3703;
 }
 
@@ -50,10 +50,10 @@
 .express-stepper {
   display: inline-flex;
   align-items: center;
-  background: #191008;
-  border: 1.5px solid #191008;
+  background: #0D0703;
+  border: 2px solid #0D0703;
   border-radius: 6px;
-  box-shadow: 0 3px 0 #191008;
+  box-shadow: 0 3px 0 #0D0703;
   padding: 2px;
   min-height: 42px;
   overflow: hidden;
@@ -69,19 +69,19 @@
   border-radius: 4px;
   border: 0;
   background: transparent;
-  color: #FFF8EB;
+  color: #FFFDF8;
   cursor: pointer;
   touch-action: manipulation;
   transition: background-color 100ms ease, color 100ms ease;
 }
 
 .express-stepper button:hover {
-  background: rgba(253, 187, 5, 0.2);
-  color: #FDBB05;
+  background: rgba(255, 196, 0, 0.22);
+  color: #FFC400;
 }
 
 .express-stepper button:active {
-  background: rgba(253, 187, 5, 0.35);
+  background: rgba(255, 196, 0, 0.38);
 }
 
 .express-stepper button:disabled {
@@ -94,9 +94,9 @@
   padding: 0 4px;
   text-align: center;
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 900;
-  color: #FDBB05;
+  color: #FFC400;
 }
 
 /* ── Action Wrapper ───────────────────────────────────────────────── */

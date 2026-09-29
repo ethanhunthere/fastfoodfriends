@@ -22,15 +22,15 @@ export function OpeningStatusBadge({
 
   return (
     <span
-      className={`inline-flex flex-wrap items-center gap-2 rounded border px-2.5 py-1 text-xs font-bold ${
+      className={`inline-flex flex-wrap items-center gap-2 rounded border-2 border-[#0D0703] px-3 py-1 text-sm font-black ${
         isOpen
-          ? "border-[#2B1A0C] bg-[#F2F8ED] text-[#2F570B]"
-          : "border-[#2B1A0C] bg-[#FDF2EC] text-[#8F3A06]"
+          ? "bg-[#F2F8ED] text-[#1E4D00]"
+          : "bg-[#FDF2EC] text-[#9E3703]"
       } ${className}`}
     >
       <span className="tracking-wider uppercase">{status.label}</span>
       {status.detail ? (
-        <span className="text-[#5D3A1E] font-medium">· {status.detail}</span>
+        <span className="text-[#26160B] font-bold">· {status.detail}</span>
       ) : null}
     </span>
   );
@@ -40,15 +40,15 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
   return (
     <div
       role="status"
-      className="flex flex-col gap-3 rounded-card border border-flame-500/40 bg-flame-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+      className="flex flex-col gap-3 rounded-card border-2 border-flame-600 bg-flame-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="flex items-start gap-3">
-        <Clock aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-flame-300" />
+        <Clock aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-flame-600" />
         <div>
-          <p className="font-semibold text-flame-300">
+          <p className="font-extrabold text-flame-600">
             Mbyllur tani — {status.detail}
           </p>
-          <p className="text-sm text-cream-200">
+          <p className="text-sm font-semibold text-cream-100">
             Mund të dërgosh porosinë gjithsesi; e konfirmojmë sapo hapim.
           </p>
         </div>
@@ -56,7 +56,7 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
 
       <Link
         href="/menu"
-        className="inline-flex min-h-11 items-center justify-center rounded-md bg-flame-500 px-4 text-sm font-semibold text-white hover:bg-flame-700"
+        className="inline-flex min-h-11 items-center justify-center rounded-md bg-flame-500 px-4 text-sm font-bold text-white hover:bg-flame-700"
       >
         Shiko menunë
       </Link>

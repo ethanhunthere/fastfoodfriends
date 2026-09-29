@@ -90,13 +90,13 @@ export default async function ItemPage({
 
         <div className="md:col-span-3">
           <header>
-            <p className="text-sm font-medium text-flame-700">
+            <p className="text-sm font-extrabold uppercase tracking-wide text-flame-600">
               {item.category === "ushqime-kryesore" ? "Ushqim" : "Pije"}
             </p>
-            <h1 className="mt-2 font-display text-2xl font-bold text-cream-50 sm:text-3xl">
+            <h1 className="mt-2 font-display text-3xl font-extrabold text-cream-50 sm:text-4xl">
               {item.name}
             </h1>
-            <p className="mt-3 max-w-xl text-sm text-cream-200">
+            <p className="mt-3 max-w-xl text-base font-medium text-cream-100">
               {item.description}
             </p>
           </header>
@@ -106,7 +106,7 @@ export default async function ItemPage({
               {item.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded-full bg-flame-500/10 px-2.5 py-1 text-[11px] font-semibold text-flame-700"
+                  className="rounded bg-flame-500/10 px-2.5 py-1 text-xs font-bold text-flame-600"
                 >
                   {tag}
                 </li>
@@ -115,8 +115,8 @@ export default async function ItemPage({
           ) : null}
 
           {item.allergens?.length ? (
-            <p className="mt-3 text-xs text-cream-200">
-              <span className="font-medium text-cream-100">Pikël:</span>{" "}
+            <p className="mt-3 text-xs font-semibold text-cream-100">
+              <span className="font-bold text-cream-50">Pikël:</span>{" "}
               {item.allergens.join(", ")}
             </p>
           ) : null}

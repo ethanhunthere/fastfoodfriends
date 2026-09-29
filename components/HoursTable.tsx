@@ -15,7 +15,7 @@ export function HoursTable({ rows }: { rows: readonly HoursRow[] }) {
         Orari i hapjes së {RESTAURANT.name} sipas ditëve të javës
       </caption>
       <thead>
-        <tr className="text-left text-xs font-semibold tracking-wide text-cream-200 uppercase">
+        <tr className="text-left text-xs font-bold tracking-wide text-cream-50 uppercase">
           <th scope="col" className="py-2 pr-2">
             Dita
           </th>
@@ -33,19 +33,19 @@ export function HoursTable({ rows }: { rows: readonly HoursRow[] }) {
           >
             <th
               scope="row"
-              className={`py-2 pr-2 text-left font-medium ${
-                row.isToday ? "text-flame-700" : "text-cream-100"
+              className={`py-2 pr-2 text-left font-bold ${
+                row.isToday ? "text-flame-600 font-extrabold" : "text-cream-50"
               }`}
             >
               <span className="sm:hidden">{DAY_LABELS_SHORT_SQ[row.weekday]}</span>
               <span className="hidden sm:inline">{row.label}</span>
               {row.isToday ? (
-                <span className="ml-2 rounded-md bg-flame-500/15 px-2 py-0.5 text-xs text-flame-700">
+                <span className="ml-2 rounded-md bg-flame-500/15 px-2 py-0.5 text-xs font-black text-flame-600">
                   sot
                 </span>
               ) : null}
             </th>
-            <td className="tnum py-2 text-cream-200">{row.hoursLabel}</td>
+            <td className="tnum py-2 font-bold text-cream-100">{row.hoursLabel}</td>
           </tr>
         ))}
       </tbody>
@@ -60,11 +60,11 @@ export function HoursTable({ rows }: { rows: readonly HoursRow[] }) {
 export function ContactCard() {
   return (
     <div className="rounded-card border border-charcoal-800 bg-charcoal-900 p-5">
-      <h3 className="font-display text-lg font-semibold text-cream-50">
+      <h3 className="font-display text-lg font-bold text-cream-50">
         {RESTAURANT.name}
       </h3>
 
-      <address className="mt-3 space-y-3 text-sm not-italic text-cream-200">
+      <address className="mt-3 space-y-3 text-sm not-italic font-medium text-cream-100">
         <p className="flex items-start gap-2">
           <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-flame-700" />
           <a
@@ -77,7 +77,7 @@ export function ContactCard() {
             {getFormattedAddress()}
           </a>
         </p>
-        <p className="flex items-start gap-2 text-xs text-cream-200">
+        <p className="flex items-start gap-2 text-xs font-medium text-cream-100">
           <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-flame-700" />
           <span>{RESTAURANT.landmarks}</span>
         </p>
@@ -105,7 +105,7 @@ export function ContactCard() {
         </p>
       </address>
 
-      <p className="mt-4 rounded-lg bg-charcoal-850 p-3 text-xs text-cream-200">
+      <p className="mt-4 rounded-lg bg-charcoal-850 p-3 text-xs font-semibold text-cream-100">
         Porositë konfirmohen me telefon ose në WhatsApp brenda pak minutash.
         Për porosi të mëdha (mbi 10 persona) të lutem telefono drejtpërdrejt.
       </p>

@@ -13,32 +13,30 @@
   --color-charcoal-600: #c3ad8e;
   --color-charcoal-500: #8f765c;
 
-  --color-cream-50: #241d18;
-  --color-cream-100: #30261f;
-  --color-cream-200: #56483e;
+  --color-cream-50: #0D0703;
+  --color-cream-100: #140A04;
+  --color-cream-200: #26160B;
 
   /* Bun-orange action family (logo-derived). `flame-500` is the button base
-     (#BC4D08 — white text passes AA at 4.8:1); `flame-600` is the burnt-sienna
-     depth used for prices, strong text and pressed states; `flame-700` anchors
-     the solid offset under CTAs. */
-  --color-flame-300: #A8490A;
+     (#BC4D08 — white text passes AAA at 5.5:1); `flame-600` is the rich rust ink
+     used for prices, strong text and pressed states. */
+  --color-flame-300: #B84303;
   --color-flame-400: #BC4D08;
   --color-flame-500: #BC4D08;
-  --color-flame-600: #8F3A06;
-  --color-flame-700: #7E3305;
+  --color-flame-600: #9E3703;
+  --color-flame-700: #7E2A01;
 
-  /* Signage golds pulled straight from the badge: `mustard-300` is the cheese
-     amber (#FDBB05) for fills, chips and the cart badge; the thin header rule
-     and ticket-rail cut use the brighter ring gold (#FFE03F) — non-text only. */
-  --color-mustard-300: #FDBB05;
-  --color-mustard-400: #cfa151;
-  --color-mustard-500: #c0a75f;
-  --color-mustard-600: #6b4426;
+  /* Signage golds pulled straight from the badge: `mustard-300` is the radiant
+     amber-gold (#FFC400) for highest contrast on dark ink. */
+  --color-mustard-300: #FFC400;
+  --color-mustard-400: #E6AD00;
+  --color-mustard-500: #C28E00;
+  --color-mustard-600: #6B4426;
 
-  /* Lettuce green (logo) for the open lamp — deep enough for AA on paper. */
-  --color-open-400: #3E6B10;
-  --color-open-500: #467715;
-  --color-open-600: #3E6B10;
+  /* Deep forest green for open status — commanding readability on paper. */
+  --color-open-400: #1E4D00;
+  --color-open-500: #286302;
+  --color-open-600: #1E4D00;
 
   /* ── Brand voice ── Rokkitt everywhere: one condensed vintage slab across
      display and text roles. Fallbacks are serif system fonts; the brand never
@@ -96,8 +94,11 @@
     font-family: var(--font-sans);
     /* Prevent iOS from inflating text on rotate (avoids reflow/CLS). */
     text-size-adjust: 100%;
-    font-weight: 500;
+    font-weight: 600;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   img,

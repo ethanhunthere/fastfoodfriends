@@ -193,11 +193,11 @@ function CheckoutForm({
         <ul className="space-y-1.5 text-sm">
           {lines.map((line) => (
             <li key={line.key} className="flex items-center justify-between gap-3">
-              <span className="min-w-0 text-cream-100">
-                <span className="tnum font-semibold text-flame-700">{line.quantity}×</span>{" "}
+              <span className="min-w-0 font-bold text-cream-50">
+                <span className="tnum font-black text-flame-700">{line.quantity}×</span>{" "}
                 {describeCartLine(line)}
               </span>
-              <span className="tnum shrink-0 text-cream-200">
+              <span className="tnum shrink-0 font-extrabold text-cream-100">
                 {formatPrice(line.unitPriceCents * line.quantity)}
               </span>
             </li>
@@ -208,7 +208,7 @@ function CheckoutForm({
       {state.formError ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-lg border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-sm text-flame-300"
+          className="flex items-start gap-2 rounded-lg border-2 border-flame-600 bg-flame-500/10 px-3 py-2 text-sm font-bold text-flame-600"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {state.formError}
@@ -216,7 +216,7 @@ function CheckoutForm({
       ) : null}
 
       <fieldset>
-        <legend className="mb-2 text-sm font-semibold text-cream-100">
+        <legend className="mb-2 text-sm font-bold text-cream-50 uppercase tracking-wide">
           Si e dëshiron porosinë?
         </legend>
         <div className="grid grid-cols-2 gap-2">
@@ -405,21 +405,21 @@ function Field({ id, label, icon, hint, error, required, children }: FieldProps)
     <div>
       <label
         htmlFor={id}
-        className="flex items-center gap-2 text-sm font-semibold text-cream-100"
+        className="flex items-center gap-2 text-sm font-bold text-cream-50"
       >
         {icon}
         {label}
         {required ? (
-          <span className="text-flame-300" aria-hidden="true">
+          <span className="text-flame-600 font-extrabold" aria-hidden="true">
             *
           </span>
         ) : (
-          <span className="text-xs font-normal text-cream-200">(opsionale)</span>
+          <span className="text-xs font-semibold text-cream-100">(opsionale)</span>
         )}
       </label>
 
       {hint ? (
-        <p id={`${id}-hint`} className="mt-1 text-xs text-cream-200">
+        <p id={`${id}-hint`} className="mt-1 text-xs font-semibold text-cream-100">
           {hint}
         </p>
       ) : null}
@@ -427,7 +427,7 @@ function Field({ id, label, icon, hint, error, required, children }: FieldProps)
       {children}
 
       {error ? (
-        <p id={`${id}-error`} role="alert" className="mt-1.5 text-xs text-flame-300">
+        <p id={`${id}-error`} role="alert" className="mt-1.5 text-xs font-bold text-flame-600">
           {error}
         </p>
       ) : null}
@@ -467,11 +467,11 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
         className="h-4 w-4 accent-flame-500"
       />
       <span className="flex min-w-0 flex-col">
-        <span className="flex items-center gap-2 text-sm font-semibold text-cream-50">
+        <span className="flex items-center gap-2 text-sm font-bold text-cream-50">
           {icon}
           {label}
         </span>
-        <span className="tnum text-xs text-cream-200">{hint}</span>
+        <span className="tnum text-xs font-semibold text-cream-100">{hint}</span>
       </span>
     </label>
   );
@@ -481,13 +481,13 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
 function SuccessPanel({ state }: { state: OrderFormState }) {
   return (
     <div className="space-y-4">
-      <div className="flex items-start gap-3 rounded-card border border-open-500/40 bg-open-500/10 p-4">
+      <div className="flex items-start gap-3 rounded-card border-2 border-open-400 bg-open-500/10 p-4">
         <CircleCheckBig aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-open-400" />
         <div>
-          <p className="font-display text-lg font-semibold text-cream-50">
+          <p className="font-display text-xl font-bold text-cream-50">
             Porosia u pranua me sukses!
           </p>
-          <p className="mt-1 text-sm text-cream-200">
+          <p className="mt-1 text-sm font-semibold text-cream-100">
             Ju telefonojmë brenda 2 minutave për ta konfirmuar.
           </p>
         </div>
@@ -495,18 +495,18 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
 
       <dl className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm">
         <div className="flex items-center justify-between">
-          <dt className="text-cream-200">Numri i porosisë</dt>
-          <dd className="tnum font-display text-base font-bold text-flame-700">
+          <dt className="font-bold text-cream-100">Numri i porosisë</dt>
+          <dd className="tnum font-display text-lg font-black text-flame-700">
             {state.orderNumber}
           </dd>
         </div>
         <div className="mt-2 flex items-center justify-between">
-          <dt className="text-cream-200">Totali</dt>
-          <dd className="tnum text-cream-50">{formatPrice(state.totalCents)}</dd>
+          <dt className="font-bold text-cream-100">Totali</dt>
+          <dd className="tnum font-bold text-cream-50">{formatPrice(state.totalCents)}</dd>
         </div>
         <div className="mt-2 flex items-center justify-between">
-          <dt className="text-cream-200">Njoftimi push</dt>
-          <dd className={state.notificationDelivered ? "text-open-400" : "text-flame-700"}>
+          <dt className="font-bold text-cream-100">Njoftimi push</dt>
+          <dd className={state.notificationDelivered ? "font-bold text-open-400" : "font-bold text-flame-700"}>
             {state.notificationDelivered ? "U dërgua" : "Nuk u konfirmua"}
           </dd>
         </div>
@@ -515,20 +515,20 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
       {!state.notificationDelivered && state.notificationNote ? (
         <p
           role="alert"
-          className="flex items-start gap-2 rounded-lg border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm text-flame-700"
+          className="flex items-start gap-2 rounded-lg border border-mustard-500/45 bg-flame-500/10 px-3 py-2 text-sm font-bold text-flame-700"
         >
           <TriangleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
           {state.notificationNote}
         </p>
       ) : null}
 
-      <div className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm text-cream-200">
-        <p className="font-medium text-cream-100">Hapi tjetër</p>
-        <ol className="mt-2 list-decimal space-y-1 pl-5">
+      <div className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm text-cream-100">
+        <p className="font-bold text-base text-cream-50">Hapi tjetër</p>
+        <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm font-medium text-cream-100">
           <li>Telefonojmë numrin që dhatë për të konfirmuar adresën dhe kohën.</li>
           <li>Porosia përgatitet dhe niset brenda {RESTAURANT.address.city}.</li>
           <li>Pagesa bëhet cash ose me kartelë në dorëzim.</li>
-              </ol>
+        </ol>
       </div>
     </div>
   );

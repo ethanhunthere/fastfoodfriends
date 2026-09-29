@@ -29,15 +29,15 @@ export default function ThankYouPage() {
         Faleminderit! Porosia u dërgua.
       </h1>
 
-      <p className="max-w-md text-sm text-cream-200">
+      <p className="max-w-md text-base font-medium text-cream-100">
         Pikës ka arritur njoftimi push me butonin “Telefono”. Brenda pak
-        minutrash do të bëjmë një thirrje për të konfirmuar porosinë dhe
+        minutash do të bëjmë një thirrje për të konfirmuar porosinë dhe
         kohën e dorëzimit.
       </p>
 
       <a
         href={getRestaurantPhoneHref()}
-        className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-flame-500 px-6 text-base font-semibold text-white transition-colors hover:bg-flame-700"
+        className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-flame-500 px-6 text-base font-bold text-white transition-colors hover:bg-flame-700"
       >
         <Phone aria-hidden="true" className="h-5 w-5" />
         Telefono {RESTAURANT.phoneE164}
@@ -45,7 +45,7 @@ export default function ThankYouPage() {
 
       <Link
         href="/#menu-browse"
-        className="inline-flex min-h-11 items-center text-sm font-medium text-cream-200 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-700"
+        className="inline-flex min-h-11 items-center text-sm font-bold text-cream-100 underline decoration-charcoal-600 underline-offset-4 hover:text-flame-700"
       >
         ← Kthehu në menujë
       </Link>

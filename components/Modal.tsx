@@ -126,14 +126,14 @@ export function Modal({
         <header className="modal-heading">
           <h2
             id={titleId}
-            className="font-display text-lg font-semibold tracking-tight text-cream-50"
+            className="font-display text-xl font-bold tracking-tight text-cream-50"
           >
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-charcoal-700 text-cream-200 transition-colors hover:border-flame-400 hover:text-flame-700"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border-2 border-charcoal-700 text-cream-50 transition-colors hover:border-flame-400 hover:text-flame-700"
           >
             <X aria-hidden="true" className="h-5 w-5" />
             <span className="sr-only">Mbyll</span>
