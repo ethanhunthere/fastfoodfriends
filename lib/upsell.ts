@@ -4,7 +4,6 @@ import {
   getItemById,
   resolveLine,
   type MenuItem,
-  type CategoryId,
 } from "./menu";
 import { buildLineKey } from "./cart";
 import type { CartLineInput } from "../types/order";

@@ -11,18 +11,28 @@ export function ExpressMenuPage() {
   return (
     <>
       <section className="express-welcome" aria-labelledby="express-title">
-        <div>
-          <p className="express-eyebrow">GOOD FOOD. GOOD FRIENDS.</p>
+        <div className="express-welcome-content">
+          <div className="express-welcome-badge">
+            <span className="express-welcome-dot" aria-hidden="true" />
+            <span className="express-eyebrow">GOOD FOOD • GOOD FRIENDS</span>
+          </div>
           <h1 id="express-title">Uria s’pret<span>.</span></h1>
-          <p>Zgjidh të preferuarën. Ne kujdesemi për pjesën tjetër.</p>
+          <p>E freskët nga zgara, e përgatitur me dashuri në Pejë.</p>
         </div>
       </section>
       <div className="express-service">
-        <span className={status.isOpen ? "express-open" : "express-closed"}>
+        <span className={`express-service-pill ${status.isOpen ? "express-open" : "express-closed"}`}>
+          <span className="express-status-lamp" aria-hidden="true" />
           {status.isOpen ? "Hapur tani" : "Mbyllur"}
         </span>
-        <span><Clock size={13} aria-hidden="true" />25–40 min</span>
-        <Link href="/kontakt">{RESTAURANT.address.city} <ArrowUpRight size={13} aria-hidden="true" /></Link>
+        <span className="express-service-pill">
+          <Clock size={13} aria-hidden="true" />
+          <span>25–40 min</span>
+        </span>
+        <Link href="/kontakt" className="express-service-pill express-service-link">
+          <span>{RESTAURANT.address.city}</span>
+          <ArrowUpRight size={13} aria-hidden="true" />
+        </Link>
       </div>
       {!status.isOpen && <p className="express-closed-note">{status.detail}. Porosit tani; konfirmojmë sapo hapim.</p>}
       <div className="storefront-layout">

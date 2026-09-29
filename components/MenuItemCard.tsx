@@ -163,13 +163,14 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
       <div className="express-item-body">
         {hasSheet ? (
           <button type="button" className="express-item-copy" onClick={() => setOpen(true)} aria-haspopup="dialog">
-            {item.featured && <span className="express-item-tag">E preferuara</span>}
+            {item.featured && <span className="express-item-tag">★ E preferuara</span>}
             <h3>{item.name}</h3>
             {item.description ? <p>{item.description}</p> : null}
+            <span className="express-item-custom-badge" aria-hidden="true">Opsione sipas shijes ✦</span>
           </button>
         ) : (
           <div className="express-item-copy">
-            {item.featured && <span className="express-item-tag">E preferuara</span>}
+            {item.featured && <span className="express-item-tag">★ E preferuara</span>}
             <h3>{item.name}</h3>
             {item.description ? <p>{item.description}</p> : null}
           </div>
@@ -191,18 +192,24 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
             <div className="express-stepper" role="group" aria-label={`Sasia e ${item.name} në shportë`}>
               <button type="button" onClick={decrementCanonical}
                 aria-label={canonicalLine.quantity === 1 ? `Hiq ${item.name} nga shporta` : `Hiq një ${item.name}`}>
-                <Minus size={16} aria-hidden="true" />
+                <Minus size={15} strokeWidth={2.6} aria-hidden="true" />
               </button>
               <span className="express-stepper-count tnum" aria-live="polite">{canonicalLine.quantity}</span>
               <button type="button" onClick={incrementCanonical} disabled={canonicalLine.quantity >= ORDER_CONFIG.maxQuantityPerLine}
                 aria-label={`Shto një ${item.name} tjetër`}>
-                <Plus size={16} aria-hidden="true" />
+                <Plus size={15} strokeWidth={2.6} aria-hidden="true" />
               </button>
             </div>
           ) : (
-            <button type="button" onClick={onQuickAdd} className="express-add"
-              aria-label={`Shto ${item.name}`} aria-haspopup={hasSheet ? "dialog" : undefined}>
-              Shto
+            <button
+              type="button"
+              onClick={onQuickAdd}
+              className="express-add"
+              aria-label={hasSheet ? `Zgjidh opsionet dhe shto ${item.name}` : `Shto ${item.name} në shportë`}
+              aria-haspopup={hasSheet ? "dialog" : undefined}
+            >
+              <Plus size={15} strokeWidth={3} className="express-add-icon" aria-hidden="true" />
+              <span>Shto</span>
             </button>
           )}
         </div>

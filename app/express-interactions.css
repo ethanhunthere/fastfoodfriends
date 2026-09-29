@@ -21,8 +21,11 @@
 .express-customizer-footer{display:flex;gap:12px;align-items:center}
 .express-quantity{display:flex;align-items:center;gap:3px;border:1.5px solid #2B1A0C;border-radius:6px;flex-shrink:0;box-shadow:0 2px 0 #2B1A0C}
 .express-quantity button{border:0!important;min-width:40px;min-height:48px}
-.express-primary{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:12px 16px;border-radius:6px;border:2px solid #191008;background:#BC4D08;color:#fffaf2;font-size:14.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;flex:1;width:100%;box-shadow:0 4px 0 #191008}
-.express-primary span{margin-left:auto;white-space:nowrap}.express-primary:disabled{opacity:.55;box-shadow:none;letter-spacing:.04em;text-transform:none}
+.express-primary{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:12px 18px;border-radius:8px;border:1.5px solid #6E2601;background:linear-gradient(180deg, #E65A0F 0%, #B84303 100%);color:#FFFDF8;font-family:var(--font-display);font-size:15px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;flex:1;width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(0,0,0,.2), 0 4px 0 #682302, 0 8px 16px rgba(184,67,3,.28);cursor:pointer;user-select:none;touch-action:manipulation;transition:transform 140ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 140ms ease,background 140ms ease}
+.express-primary:hover:not(:disabled){background:linear-gradient(180deg, #F2671B 0%, #C44804 100%);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.48), 0 6px 0 #682302, 0 12px 24px rgba(184,67,3,.4)}
+.express-primary:active:not(:disabled){transform:translateY(4px) scale(0.98);box-shadow:inset 0 2px 4px rgba(0,0,0,.32), 0 0 0 #682302}
+.express-primary span{margin-left:auto;white-space:nowrap}
+.express-primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;letter-spacing:.03em;text-transform:none;background:#4A382A;border-color:#332418;color:#9E8775}
 .express-checkout-form{display:grid;gap:13px}
 .express-checkout-form>fieldset>legend{display:none}
 .express-checkout-form>fieldset label{min-height:54px;padding:8px 10px;border-radius:8px;border:1.5px solid #d0bd9e}
@@ -42,14 +45,17 @@
    The conversion anchor: a full-bleed ink bar cut off from the paper page by a
    flame & gold signage rule. Price reads like a counter display — big, tabular,
    mustard-on-ink. CTA is thumb-high with a hard pressed-stamp shadow. */
-.express-cart-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#191008;border-top:3px solid #BC4D08;box-shadow:0 -2px 0 #FDBB05;padding:12px 16px max(12px,env(safe-area-inset-bottom))}
-.express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:stretch}
-.express-cart-review{min-height:64px;display:flex;align-items:center;gap:12px;text-align:left;flex-shrink:0;font-size:11px;color:#f8ecd9}
-.express-cart-count{display:grid;place-items:center;min-width:40px;height:44px;padding:0 9px;border-radius:4px;background:#FDBB05;color:#191008;font-family:var(--font-display);font-size:19px;font-weight:900}
-.express-cart-review strong{display:block;font-family:var(--font-display);font-size:23px;font-weight:900;letter-spacing:-.015em;line-height:1;color:#FDBB05}
-.express-cart-review small{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c9a97f;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.express-cart-bar .express-primary{max-width:480px;margin-left:auto;min-height:64px;font-size:14.5px;font-weight:900;letter-spacing:.08em;white-space:nowrap;overflow-wrap:normal;border:2px solid #191008;box-shadow:0 5px 0 #000000}.express-cart-bar .express-primary svg{flex-shrink:0}
-.express-cart-bar .express-primary:active{transform:translateY(5px);box-shadow:0 0 0 #000000}
+.express-cart-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#170F07;border-top:3px solid #BC4D08;box-shadow:0 -2px 0 #FDBB05, 0 -8px 24px rgba(0,0,0,0.36);padding:10px 16px max(12px,env(safe-area-inset-bottom));transition:transform 200ms ease}
+.express-cart-bar-inner{max-width:992px;margin:auto;display:flex;gap:14px;align-items:center}
+.express-cart-review{min-height:56px;display:flex;align-items:center;gap:12px;text-align:left;flex-shrink:0;font-size:11px;color:#F8ECD9;cursor:pointer;background:none;border:0;padding:0}
+.express-cart-count{display:grid;place-items:center;min-width:38px;height:42px;padding:0 8px;border-radius:6px;background:#FDBB05;color:#191008;font-family:var(--font-display);font-size:18px;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.25)}
+.express-cart-review strong{display:block;font-family:var(--font-display);font-size:22px;font-weight:900;letter-spacing:-.015em;line-height:1;color:#FDBB05;text-shadow:0 1px 2px rgba(0,0,0,0.4)}
+.express-cart-review small{display:block;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#D6BFA2;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.express-cart-bar .express-primary{max-width:440px;margin-left:auto;min-height:58px;font-size:15px;font-weight:900;letter-spacing:.06em;border-radius:8px;border:2px solid #000000;box-shadow:0 4.5px 0 #000000}
+.express-cart-bar .express-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6.5px 0 #000000, 0 8px 16px rgba(184,67,3,.35)}
+.express-cart-bar .express-primary:active:not(:disabled){transform:translateY(4.5px);box-shadow:0 0 0 #000000}
+.express-cart-cta-arrow{transition:transform 160ms cubic-bezier(0.34,1.56,0.64,1);flex-shrink:0}
+.express-cart-bar .express-primary:hover .express-cart-cta-arrow{transform:translateX(4px)}
 @media(min-width:640px){.express-welcome{padding:26px 0 18px}.express-welcome h1{font-size:46px}.express-welcome p:last-child{max-width:none;font-size:13.5px}.express-item-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.express-item{padding:13px}.express-food-art{width:104px;height:104px}.express-item-body{min-height:104px}.express-item-copy h3{font-size:17.5px}.express-section-heading h2{font-size:22px}.express-item-copy p{font-size:12.5px}.express-categories{grid-template-columns:repeat(4,140px)}.express-categories button{font-size:12px}.express-dialog{border-radius:14px!important}.express-footer address{width:auto}.express-location{font-size:12px}}
 @media(max-width:350px){.express-item{gap:8px;padding:10px}.express-food-art{width:88px;height:88px}.express-item-copy h3{font-size:14px}.express-categories button{font-size:10px;gap:3px}.express-customizer-footer{gap:6px}.express-primary{font-size:12px;padding:12px}.express-service{gap:8px}.express-cart-review small{display:none}}
 @media(prefers-reduced-motion:no-preference){button{transition:transform 120ms ease,background-color 120ms ease}button:active{transform:translateY(1px)}}

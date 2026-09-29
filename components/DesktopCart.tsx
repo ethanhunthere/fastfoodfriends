@@ -20,17 +20,22 @@ export function DesktopCart() {
             removeLine={cart.removeLine} clearCart={cart.clearCart} />
         ) : (
           <div className="desktop-cart-empty">
-            <ShoppingBag size={36} aria-hidden="true" />
-            <h3>Diçka të mirë?</h3>
-            <p>Shto të preferuarat nga menuja.<br />Pa llogari. Pa hapa të tepërt.</p>
+            <div className="desktop-cart-empty-icon" aria-hidden="true">
+              <ShoppingBag size={32} />
+            </div>
+            <h3>Gati për diçka të shijshme?</h3>
+            <p>Zgjidh të preferuarat nga menuja.<br />Gatuajmë menjëherë sapo porosit.</p>
           </div>
         )}
       </div>
       <footer>
-        <dl><div><dt>Nënshuma</dt><dd className="tnum">{formatPrice(cart.subtotalCents)}</dd></div></dl>
+        <dl><div><dt>Nënshuma</dt><dd className="tnum font-bold">{formatPrice(cart.subtotalCents)}</dd></div></dl>
         <p>Dorëzimin ose marrjen në lokal e zgjedh në hapin tjetër.</p>
         <button type="button" className="express-primary" onClick={cart.openCheckout}
-          disabled={!cart.lines.length} aria-haspopup="dialog">Porosit Tani</button>
+          disabled={!cart.lines.length} aria-haspopup="dialog">
+          <span>Porosit Tani</span>
+          {cart.lines.length > 0 && <span className="tnum">{formatPrice(cart.subtotalCents)}</span>}
+        </button>
       </footer>
     </aside>
   );

@@ -20,20 +20,21 @@ export function StickyOrderBar() {
 
   return <>
     <div aria-hidden="true" className="cart-bar-spacer" />
-    <div className="express-cart-bar no-print">
+    <div className={`express-cart-bar no-print ${hasItems ? "has-items" : "is-empty"}`}>
       <div className="express-cart-bar-inner">
         <p aria-live="polite" aria-atomic="true" className="sr-only">Shporta: {count} artikuj, {formatPrice(subtotal)}</p>
         <button type="button" className="express-cart-review" onClick={openCart}
           aria-label={`Shiko Shportën, ${count} artikuj, ${formatPrice(subtotal)}`} aria-haspopup="dialog">
-          <span className="express-cart-count tnum">{count}</span>
+          <span className="express-cart-count tnum" key={count}>{count}</span>
           <span>
             <strong className="tnum">{formatPrice(subtotal)}</strong>
-            <small>Shiko Shportën</small>
+            <small>{hasItems ? "Shiko Shportën • Pejë" : "Shporta jote është bosh"}</small>
           </span>
         </button>
-        <button type="button" className="express-primary" onClick={openCheckout}
+        <button type="button" className="express-primary express-cart-cta" onClick={openCheckout}
           disabled={!hasItems} aria-haspopup="dialog">
-          Porosit Tani <ArrowRight size={20} aria-hidden="true" />
+          <span>{hasItems ? "Porosit Tani" : "Zgjidh Ushqimin"}</span>
+          <ArrowRight size={18} strokeWidth={2.6} className="express-cart-cta-arrow" aria-hidden="true" />
         </button>
       </div>
     </div>

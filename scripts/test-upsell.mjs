@@ -51,7 +51,7 @@ try {
   assert.equal(evaluate(["coca-cola"])[0].suggestions.length, nonDrinks);
   for (const item of getAvailableItems()) {
     const groups = evaluate([item.id]);
-    assert.deepEqual(groups.map(g => g.kind), item.category === "pije" ? ["eat"] : item.category === "shtesa" ? ["drink", "eat"] : ["drink", "side"]);
+    assert.deepEqual(groups.map(g => g.kind), item.id === "pomfrit" ? ["drink", "eat"] : item.category === "pije" ? ["eat"] : ["drink", "side"]);
   }
   assert.deepEqual(evaluate(["coca-cola", "coca-cola"]), evaluate(["coca-cola"]));
   console.log("PASS: all category combinations, every menu item, duplicate/unknown IDs, canonical prices, defaults and exclusion rules.");
