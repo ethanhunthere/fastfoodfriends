@@ -83,12 +83,8 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
     }
   }
 
-  const [justAdded, setJustAdded] = useState(false);
-
   function handleAdd() {
     triggerHaptic(20);
-    setJustAdded(true);
-    setTimeout(() => setJustAdded(false), 550);
     const display = {
       name: item.name,
       variantLabel: resolved?.variant?.label ?? null,
@@ -181,14 +177,14 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
       <div className="express-item-body">
         {hasSheet ? (
           <button type="button" className="express-item-copy" onClick={() => setOpen(true)} aria-haspopup="dialog">
-            {item.featured && <span className="express-item-tag">★ E preferuara</span>}
+            {item.featured && <span className="express-item-tag">E preferuar</span>}
             <h3>{item.name}</h3>
             {item.description ? <p>{item.description}</p> : null}
-            <span className="express-item-custom-badge" aria-hidden="true">Opsione sipas shijes ✦</span>
+            <span className="express-item-custom-badge" aria-hidden="true">Opsione sipas dëshirës</span>
           </button>
         ) : (
           <div className="express-item-copy">
-            {item.featured && <span className="express-item-tag">★ E preferuara</span>}
+            {item.featured && <span className="express-item-tag">E preferuar</span>}
             <h3>{item.name}</h3>
             {item.description ? <p>{item.description}</p> : null}
           </div>
@@ -207,9 +203,6 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
         <div className="express-item-foot">
           <strong className="express-item-price tnum">{formatPrice(unitPriceCents)}</strong>
           <div className="express-action-wrapper">
-            {justAdded && (
-              <span className="express-add-burst" aria-hidden="true">+1</span>
-            )}
             {canonicalLine ? (
               <div className="express-stepper" role="group" aria-label={`Sasia e ${item.name} në shportë`}>
                 <button type="button" onClick={decrementCanonical}

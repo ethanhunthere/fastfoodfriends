@@ -13,7 +13,6 @@ export function ExpressMenuPage() {
       <section className="express-welcome" aria-labelledby="express-title">
         <div className="express-welcome-content">
           <div className="express-welcome-badge">
-            <span className="express-welcome-dot" aria-hidden="true" />
             <span className="express-eyebrow">GOOD FOOD • GOOD FRIENDS</span>
           </div>
           <h1 id="express-title">Uria s’pret<span>.</span></h1>
@@ -21,15 +20,14 @@ export function ExpressMenuPage() {
         </div>
       </section>
       <div className="express-service">
-        <span className={`express-service-pill ${status.isOpen ? "express-open" : "express-closed"}`}>
-          <span className="express-status-lamp" aria-hidden="true" />
-          {status.isOpen ? "Hapur tani" : "Mbyllur"}
+        <span className={`express-service-item ${status.isOpen ? "express-open" : "express-closed"}`}>
+          <span className="express-status-label">{status.isOpen ? "HAPUR TANI" : "MBYLLUR"}</span>
         </span>
-        <span className="express-service-pill">
+        <span className="express-service-item">
           <Clock size={13} aria-hidden="true" />
           <span>25–40 min</span>
         </span>
-        <Link href="/kontakt" className="express-service-pill express-service-link">
+        <Link href="/kontakt" className="express-service-item express-service-link">
           <span>{RESTAURANT.address.city}</span>
           <ArrowUpRight size={13} aria-hidden="true" />
         </Link>

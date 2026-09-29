@@ -22,22 +22,15 @@ export function OpeningStatusBadge({
 
   return (
     <span
-      className={`inline-flex flex-wrap items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium ${
+      className={`inline-flex flex-wrap items-center gap-2 rounded border px-2.5 py-1 text-xs font-bold ${
         isOpen
-          ? "border-open-500/40 bg-open-500/10 text-open-400"
-          : "border-flame-500/40 bg-flame-500/10 text-flame-300"
+          ? "border-[#2B1A0C] bg-[#F2F8ED] text-[#2F570B]"
+          : "border-[#2B1A0C] bg-[#FDF2EC] text-[#8F3A06]"
       } ${className}`}
     >
-      <span className="relative flex h-2 w-2" aria-hidden="true">
-        <span
-          className={`h-2 w-2 rounded-full ${
-            isOpen ? "bg-open-400" : "bg-flame-400"
-          }`}
-        />
-      </span>
-      <span>{status.label}</span>
+      <span className="tracking-wider uppercase">{status.label}</span>
       {status.detail ? (
-        <span className="text-cream-200">· {status.detail}</span>
+        <span className="text-[#5D3A1E] font-medium">· {status.detail}</span>
       ) : null}
     </span>
   );

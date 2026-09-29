@@ -1,114 +1,670 @@
-/* Friends Express: paper, tomato, ink. No animation or image dependencies. */
-.express-header{position:sticky;top:0;z-index:40;background:#fbf6ea;border-bottom:2px solid #2B1A0C;box-shadow:0 1px 0 rgba(188,77,8,0.12)}
-.express-header::before{display:none}
-.express-header-inner{height:var(--header-height);max-width:1024px;margin:auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.express-brand{display:flex;align-items:center;gap:11px;min-height:44px;text-decoration:none}
-.express-wordmark{display:flex;flex-direction:column;justify-content:center;line-height:1}
-.express-wordmark small{font-size:9px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#BC4D08;margin-bottom:3px}
-.express-wordmark strong{font-size:23px;font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;color:#2B1A0C}
-/* Official emblem — the badge's disc, glow and sub-line are cut away; only the
-   burger and its FRIENDS wordmark ride on transparency, straight on the paper. */
-.express-logo{display:flex;align-items:center;height:48px;flex-shrink:0}
-.express-logo img{height:100%;width:auto;display:block}
-.express-nav-mid{display:flex;align-items:center;gap:12px;min-width:0;flex:1;justify-content:center}
-.express-nav-divider{display:none;width:1.5px;height:22px;background:#d8c5a2;flex-shrink:0}
-/* Live status: a signal lamp and typographic hierarchy — no chip, no box. */
-.express-nav-status{display:none;align-items:center;gap:7px;min-height:28px;color:#191008;font-size:11.5px;white-space:nowrap}
-.express-nav-status::before{content:"";width:7px;height:7px;border-radius:50%;background:#3E6B10;flex-shrink:0}
-.express-nav-status[data-open=false]::before{background:#8F3A06}
-.express-nav-status-label{font-size:11.5px;font-weight:800;letter-spacing:-.01em;color:#3E6B10}
-.express-nav-status[data-open=false] .express-nav-status-label{color:#8F3A06}
-.express-nav-status-detail{font-weight:500;font-size:11.5px;color:#5d3a1e}
-.express-nav-status-detail::before{content:"·";margin-right:6px;color:#9a8465;font-weight:700}
-.express-location{display:flex;align-items:center;gap:6px;min-height:44px;padding-inline:4px;font-size:11.5px;font-weight:700;color:#6b4426;border-radius:10px;transition:color 120ms ease}
-.express-location:hover{color:#2B1A0C}
-.express-location:hover .express-location-city{color:#BC4D08}
-.express-location svg{color:#BC4D08;flex-shrink:0}
-.express-location-city{color:#2B1A0C;transition:color 120ms ease}
-.express-location-street{display:none;font-weight:500;color:#6b4426;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.express-header-cart{display:flex;align-items:center;justify-content:center;gap:8px;min-width:48px;min-height:44px;padding:0 14px;border-radius:8px;border:1.5px solid #140B04;background:#20140A;color:#FFF8EB;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,255,255,0.14), 0 3px 0 #140B04;cursor:pointer;user-select:none;touch-action:manipulation;transition:all 120ms ease}
-.express-header-cart:hover{background:#2E1D10;box-shadow:inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 0 #140B04;transform:translateY(-1px)}
-.express-header-cart:active{transform:translateY(3px);box-shadow:0 0 0 #140B04}
-.express-header-cart-label{display:none}
-.express-header-cart-subtotal{font-family:var(--font-display);font-size:12.5px;font-weight:900;color:#FDBB05;display:none}
-@media(min-width:640px){.express-header-cart-subtotal{display:inline-block}}
-.express-cart-badge{display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:6px;background:#FDBB05;color:#191008;font-size:11px;font-weight:900;letter-spacing:0;box-shadow:0 1px 2px rgba(0,0,0,0.2)}
-.express-welcome{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:22px 0 16px}
-.express-welcome-content{display:flex;flex-direction:column;align-items:flex-start}
-.express-welcome-badge{display:inline-flex;align-items:center;gap:6px;background:#F6EDD8;border:1px solid #DFCCA4;border-radius:20px;padding:4px 10px;margin-bottom:8px}
-.express-welcome-dot{width:6px;height:6px;border-radius:50%;background:#BC4D08}
-.express-eyebrow{font-size:10.5px;letter-spacing:.14em;font-weight:800;color:#7A2C02;text-transform:uppercase}
-.express-welcome h1{font-family:var(--font-display);font-size:clamp(32px,8.6vw,44px);font-weight:900;line-height:1.05;letter-spacing:-.025em;margin:2px 0 4px;color:#1A1008}
-.express-welcome h1 span{color:#BC4D08}
-.express-welcome p:last-child{max-width:320px;font-size:13.5px;line-height:1.5;color:#4A3222;margin:0}
+/* Friends Express: paper, tomato, ink.
+   Pure industrial modernism and authentic restaurant discipline.
+   Zero synthetic noise, zero glowing lamps, zero AI slop. */
 
-/* Service Pills */
-.express-service{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
-.express-service-pill{display:inline-flex;align-items:center;gap:6px;background:#FFFFFF;border:1.5px solid #DECBA8;border-radius:24px;padding:6px 12px;font-size:12px;font-weight:700;color:#382415;box-shadow:0 1.5px 0 #E4D5BE}
-.express-service-link{color:#6B4426;text-decoration:none;transition:all 120ms ease}
-.express-service-link:hover{border-color:#BC4D08;color:#BC4D08}
-.express-status-lamp{width:8px;height:8px;border-radius:50%;background:#3E6B10;box-shadow:0 0 8px rgba(62,107,16,0.5)}
-.express-closed .express-status-lamp{background:#8F3A06;box-shadow:none}
-.express-open{color:#2F570B;background:#F2F8ED;border-color:#C3DEAC}
-.express-closed{color:#7A2800;background:#FDF2EC;border-color:#EBC7B4}
+.express-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #FBF6EA;
+  border-bottom: 2px solid #2B1A0C;
+}
 
-.express-closed-note{font-size:12.5px;font-weight:600;color:#4a3020;padding:8px 12px;border-left:4px solid #8F3A06;background:#f7edd8;border-radius:0 8px 8px 0;margin:10px 0}
+.express-header-inner {
+  height: var(--header-height);
+  max-width: 1024px;
+  margin: auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
 
-/* Categories Switcher */
-.express-categories{position:sticky;top:var(--header-height);z-index:30;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px 0;background:rgba(251,246,234,0.95);backdrop-filter:blur(10px);border-bottom:2px solid #E2D2B6}
-.express-categories button{min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-display);font-size:14.5px;font-weight:800;letter-spacing:-.01em;border-radius:8px;border:1.5px solid #D8C5A2;white-space:nowrap;background:#FFFFFF;color:#382415;box-shadow:0 2.5px 0 #D8C5A2;cursor:pointer;touch-action:manipulation;transition:all 120ms ease}
-.express-categories button:hover{border-color:#BC4D08;color:#BC4D08;box-shadow:0 2.5px 0 #BC4D08;transform:translateY(-1px)}
-.express-categories button[aria-pressed=true]{background:#191008;color:#FFF8EB;border-color:#191008;box-shadow:0 2.5px 0 #000000}
-.express-categories button[aria-pressed=true] .express-cat-icon{color:#FDBB05}
-.express-cat-icon{transition:transform 140ms ease}
-.express-categories button:hover .express-cat-icon{transform:scale(1.12)}
-.express-cat-count{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:10px;font-size:11px;font-weight:800;background:#F5EBCE;color:#4A3222}
-.express-categories button[aria-pressed=true] .express-cat-count{background:#302014;color:#FDBB05}
+.express-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  text-decoration: none;
+}
 
-.express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),.express-menu[data-active=pije] [data-category]:not([data-category=pije]){display:none}
-.express-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid #2B1A0C}
-.express-section-heading h2{font-family:var(--font-display);font-size:24px;font-weight:900;letter-spacing:-.02em;color:#191008;white-space:nowrap}
-.express-section-heading span{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8F3A06;background:#F7ECD6;border:1px solid #DFCBA5;border-radius:4px;padding:3px 9px;white-space:nowrap}
+.express-wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
 
-/* Food Item Cards */
-.express-item-list{display:grid;gap:12px;margin-bottom:28px}
-.express-item{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;align-items:center;border:1.5px solid #E0CFA7;background:#FFFFFF;border-radius:12px;padding:12px;min-width:0;box-shadow:0 3.5px 0 #E2D2B6, 0 6px 14px rgba(43,26,12,0.03);transition:border-color 160ms ease,box-shadow 160ms ease,transform 160ms ease}
-.express-item:hover{border-color:#BC4D08;transform:translateY(-2px);box-shadow:0 5.5px 0 #BC4D08, 0 10px 20px rgba(188,77,8,0.12)}
-.express-food-art{width:104px;height:104px;min-width:0;border-radius:10px;display:grid;place-items:center;background:radial-gradient(circle at 50% 50%, #ffffff 15%, #fdf6ea 65%, #f5e4c8 100%);overflow:hidden;border:1.5px solid #ECD8B8;box-shadow:inset 0 2px 4px rgba(43,26,12,0.04);cursor:pointer;transition:transform 180ms cubic-bezier(0.2,0,0,1),box-shadow 180ms ease}
-.express-item:hover .express-food-art{transform:scale(1.03);box-shadow:inset 0 2px 4px rgba(43,26,12,0.02), 0 4px 10px rgba(188,77,8,0.14)}
-.express-food-img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(43,26,12,0.12));transition:transform 200ms cubic-bezier(0.2,0,0,1),filter 200ms ease}
-.express-item:hover .express-food-img{transform:translateY(-2px) scale(1.05);filter:drop-shadow(0 8px 16px rgba(43,26,12,0.2))}
-.art-pije .express-food-img{object-fit:contain;padding:4px}
-.art-pije{background:#EFE9D4}.art-shtesa{background:#FBEECC}
+.express-wordmark strong {
+  font-size: 23px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #191008;
+}
 
-.express-item-body{display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-width:0;min-height:104px;padding:2px 2px 0 0}
-.express-item-copy{text-align:left;display:flex;flex-direction:column;gap:3px;min-width:0;background:none;border:0;padding:0;cursor:pointer}
-.express-item-copy h3{font-family:var(--font-display);font-size:18px;line-height:1.15;font-weight:800;letter-spacing:-.01em;color:#191008;margin:0}
-.express-item-copy p{font-size:12px;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:#4A3020;margin:0}
-.express-item-custom-badge{align-self:flex-start;font-size:10px;font-weight:700;color:#8F3A06;background:#FDF3E1;border:1px dashed #E5BA75;border-radius:4px;padding:2px 6px;margin-top:2px;display:inline-flex;align-items:center;gap:3px}
+.express-logo {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.express-logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.express-nav-mid {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.express-nav-divider {
+  display: none;
+  width: 1.5px;
+  height: 20px;
+  background: #2B1A0C;
+  flex-shrink: 0;
+}
+
+/* ── Live Status Signage: Pure editorial confidence, NO glowing dot ── */
+.express-nav-status {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1.5px solid #2B1A0C;
+  border-radius: 4px;
+  background: #FFFFFF;
+  box-shadow: 0 1.5px 0 #2B1A0C;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.express-nav-status-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #2F570B;
+}
+
+.express-nav-status[data-open="false"] .express-nav-status-label {
+  color: #8F3A06;
+}
+
+.express-nav-status-detail {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5D3A1E;
+}
+
+.express-nav-status-detail::before {
+  content: "·";
+  margin-right: 5px;
+  color: #8A684C;
+  font-weight: 800;
+}
+
+.express-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding-inline: 4px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #191008;
+  text-decoration: none;
+  transition: color 100ms ease;
+}
+
+.express-location:hover {
+  color: #BC4D08;
+}
+
+.express-location svg {
+  color: #BC4D08;
+  flex-shrink: 0;
+}
+
+.express-location-city {
+  color: #191008;
+}
+
+.express-location-street {
+  display: none;
+  font-weight: 600;
+  color: #5D3A1E;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.express-header-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 48px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1.5px solid #191008;
+  background: #191008;
+  color: #FFF8EB;
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 2.5px 0 #000000;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+
+.express-header-cart:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3.5px 0 #000000;
+}
+
+.express-header-cart:active {
+  transform: translateY(2.5px);
+  box-shadow: 0 0 0 #000000;
+}
+
+.express-header-cart-label {
+  display: none;
+}
+
+.express-header-cart-subtotal {
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 900;
+  color: #FDBB05;
+  display: none;
+}
+
+@media(min-width: 640px) {
+  .express-header-cart-subtotal {
+    display: inline-block;
+  }
+}
+
+.express-cart-badge {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: #FDBB05;
+  color: #191008;
+  font-size: 11px;
+  font-weight: 900;
+  border: 1px solid #191008;
+}
+
+/* ── Hero Welcome ─────────────────────────────────────────────────── */
+.express-welcome {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 14px;
+}
+
+.express-welcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.express-welcome-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #F6EDD8;
+  border: 1.5px solid #2B1A0C;
+  border-radius: 4px;
+  padding: 3px 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1.5px 0 #2B1A0C;
+}
+
+.express-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  font-weight: 900;
+  color: #191008;
+  text-transform: uppercase;
+}
+
+.express-welcome h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 8.6vw, 44px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 2px 0 4px;
+  color: #191008;
+}
+
+.express-welcome h1 span {
+  color: #BC4D08;
+}
+
+.express-welcome p:last-child {
+  max-width: 320px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #4A3020;
+  margin: 0;
+}
+
+/* ── Restaurant Service Indicators: Tactile signage ─────────────────── */
+.express-service {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 14px;
+}
+
+.express-service-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1.5px solid #2B1A0C;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #191008;
+  box-shadow: 0 2px 0 #2B1A0C;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.express-service-link {
+  color: #191008;
+  text-decoration: none;
+  transition: all 100ms ease;
+}
+
+.express-service-link:hover {
+  border-color: #BC4D08;
+  color: #BC4D08;
+}
+
+.express-open .express-status-label {
+  color: #2F570B;
+}
+
+.express-closed {
+  background: #FDF2EC;
+  border-color: #8F3A06;
+}
+
+.express-closed .express-status-label {
+  color: #8F3A06;
+}
+
+.express-closed-note {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #4A3020;
+  padding: 8px 12px;
+  border-left: 4px solid #8F3A06;
+  background: #F7ECD6;
+  border-radius: 0 4px 4px 0;
+  margin: 8px 0;
+}
+
+/* ── Categories Navigation: 100% Solid Opaque Paper ───────────────── */
+.express-categories {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px 0;
+  background: #FBF6EA;
+  border-bottom: 2px solid #2B1A0C;
+}
+
+.express-categories button {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  border-radius: 6px;
+  border: 2px solid #2B1A0C;
+  white-space: nowrap;
+  background: #FFFFFF;
+  color: #191008;
+  box-shadow: 0 3px 0 #2B1A0C;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 100ms ease, box-shadow 100ms ease, background-color 100ms ease;
+}
+
+.express-categories button:hover {
+  background: #FFFDF8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 #2B1A0C;
+}
+
+.express-categories button[aria-pressed=true] {
+  background: #191008;
+  color: #FFFDF8;
+  border-color: #191008;
+  box-shadow: 0 3px 0 #000000;
+  transform: translateY(1px);
+}
+
+.express-categories button[aria-pressed=true] .express-cat-icon {
+  color: #FDBB05;
+}
+
+.express-cat-icon {
+  flex-shrink: 0;
+}
+
+.express-cat-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 900;
+  background: #F6EDD8;
+  border: 1px solid #DECBA8;
+  color: #191008;
+}
+
+.express-categories button[aria-pressed=true] .express-cat-count {
+  background: #2B1A0C;
+  border-color: #000000;
+  color: #FDBB05;
+}
+
+.express-menu[data-active=ushqime-kryesore] [data-category]:not([data-category=ushqime-kryesore]),
+.express-menu[data-active=pije] [data-category]:not([data-category=pije]) {
+  display: none;
+}
+
+.express-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 24px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #2B1A0C;
+}
+
+.express-section-heading h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #191008;
+  white-space: nowrap;
+}
+
+.express-section-heading span {
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #191008;
+  background: #F6EDD8;
+  border: 1px solid #2B1A0C;
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+/* ── Food Item Cards: Physical Ink & Crisp Geometry ────────────────── */
+.express-item-list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.express-item {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  border: 1.5px solid #2B1A0C;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 0;
+  box-shadow: 0 3px 0 #2B1A0C;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+
+.express-item:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4.5px 0 #2B1A0C;
+}
+
+.express-food-art {
+  width: 104px;
+  height: 104px;
+  min-width: 0;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  background: #F8F2E2;
+  overflow: hidden;
+  border: 1.5px solid #DECBA8;
+  cursor: pointer;
+}
+
+.express-food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(25, 16, 8, 0.14));
+}
+
+.art-pije .express-food-img {
+  object-fit: contain;
+  padding: 4px;
+}
+
+.art-pije {
+  background: #EFE9D4;
+}
+
+.art-shtesa {
+  background: #FBEECC;
+}
+
+.express-item-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  min-height: 104px;
+  padding: 2px 2px 0 0;
+}
+
+.express-item-copy {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.express-item-copy h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #191008;
+  margin: 0;
+}
+
+.express-item-copy p {
+  font-size: 12px;
+  line-height: 1.45;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #4A3020;
+  margin: 0;
+}
+
+.express-item-custom-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  color: #5D3A1E;
+  background: #F6EDD8;
+  border: 1px solid #DFCBA5;
+  border-radius: 3px;
+  padding: 2px 6px;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 
 /* Drink sizes */
-.express-size-row{display:flex;flex-wrap:wrap;gap:6px}
-.express-size-chip{min-height:34px;padding:0 11px;border:1.5px solid #d0bd9e;border-radius:4px;background:#ffffff;color:#2B1A0C;font-size:11.5px;font-weight:700;letter-spacing:.01em;box-shadow:0 1.5px 0 #d0bd9e;cursor:pointer;transition:all 120ms ease}
-.express-size-chip:hover{border-color:#BC4D08;color:#BC4D08}
-.express-size-chip[aria-pressed=true]{background:#191008;color:#fff7ea;border-color:#191008;box-shadow:0 1.5px 0 #000000}
+.express-size-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 
-.express-item-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;margin-top:4px}
-.express-item-price{font-family:var(--font-display);font-size:21px;font-weight:900;letter-spacing:-.01em;color:#8F3A06;white-space:nowrap}
-.express-item-tag{align-self:flex-start;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5A370E;background:#FDBB05;border:1px solid #E0A304;border-radius:3px;padding:2px 6px;margin-bottom:2px}
+.express-size-chip {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1.5px solid #2B1A0C;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #191008;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1.5px 0 #2B1A0C;
+  cursor: pointer;
+  transition: all 100ms ease;
+}
 
-.express-footer{max-width:1024px;width:100%;margin:28px auto 0;padding:24px 16px 40px;color:#4a3020;border-top:2px solid #2B1A0C;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.express-footer strong{color:#8F3A06;font-size:18px}.express-footer nav{display:flex;gap:14px}.express-footer address{width:100%;font-style:normal;font-size:10px}
-.express-footer strong{color:#8F3A06;font-size:18px}.express-footer nav{display:flex;gap:14px}.express-footer address{width:100%;font-style:normal;font-size:10px}
+.express-size-chip:hover {
+  color: #BC4D08;
+}
 
-/* Pre-baked product art: <picture> must not interfere with the fixed-size tile. */
-.express-food-art picture,.upsell-art picture,.menu-item-hero picture{display:contents}
+.express-size-chip[aria-pressed=true] {
+  background: #191008;
+  color: #FFF8EB;
+  border-color: #191008;
+  box-shadow: 0 1.5px 0 #000000;
+}
 
-/* ── Drinks Showcase: Taller in height, shorter in width ─────────────────
-   Bottles & cups are vertical silhouettes. Instead of being squeezed into
-   horizontal row slots with a tiny 104x104 thumbnail, drinks get their own
-   heroic vertical showcase: tall bottle display stage, stacked typography,
-   and compact width. */
+.express-item-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  margin-top: 4px;
+}
+
+.express-item-price {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #8F3A06;
+  white-space: nowrap;
+}
+
+.express-item-tag {
+  align-self: flex-start;
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #191008;
+  background: #FDBB05;
+  border: 1px solid #191008;
+  border-radius: 3px;
+  padding: 2px 6px;
+  margin-bottom: 2px;
+}
+
+.express-footer {
+  max-width: 1024px;
+  width: 100%;
+  margin: 28px auto 0;
+  padding: 24px 16px 40px;
+  color: #4A3020;
+  border-top: 2px solid #2B1A0C;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.express-footer strong {
+  color: #8F3A06;
+  font-size: 18px;
+}
+
+.express-footer nav {
+  display: flex;
+  gap: 14px;
+}
+
+.express-footer address {
+  width: 100%;
+  font-style: normal;
+  font-size: 10px;
+}
+
+/* Pre-baked product art */
+.express-food-art picture,
+.upsell-art picture,
+.menu-item-hero picture {
+  display: contents;
+}
+
+/* ── Drinks Showcase ──────────────────────────────────────────────── */
 [data-category="pije"] .express-item-list {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -121,23 +677,21 @@
   flex-direction: column !important;
   align-items: stretch !important;
   padding: 12px 10px 14px !important;
-  border-radius: 12px !important;
-  background: #ffffff !important;
-  border: 1.5px solid #dcc7a0 !important;
-  box-shadow: 0 3px 0 #e4d5be !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #2B1A0C !important;
+  box-shadow: 0 3px 0 #2B1A0C !important;
   min-height: 310px !important;
   height: 100% !important;
-  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease !important;
+  transition: transform 100ms ease, box-shadow 100ms ease !important;
 }
 
 .express-item-pije:hover,
 .express-item[data-category="pije"]:hover {
-  transform: translateY(-2px);
-  border-color: #2B1A0C !important;
-  box-shadow: 0 5px 0 #2B1A0C !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4.5px 0 #2B1A0C !important;
 }
 
-/* Tall bottle stage: tall, dedicated display area */
 .express-item-pije .express-food-art,
 .express-item[data-category="pije"] .express-food-art {
   width: 100% !important;
@@ -146,14 +700,13 @@
   max-height: 185px !important;
   margin: 0 0 10px 0 !important;
   padding: 10px 8px !important;
-  border-radius: 8px !important;
-  border: 1.5px solid #ecd8b8 !important;
-  background: radial-gradient(ellipse at 50% 65%, #ffffff 0%, #f3ead7 100%) !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #DECBA8 !important;
+  background: #F8F2E2 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
-  box-shadow: inset 0 2px 4px rgba(43, 26, 12, 0.03);
 }
 
 .express-item-pije .express-food-img,
@@ -162,13 +715,12 @@
   height: 100% !important;
   max-height: 165px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 6px 10px rgba(43, 26, 12, 0.16));
-  transition: transform 160ms cubic-bezier(0.2, 0, 0, 1);
+  filter: drop-shadow(0 4px 6px rgba(25, 16, 8, 0.16));
 }
 
 .express-item-pije:hover .express-food-img,
 .express-item[data-category="pije"]:hover .express-food-img {
-  transform: translateY(-4px) scale(1.04);
+  transform: translateY(-2px);
 }
 
 .express-item-pije .express-item-body,
@@ -195,7 +747,7 @@
   font-family: var(--font-display) !important;
   font-size: 16.5px !important;
   line-height: 1.15 !important;
-  font-weight: 800 !important;
+  font-weight: 900 !important;
   color: #191008 !important;
   margin: 0 !important;
 }
@@ -204,7 +756,7 @@
 .express-item[data-category="pije"] .express-item-copy p {
   font-size: 11.5px !important;
   line-height: 1.35 !important;
-  color: #5d3a1e !important;
+  color: #5D3A1E !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
@@ -220,7 +772,7 @@
   gap: 6px !important;
   margin-top: auto !important;
   padding-top: 8px !important;
-  border-top: 1px dashed #decba8 !important;
+  border-top: 1.5px dashed #DECBA8 !important;
 }
 
 .express-item-pije .express-item-price,
@@ -236,7 +788,7 @@
   min-height: 36px !important;
   padding: 0 12px !important;
   font-size: 12.5px !important;
-  border-radius: 5px !important;
+  border-radius: 4px !important;
 }
 
 .express-item-pije .express-stepper,
@@ -255,4 +807,3 @@
   min-width: 18px !important;
   font-size: 13px !important;
 }
-
