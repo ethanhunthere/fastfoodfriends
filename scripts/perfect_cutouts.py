@@ -1,8 +1,9 @@
 import os
 import rembg
-from PIL import Image, ImageFilter
+from PIL import Image, ImageEnhance, ImageFilter
 import numpy as np
 import scipy.ndimage as ndi
+from skimage.restoration import denoise_bilateral
 
 ROOT_DIR = "/home/f0id/Downloads/fastfoodfriends"
 MENU_IMAGE_PATH = "/home/f0id/Downloads/fastfoodfriendsmenu.jpg"
@@ -11,123 +12,64 @@ os.makedirs(ASSETS_DIR, exist_ok=True)
 
 img = Image.open(MENU_IMAGE_PATH).convert("RGB")
 
-# Exact coordinates for the 10 foods on fastfoodfriendsmenu.jpg
-# Selected to capture 100% of the food (buns, sesame, lettuce, fries, cartons, crusts)
-# while excluding adjacent text lines.
 SPECS = {
     "hamburger": {
-        "box": (18, 321, 222, 447),
+        "box": (14, 321, 222, 447),
         "type": "rembg",
-        "pad": 8,
     },
     "chickenburger": {
-        "box": (235, 325, 400, 445),
+        "box": (235, 324, 400, 446),
         "type": "rembg",
-        "pad": 8,
     },
     "cheeseburger": {
-        "box": (430, 323, 624, 444),
+        "box": (428, 322, 626, 444),
         "type": "rembg",
-        "pad": 8,
     },
     "friends-burger": {
-        "box": (36, 510, 210, 622),
+        "box": (35, 510, 212, 622),
         "type": "rembg",
-        "pad": 8,
     },
     "hotdog": {
-        "box": (230, 510, 408, 622),
+        "box": (230, 510, 410, 622),
         "type": "rembg",
-        "pad": 8,
     },
     "tost": {
-        "box": (425, 510, 614, 622),
+        "box": (424, 510, 614, 622),
         "type": "rembg",
-        "pad": 8,
     },
     "pomfrit-porcion": {
-        "box": (18, 680, 192, 786),
+        "box": (15, 682, 192, 788),
         "type": "floodfill",
-        "pad": 8,
     },
     "pomfrit-1-2": {
-        "box": (264, 688, 380, 788),
+        "box": (265, 700, 378, 790),
         "type": "floodfill",
-        "pad": 8,
     },
     "tost-me-proshut": {
-        "box": (424, 684, 606, 786),
+        "box": (424, 684, 608, 786),
         "type": "rembg",
-        "pad": 8,
     },
     "tost-proshut-rrumbullak": {
-        "box": (18, 852, 208, 950),
+        "box": (14, 852, 210, 952),
         "type": "rembg",
-        "pad": 8,
     },
 }
 
 session = rembg.new_session("u2net")
 
-def decontaminate_and_clean(crop, raw_alpha):
-    arr_rgb = np.array(crop, dtype=np.float32)
-    alpha = np.array(raw_alpha, dtype=np.float32)
-    
-    # 1. Any pixel where the original crop is dark background (RGB < 18) must have alpha 0
-    is_pure_bg = (arr_rgb.max(axis=2) < 18)
-    alpha[is_pure_bg] = 0.0
-    
-    # 2. Suppress faint background noise
-    alpha[alpha < 18] = 0.0
-    
-    # 3. Morphological cleanup: smooth the alpha boundary slightly (0.6px blur)
-    # to avoid jagged pixel stepping
-    alpha_img = Image.fromarray(np.clip(alpha, 0, 255).astype(np.uint8), "L")
-    alpha_smooth = np.array(alpha_img.filter(ImageFilter.GaussianBlur(0.55)), dtype=np.float32)
-    alpha_smooth[is_pure_bg] = 0.0
-    
-    # 4. Color Decontamination (Defringing against black):
-    # Find solid, trustworthy foreground pixels (alpha > 200 and bright enough)
-    solid_fg = (alpha_smooth > 200) & (arr_rgb.max(axis=2) > 30)
-    
-    if np.any(solid_fg):
-        # Calculate nearest solid foreground pixel for every point
-        indices = ndi.distance_transform_edt(~solid_fg, return_distances=False, return_indices=True)
-        dilated_rgb = arr_rgb[indices[0], indices[1]]
-        
-        # For semi-transparent edge pixels (0 < alpha < 245),
-        # replace darkened edge RGB with the true vibrant color of the nearest food pixel!
-        edge_mask = (alpha_smooth > 0) & (alpha_smooth < 245)
-        clean_rgb = arr_rgb.copy()
-        clean_rgb[edge_mask] = dilated_rgb[edge_mask]
-    else:
-        clean_rgb = arr_rgb.copy()
-        
-    result_rgba = np.dstack([clean_rgb, alpha_smooth])
-    result_rgba = np.clip(result_rgba, 0, 255).astype(np.uint8)
-    out_img = Image.fromarray(result_rgba, "RGBA")
-    
-    # Crop to tight non-transparent bounding box with 6px padding
-    bbox = out_img.getbbox()
-    if bbox:
-        w, h = out_img.size
-        pad_box = (
-            max(0, bbox[0] - 6),
-            max(0, bbox[1] - 6),
-            min(w, bbox[2] + 6),
-            min(h, bbox[3] + 6)
-        )
-        out_img = out_img.crop(pad_box)
-        
-    return out_img
-
 for name, spec in SPECS.items():
     print(f"Processing {name} (type: {spec['type']})...")
     crop = img.crop(spec["box"])
     
+    # 1. Bilateral edge-preserving denoising to eliminate flyer JPEG compression artifacts
+    crop_np = np.array(crop, dtype=np.float32) / 255.0
+    denoised_np = denoise_bilateral(crop_np, sigma_color=0.06, sigma_spatial=1.5, channel_axis=-1)
+    crop_denoised = Image.fromarray((denoised_np * 255).astype(np.uint8), "RGB")
+    
+    # 2. Precision Segmentation
     if spec["type"] == "floodfill":
-        # Border flood-fill on black for fries + white cartons
-        arr = np.array(crop, dtype=np.float32)
+        # Border floodfill for fries & white carton
+        arr = np.array(crop_denoised, dtype=np.float32)
         is_dark = (arr.max(axis=2) < 22)
         labeled, num_features = ndi.label(is_dark)
         border_mask = np.zeros(is_dark.shape, dtype=bool)
@@ -140,25 +82,68 @@ for name, spec in SPECS.items():
         bg_mask = np.isin(labeled, list(border_labels))
         raw_alpha = np.where(bg_mask, 0.0, 255.0)
     else:
-        # Neural rembg segmentation
-        cutout = rembg.remove(crop, session=session)
+        # Neural rembg segmentation for burgers & toasts
+        cutout = rembg.remove(crop_denoised, session=session)
         raw_alpha = np.array(cutout.split()[3], dtype=np.float32)
         
-    cleaned = decontaminate_and_clean(crop, raw_alpha)
+    # Strictly zero out black flyer background pixels (< 18 RGB)
+    arr_rgb = np.array(crop_denoised, dtype=np.float32)
+    is_pure_bg = (arr_rgb.max(axis=2) < 18)
+    raw_alpha[is_pure_bg] = 0.0
+    raw_alpha[raw_alpha < 18] = 0.0
     
-    # Upscale 2x with Lanczos for ultra-crisp resolution, then gentle unsharp mask
-    w2, h2 = cleaned.size[0] * 2, cleaned.size[1] * 2
-    upscaled = cleaned.resize((w2, h2), Image.Resampling.LANCZOS)
+    # 3. Super-Resolution 3.5x Upscaling with Lanczos
+    w, h = crop.size
+    target_scale = 3.5
+    target_w, target_h = int(w * target_scale), int(h * target_scale)
     
-    # Gentle unsharp mask on RGB only to enhance crisp details
-    r, g, b, a = upscaled.split()
-    rgb_sharp = Image.merge("RGB", (r, g, b)).filter(
-        ImageFilter.UnsharpMask(radius=1.2, percent=110, threshold=2)
+    crop_large = crop_denoised.resize((target_w, target_h), Image.Resampling.LANCZOS)
+    alpha_large = Image.fromarray(np.clip(raw_alpha, 0, 255).astype(np.uint8), "L").resize(
+        (target_w, target_h), Image.Resampling.LANCZOS
     )
-    final = Image.merge("RGBA", (*rgb_sharp.split(), a))
     
+    # 4. Multi-scale Detail & Appetite Enhancement on RGB:
+    # Warm saturation boost (+14%) to make golden buns, cheddar, and fries look delicious
+    enh_color = ImageEnhance.Color(crop_large).enhance(1.14)
+    # Subtle contrast curve (+6%)
+    enh_contrast = ImageEnhance.Contrast(enh_color).enhance(1.06)
+    # Fine-frequency texture recovery (sesame seeds, grill lines, bread pores, crispy fries)
+    sharp_fine = enh_contrast.filter(ImageFilter.UnsharpMask(radius=1.2, percent=140, threshold=1))
+    # Mid-frequency depth / 3D roundness
+    sharp_master = sharp_fine.filter(ImageFilter.UnsharpMask(radius=3.0, percent=35, threshold=2))
+    
+    # 5. Smooth Alpha Boundary (0.7px Gaussian blur)
+    alpha_smooth = np.array(alpha_large.filter(ImageFilter.GaussianBlur(0.7)), dtype=np.float32)
+    large_rgb_np = np.array(sharp_master, dtype=np.float32)
+    large_bg_mask = (large_rgb_np.max(axis=2) < 20)
+    alpha_smooth[large_bg_mask] = 0.0
+    
+    # 6. Euclidean Distance Transform Color Decontamination:
+    # Propagates true vibrant foreground colors into the semi-transparent edge falloff
+    solid_fg = (alpha_smooth > 210) & (large_rgb_np.max(axis=2) > 35)
+    indices = ndi.distance_transform_edt(~solid_fg, return_distances=False, return_indices=True)
+    dilated_rgb = large_rgb_np[indices[0], indices[1]]
+    
+    edge_mask = (alpha_smooth > 0) & (alpha_smooth < 245)
+    clean_rgb = large_rgb_np.copy()
+    clean_rgb[edge_mask] = dilated_rgb[edge_mask]
+    
+    result_rgba = np.dstack([clean_rgb, alpha_smooth])
+    result_rgba = np.clip(result_rgba, 0, 255).astype(np.uint8)
+    out_img = Image.fromarray(result_rgba, "RGBA")
+    
+    # 7. Auto-trim with generous 8px transparent padding
+    bbox = out_img.getbbox()
+    if bbox:
+        out_img = out_img.crop((
+            max(0, bbox[0] - 8),
+            max(0, bbox[1] - 8),
+            min(out_img.width, bbox[2] + 8),
+            min(out_img.height, bbox[3] + 8)
+        ))
+        
     out_path = os.path.join(ASSETS_DIR, f"{name}.webp")
-    final.save(out_path, "WEBP", quality=98, method=6)
-    print(f"  -> Saved {out_path} ({final.size[0]}x{final.size[1]})")
+    out_img.save(out_path, "WEBP", quality=98, method=6)
+    print(f"  -> Saved {out_path} ({out_img.width}x{out_img.height})")
 
-print("All 10 food items extracted with decontaminated edges and high-res clarity!")
+print("All 10 food items extracted with master quality, decontaminated edges, and super-resolution clarity!")

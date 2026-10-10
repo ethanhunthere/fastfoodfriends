@@ -240,7 +240,6 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
           </div>
         }>
         <div className="express-options">{renderVariants()}{renderModifierGroups()}</div>
-        {!!item.allergens?.length && <p className="express-allergens">Alergjenë: {item.allergens.join(", ")}</p>}
       </Modal>
     </article>
   );
