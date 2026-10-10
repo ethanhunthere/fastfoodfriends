@@ -6,10 +6,10 @@
 .upsell-list{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}
 .upsell-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;border:1.5px solid #dcc7a0;border-radius:10px;padding:11px;background:#fffdf6;min-width:0}
 .upsell-card[data-added=true]{border-color:#0D0703;background:#fdfbf1}
-.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:6px;background:#f7ecd6;border:1px solid #efe2c8;overflow:hidden}
+.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:8px;background:#FAF8F5;border:1px solid #EBE5D8;padding:4px;overflow:hidden}
 .upsell-art img{width:100%;height:100%;object-fit:contain}
-.upsell-art.art-pije{background:#efe9d4}
-.upsell-art.art-shtesa{background:#fbeecc}
+.upsell-art.art-pije{background:#FAF8F5}
+.upsell-art.art-shtesa{background:#FAF8F5}
 .upsell-copy{min-width:0;overflow-wrap:anywhere}
 .upsell-group + .upsell-group{margin-top:18px}
 .upsell-group-header{font-family:var(--font-display);font-size:18px;font-weight:900;letter-spacing:-.01em;line-height:1.25;color:#0D0703;margin-bottom:10px;overflow-wrap:anywhere}
