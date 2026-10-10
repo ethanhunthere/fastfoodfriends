@@ -22,13 +22,13 @@ try {
   const cases = [
     [[], []],
     [["unknown"], []],
-    [["hamburger-tradicional"], ["drink", "side"]],
+    [["hamburger"], ["drink", "side"]],
     [["coca-cola"], ["eat"]],
-    [["pomfrit"], ["drink", "eat"]],
-    [["hamburger-tradicional", "pomfrit"], ["drink"]],
-    [["coca-cola", "pomfrit"], ["eat"]],
-    [["hamburger-tradicional", "coca-cola"], ["side"]],
-    [["hamburger-tradicional", "coca-cola", "pomfrit"], []],
+    [["pomfrit-porcion"], ["drink", "eat"]],
+    [["hamburger", "pomfrit-porcion"], ["drink"]],
+    [["coca-cola", "pomfrit-porcion"], ["eat"]],
+    [["hamburger", "coca-cola"], ["side"]],
+    [["hamburger", "coca-cola", "pomfrit-porcion"], []],
   ];
   for (const [ids, kinds] of cases) {
     const groups = evaluate(ids);
@@ -51,7 +51,7 @@ try {
   assert.equal(evaluate(["coca-cola"])[0].suggestions.length, nonDrinks);
   for (const item of getAvailableItems()) {
     const groups = evaluate([item.id]);
-    assert.deepEqual(groups.map(g => g.kind), item.id === "pomfrit" ? ["drink", "eat"] : item.category === "pije" ? ["eat"] : ["drink", "side"]);
+    assert.deepEqual(groups.map(g => g.kind), (item.id === "pomfrit" || item.id.startsWith("pomfrit")) ? ["drink", "eat"] : item.category === "pije" ? ["eat"] : ["drink", "side"]);
   }
   assert.deepEqual(evaluate(["coca-cola", "coca-cola"]), evaluate(["coca-cola"]));
   console.log("PASS: all category combinations, every menu item, duplicate/unknown IDs, canonical prices, defaults and exclusion rules.");

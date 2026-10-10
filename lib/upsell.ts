@@ -19,7 +19,7 @@ import type { CartLineInput } from "../types/order";
 export type UpsellSlot = "food" | "drink" | "side";
 
 function slotForItem(item: MenuItem): UpsellSlot {
-  if (item.id === "pomfrit") return "side";
+  if (item.id === "pomfrit" || item.id.startsWith("pomfrit")) return "side";
   if (item.category === "pije") return "drink";
   return "food";
 }

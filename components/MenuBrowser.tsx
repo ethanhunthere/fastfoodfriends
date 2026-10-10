@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import { Hamburger, CupSoda } from "lucide-react";
 
 const filters = [
-  { id: "ushqime-kryesore", label: "Ushqime", icon: Hamburger, count: 4 },
+  { id: "ushqime-kryesore", label: "Ushqime", icon: Hamburger, count: 10 },
   { id: "pije", label: "Pije", icon: CupSoda, count: 4 },
 ];
 

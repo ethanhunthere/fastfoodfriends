@@ -4,9 +4,21 @@ export const IMAGE_DIMS: Record<string, { w: number; h: number }> = {
     "w": 246,
     "h": 317
   },
+  "cheeseburger": {
+    "w": 430,
+    "h": 281
+  },
+  "chickenburger": {
+    "w": 427,
+    "h": 291
+  },
   "coca-cola": {
     "w": 184,
     "h": 720
+  },
+  "friends-burger": {
+    "w": 457,
+    "h": 290
   },
   "hamburger-mish-pule": {
     "w": 360,
@@ -16,17 +28,41 @@ export const IMAGE_DIMS: Record<string, { w: number; h: number }> = {
     "w": 415,
     "h": 350
   },
+  "hamburger": {
+    "w": 452,
+    "h": 315
+  },
   "hotdog": {
-    "w": 687,
-    "h": 395
+    "w": 438,
+    "h": 233
   },
   "jogurt": {
     "w": 490,
     "h": 621
   },
+  "pomfrit-1-2": {
+    "w": 451,
+    "h": 354
+  },
+  "pomfrit-porcion": {
+    "w": 458,
+    "h": 312
+  },
   "pomfrit": {
     "w": 350,
     "h": 350
+  },
+  "tost-me-proshut": {
+    "w": 451,
+    "h": 213
+  },
+  "tost-proshut-rrumbullak": {
+    "w": 434,
+    "h": 246
+  },
+  "tost": {
+    "w": 443,
+    "h": 199
   },
   "uje-rugove": {
     "w": 69,
