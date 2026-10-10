@@ -5,20 +5,20 @@ export const IMAGE_DIMS: Record<string, { w: number; h: number }> = {
     "h": 317
   },
   "cheeseburger": {
-    "w": 574,
-    "h": 386
+    "w": 590,
+    "h": 374
   },
   "chickenburger": {
-    "w": 545,
-    "h": 387
+    "w": 549,
+    "h": 381
   },
   "coca-cola": {
     "w": 184,
     "h": 720
   },
   "friends-burger": {
-    "w": 574,
-    "h": 392
+    "w": 587,
+    "h": 385
   },
   "hamburger-mish-pule": {
     "w": 360,
@@ -29,40 +29,40 @@ export const IMAGE_DIMS: Record<string, { w: number; h: number }> = {
     "h": 350
   },
   "hamburger": {
-    "w": 567,
-    "h": 411
+    "w": 576,
+    "h": 415
   },
   "hotdog": {
-    "w": 591,
-    "h": 351
+    "w": 595,
+    "h": 332
   },
   "jogurt": {
     "w": 490,
     "h": 621
   },
   "pomfrit-1-2": {
-    "w": 339,
-    "h": 309
+    "w": 343,
+    "h": 301
   },
   "pomfrit-porcion": {
-    "w": 583,
-    "h": 371
+    "w": 443,
+    "h": 345
   },
   "pomfrit": {
     "w": 350,
     "h": 350
   },
   "tost-me-proshut": {
-    "w": 604,
-    "h": 312
+    "w": 612,
+    "h": 304
   },
   "tost-proshut-rrumbullak": {
-    "w": 510,
-    "h": 330
+    "w": 523,
+    "h": 314
   },
   "tost": {
-    "w": 633,
-    "h": 341
+    "w": 640,
+    "h": 332
   },
   "uje-rugove": {
     "w": 69,
