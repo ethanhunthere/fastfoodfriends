@@ -54,11 +54,22 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
   const showUpsell = step === "extras";
   const detailsHeading = useRef<HTMLParagraphElement>(null);
   useEffect(() => {
-    if (step === "details") {
-      detailsHeading.current?.closest(".modal-content")?.scrollTo({ top: 0 });
-      detailsHeading.current?.focus({ preventScroll: true });
+    if (open && step === "details") {
+      const resetScroll = () => {
+        const modalContent = detailsHeading.current?.closest(".modal-content") || document.querySelector(".modal-content");
+        if (modalContent) modalContent.scrollTop = 0;
+        const dialog = detailsHeading.current?.closest(".express-dialog") || document.querySelector(".express-dialog");
+        if (dialog) dialog.scrollTop = 0;
+      };
+      resetScroll();
+      const rId = requestAnimationFrame(resetScroll);
+      const timer = setTimeout(resetScroll, 60);
+      return () => {
+        cancelAnimationFrame(rId);
+        clearTimeout(timer);
+      };
     }
-  }, [step]);
+  }, [step, open]);
   const [mode, setMode] = useState<OrderMode>("delivery");
   const [phoneValue, setPhoneValue] = useState("");
   const cleared = useRef(false);
@@ -91,7 +102,7 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
       onClose={isPending ? () => {} : onClose}
       title={isSuccess ? "Porosia u pranua!" : showUpsell ? "Dëshiron të shtosh ndonjë gjë tjetër?" : "Të dhënat e porosisë"}
       titleId="checkout-title"
-      variant="center"
+      variant="top"
       footer={
         showUpsell ? (
           <div className="upsell-footer">

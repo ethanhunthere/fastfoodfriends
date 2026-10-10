@@ -33,8 +33,8 @@ export interface ModalProps {
   children: ReactNode;
   /** Optional sticky footer (totals + primary action). */
   footer?: ReactNode;
-  /** Sheet (bottom-anchored) is the mobile default; `center` for wide screens. */
-  variant?: "sheet" | "center";
+  /** 'top' anchors at the top of the viewport on mobile/desktop. */
+  variant?: "sheet" | "center" | "top";
 }
 
 export function Modal({
@@ -44,7 +44,7 @@ export function Modal({
   titleId = "modal-title",
   children,
   footer,
-  variant = "sheet",
+  variant = "top",
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
@@ -109,7 +109,7 @@ export function Modal({
   if (!open) return null;
 
   return createPortal(
-    <div className="modal-overlay">
+    <div className={`modal-overlay modal-overlay-${variant}`} data-variant={variant}>
       {/* Backdrop: a real button so it is reachable by keyboard/AT. */}
       <button
         type="button"

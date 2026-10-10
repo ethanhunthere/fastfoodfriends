@@ -70,8 +70,8 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media(min-width:640px){
   :root{--header-height:78px}
-  .modal-overlay{align-items:center;padding:24px}
-  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - 56px);margin-bottom:0}
+  .modal-overlay{align-items:flex-start;padding:24px}
+  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - 56px);margin-top:0;margin-bottom:0}
 }
 @media(min-width:1200px){
   .storefront-layout{grid-template-columns:minmax(0,1fr) 340px;gap:28px}
@@ -99,8 +99,8 @@ html,body{max-width:100%;overflow-x:clip}
   .express-primary{padding-inline:10px}
 }
 @media(max-height:540px){
-  .modal-overlay{padding:4px;align-items:center}
-  .express-dialog{max-height:calc(100dvh - 12px);margin-bottom:0;overflow-y:auto;border-radius:10px}
+  .modal-overlay{padding:4px;align-items:flex-start}
+  .express-dialog{max-height:calc(100dvh - 12px);margin-top:0;margin-bottom:0;overflow-y:auto;border-radius:10px}
   .modal-content{overflow:visible;flex:none}.modal-heading{padding-block:6px}.modal-footer{padding-block:8px}
   .desktop-cart{position:static;max-height:none}
   .express-customizer-intro{margin-bottom:8px}.express-customizer-intro>span{min-width:48px;height:48px;font-size:28px}
