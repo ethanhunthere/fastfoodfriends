@@ -161,7 +161,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
             item={item}
             className="express-food-img"
             eager={eager}
-            sizes={item.category === "pije" ? "(max-width: 639px) 180px, 240px" : "(max-width: 639px) 104px, 118px"}
+            sizes={item.category === "pije" ? "(max-width: 639px) 140px, 180px" : "(max-width: 639px) 82px, 88px"}
           />
         </button>
       ) : (
@@ -170,7 +170,7 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
             item={item}
             className="express-food-img"
             eager={eager}
-            sizes={item.category === "pije" ? "(max-width: 639px) 180px, 240px" : "(max-width: 639px) 104px, 118px"}
+            sizes={item.category === "pije" ? "(max-width: 639px) 140px, 180px" : "(max-width: 639px) 82px, 88px"}
           />
         </div>
       )}
@@ -179,14 +179,11 @@ export function MenuItemCard({ item, eager = false }: MenuItemCardProps) {
           <button type="button" className="express-item-copy" onClick={() => setOpen(true)} aria-haspopup="dialog">
             {item.featured && <span className="express-item-tag">E preferuar</span>}
             <h3>{item.name}</h3>
-            {item.description ? <p>{item.description}</p> : null}
-            <span className="express-item-custom-badge" aria-hidden="true">Opsione sipas dëshirës</span>
           </button>
         ) : (
           <div className="express-item-copy">
             {item.featured && <span className="express-item-tag">E preferuar</span>}
             <h3>{item.name}</h3>
-            {item.description ? <p>{item.description}</p> : null}
           </div>
         )}
         {variantsOnly && (

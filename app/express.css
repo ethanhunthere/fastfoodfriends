@@ -452,34 +452,34 @@
 
 .express-item {
   display: grid;
-  grid-template-columns: 104px minmax(0, 1fr);
-  gap: 14px;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 12px;
   align-items: center;
   border: 1.5px solid #0D0703;
   background: #FFFFFF;
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px 10px;
   min-width: 0;
-  box-shadow: 0 3px 0 #0D0703;
+  box-shadow: 0 2.5px 0 #0D0703;
   transition: transform 100ms ease, box-shadow 100ms ease;
 }
 
 .express-item:hover {
   transform: translateY(-1.5px);
-  box-shadow: 0 4.5px 0 #0D0703;
+  box-shadow: 0 4px 0 #0D0703;
 }
 
 .express-food-art {
-  width: 104px;
-  height: 104px;
+  width: 80px;
+  height: 80px;
   min-width: 0;
-  border-radius: 8px;
+  border-radius: 7px;
   display: grid;
   place-items: center;
   background: #FAF8F5;
   overflow: hidden;
   border: 1px solid #EBE5D8;
-  padding: 7px;
+  padding: 5px;
   cursor: pointer;
   transition: transform 140ms ease, background 140ms ease;
 }
@@ -517,17 +517,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
-  min-height: 104px;
-  padding: 2px 2px 0 0;
+  min-height: 80px;
+  padding: 2px 2px 2px 0;
 }
 
 .express-item-copy {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
   background: none;
   border: 0;
@@ -537,7 +537,7 @@
 
 .express-item-copy h3 {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.15;
   font-weight: 900;
   letter-spacing: -0.015em;
@@ -546,31 +546,11 @@
 }
 
 .express-item-copy p {
-  font-size: 13.5px;
-  line-height: 1.5;
-  font-weight: 600;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  color: #2C1A0E;
-  margin: 0;
+  display: none;
 }
 
 .express-item-custom-badge {
-  align-self: flex-start;
-  font-size: 11px;
-  font-weight: 900;
-  color: #7A2800;
-  background: #F8EFE0;
-  border: 1.5px solid #DECBA8;
-  border-radius: 4px;
-  padding: 3px 8px;
-  margin-top: 2px;
-  display: inline-flex;
-  align-items: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  display: none;
 }
 
 /* Drink sizes */
@@ -692,12 +672,12 @@
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
-  padding: 12px 10px 14px !important;
+  padding: 10px 8px 10px !important;
   border-radius: 8px !important;
   background: #FFFFFF !important;
   border: 1.5px solid #0D0703 !important;
-  box-shadow: 0 3px 0 #0D0703 !important;
-  min-height: 310px !important;
+  box-shadow: 0 2.5px 0 #0D0703 !important;
+  min-height: 220px !important;
   height: 100% !important;
   transition: transform 100ms ease, box-shadow 100ms ease !important;
 }
@@ -705,18 +685,18 @@
 .express-item-pije:hover,
 .express-item[data-category="pije"]:hover {
   transform: translateY(-1.5px);
-  box-shadow: 0 4.5px 0 #0D0703 !important;
+  box-shadow: 0 4px 0 #0D0703 !important;
 }
 
 .express-item-pije .express-food-art,
 .express-item[data-category="pije"] .express-food-art {
   width: 100% !important;
-  height: 185px !important;
-  min-height: 185px !important;
-  max-height: 185px !important;
-  margin: 0 0 10px 0 !important;
-  padding: 12px 10px !important;
-  border-radius: 8px !important;
+  height: 135px !important;
+  min-height: 135px !important;
+  max-height: 135px !important;
+  margin: 0 0 8px 0 !important;
+  padding: 10px 8px !important;
+  border-radius: 7px !important;
   border: 1px solid #EBE5D8 !important;
   background: #FAF8F5 !important;
   display: flex !important;
@@ -735,9 +715,9 @@
 .express-item[data-category="pije"] .express-food-img {
   width: 100% !important;
   height: 100% !important;
-  max-height: 165px !important;
+  max-height: 120px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 3px 6px rgba(26, 16, 8, 0.08));
+  filter: drop-shadow(0 2.5px 5px rgba(26, 16, 8, 0.08));
 }
 
 .express-item-pije:hover .express-food-img,
@@ -753,21 +733,21 @@
   flex: 1 !important;
   min-height: 0 !important;
   padding: 0 !important;
-  gap: 8px !important;
+  gap: 6px !important;
 }
 
 .express-item-pije .express-item-copy,
 .express-item[data-category="pije"] .express-item-copy {
   display: flex !important;
   flex-direction: column !important;
-  gap: 3px !important;
+  gap: 2px !important;
   text-align: left !important;
 }
 
 .express-item-pije .express-item-copy h3,
 .express-item[data-category="pije"] .express-item-copy h3 {
   font-family: var(--font-display) !important;
-  font-size: 18px !important;
+  font-size: 16.5px !important;
   line-height: 1.15 !important;
   font-weight: 900 !important;
   color: #0D0703 !important;
@@ -776,15 +756,7 @@
 
 .express-item-pije .express-item-copy p,
 .express-item[data-category="pije"] .express-item-copy p {
-  font-size: 13px !important;
-  line-height: 1.45 !important;
-  font-weight: 600 !important;
-  color: #2C1A0E !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  margin: 0 !important;
+  display: none !important;
 }
 
 .express-item-pije .express-item-foot,
@@ -794,36 +766,36 @@
   justify-content: space-between !important;
   gap: 6px !important;
   margin-top: auto !important;
-  padding-top: 8px !important;
+  padding-top: 6px !important;
   border-top: 1.5px dashed #DECBA8 !important;
 }
 
 .express-item-pije .express-item-price,
 .express-item[data-category="pije"] .express-item-price {
   font-family: var(--font-display) !important;
-  font-size: 20px !important;
+  font-size: 19px !important;
   font-weight: 900 !important;
   color: #9E3703 !important;
 }
 
 .express-item-pije .express-add,
 .express-item[data-category="pije"] .express-add {
-  min-height: 38px !important;
-  padding: 0 13px !important;
-  font-size: 13.5px !important;
+  min-height: 35px !important;
+  padding: 0 11px !important;
+  font-size: 13px !important;
   font-weight: 900 !important;
   border-radius: 5px !important;
 }
 
 .express-item-pije .express-stepper,
 .express-item[data-category="pije"] .express-stepper {
-  min-height: 38px !important;
+  min-height: 35px !important;
 }
 
 .express-item-pije .express-stepper button,
 .express-item[data-category="pije"] .express-stepper button {
-  min-width: 30px !important;
-  min-height: 38px !important;
+  min-width: 28px !important;
+  min-height: 35px !important;
 }
 
 .express-item-pije .express-stepper-count,
