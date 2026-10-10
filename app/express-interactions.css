@@ -43,11 +43,25 @@
   .modal-overlay {
     align-items: center;
     justify-content: center;
-    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
   }
   .express-dialog {
-    max-height: min(calc(100dvh - 24px), 90dvh);
+    max-height: min(calc(100dvh - 20px), 92dvh);
     margin: 0;
+  }
+  .modal-heading {
+    padding: 12px 14px;
+  }
+  .modal-heading button {
+    height: 38px;
+    width: 38px;
+    min-width: 38px;
+  }
+  .modal-content {
+    padding: 14px;
+  }
+  .modal-footer {
+    padding: 12px 14px;
   }
 }
 
@@ -75,7 +89,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   padding: 14px var(--dialog-gutter);
   border-bottom: 2px solid #0D0703;
   flex-shrink: 0;
@@ -84,13 +98,13 @@
 
 .modal-heading h2 {
   font-family: var(--font-display);
-  font-size: clamp(20px, 3.6vw, 24px);
+  font-size: clamp(17px, 4.4vw, 24px);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.22;
   letter-spacing: -0.015em;
   color: #0D0703;
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .modal-heading button {
@@ -507,13 +521,15 @@
 .express-cart-bar .express-primary {
   max-width: 440px;
   margin-left: auto;
-  min-height: 54px;
-  font-size: 16px;
+  min-height: 52px;
+  font-size: clamp(14px, 3.8vw, 16px);
   font-weight: 900;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  padding: 0 clamp(10px, 3vw, 18px);
   border-radius: 6px;
   border: 2px solid #000000;
   box-shadow: 0 4px 0 #000000;
+  white-space: nowrap;
 }
 
 .express-cart-bar .express-primary:hover:not(:disabled) {

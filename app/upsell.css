@@ -1,48 +1,306 @@
-
-/* Optional cashier recommendation: fixed rows, no moving targets or carousel.
+/* Optional cashier recommendation: fixed rows, responsive mobile-first layout.
    Palette: bun-orange CTA (#BC4D08), burnt-sienna depth (#8F3A06), brass details (#c0a75f). */
-.upsell{position:relative;min-width:0}
-.upsell-intro{font-size:13.5px;line-height:1.5;color:#26160B;font-weight:600;margin-bottom:14px}
-.upsell-list{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}
-.upsell-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px;border:1.5px solid #dcc7a0;border-radius:10px;padding:11px;background:#fffdf6;min-width:0}
-.upsell-card[data-added=true]{border-color:#0D0703;background:#fdfbf1}
-.upsell-art{display:grid;place-items:center;width:56px;height:56px;border-radius:8px;background:#FAF8F5;border:1px solid #EBE5D8;padding:4px;overflow:hidden}
-.upsell-art img{width:100%;height:100%;object-fit:contain}
-.upsell-art.art-pije{background:#FAF8F5}
-.upsell-art.art-shtesa{background:#FAF8F5}
-.upsell-copy{min-width:0;overflow-wrap:anywhere}
-.upsell-group + .upsell-group{margin-top:18px}
-.upsell-group-header{font-family:var(--font-display);font-size:18px;font-weight:900;letter-spacing:-.01em;line-height:1.25;color:#0D0703;margin-bottom:10px;overflow-wrap:anywhere}
-.upsell-copy h4{font-family:var(--font-display);font-size:17px;font-weight:900;letter-spacing:-.01em;line-height:1.2;color:#0D0703}
-.upsell-copy p{font-size:13px;color:#26160B;font-weight:600;line-height:1.4;margin-top:1px}
-
-/* Inline receipt line — only rendered once the item is actually in the basket. */
-.upsell-added{display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-size:12px;font-weight:900;color:#1E4D00}
-.upsell-added svg{flex-shrink:0}
-.upsell-added.is-limit{color:#9E3703;font-weight:800}
-.upsell-added button{display:inline-flex;align-items:center;gap:3px;margin-left:4px;min-height:24px;font-size:12px;font-weight:800;color:#9E3703;text-decoration:underline;text-underline-offset:3px}
-
-/* One-tap add: solid CTA with the price riding inside it. Physical press. */
-.upsell-add{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:44px;padding:0 14px;border-radius:6px;border:2px solid #0D0703;background:#BC4D08;color:#fffaf2;font-size:13.5px;font-weight:900;letter-spacing:.02em;box-shadow:0 3px 0 #0D0703;transition:background-color 120ms ease}
-.upsell-add:hover{background:#A04107}
-.upsell-add:active{transform:translateY(2px);box-shadow:0 0 0 #0D0703}
-.upsell-add:disabled{opacity:.5;box-shadow:none;cursor:not-allowed}
-.upsell-add strong{font-size:13.5px;font-weight:900;background:#9E3703;border-radius:4px;padding:2px 6px;white-space:nowrap}
-.upsell-add svg{flex-shrink:0}
-.upsell-add-label{white-space:nowrap}
-
-.upsell-footer>div{display:flex;justify-content:space-between;gap:12px;font-size:15px;font-weight:800;color:#0D0703}
-.upsell-footer strong{white-space:nowrap;color:#9E3703;font-size:16px;font-weight:900}
-.upsell-footer>p{font-size:12.5px;color:#26160B;font-weight:600;line-height:1.4;margin:6px 0 10px}
-.upsell-details-heading{font-size:14px;font-weight:800;color:#0D0703;margin-bottom:12px}
-
-/* Two-up only where the dialog actually has room; keep the CTA compact. */
-@media(min-width:560px){
-  .upsell-list{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .upsell-card{grid-template-columns:46px minmax(0,1fr) auto;gap:9px;padding:10px}
-  .upsell-art{width:46px;height:46px;border-radius:12px}
-  .upsell-copy h4{font-size:16px;font-weight:900}
-  .upsell-add{padding:0 11px;gap:6px}
-  .upsell-add-label{display:none}
+.upsell {
+  position: relative;
+  min-width: 0;
+  width: 100%;
 }
-@media(prefers-reduced-motion:no-preference){.upsell-check{animation:upsell-confirm 200ms cubic-bezier(.34,1.56,.64,1)}@keyframes upsell-confirm{from{transform:scale(.5)}to{transform:scale(1)}}}
+
+.upsell-intro {
+  font-size: clamp(12.5px, 3.4vw, 13.5px);
+  line-height: 1.45;
+  color: #26160B;
+  font-weight: 600;
+  margin-bottom: 12px;
+  overflow-wrap: break-word;
+}
+
+.upsell-group + .upsell-group {
+  margin-top: 18px;
+}
+
+.upsell-group-header {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 4.2vw, 18px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: #0D0703;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+}
+
+.upsell-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.upsell-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1.5px solid #0D0703;
+  border-radius: 9px;
+  padding: 10px;
+  background: #FFFDF6;
+  min-width: 0;
+  box-shadow: 0 2px 0 #0D0703;
+  transition: transform 100ms ease, box-shadow 100ms ease, background 120ms ease;
+}
+
+.upsell-card[data-added="true"] {
+  border-color: #0D0703;
+  background: #FFFDF0;
+  box-shadow: 0 3px 0 #0D0703;
+}
+
+.upsell-card-main {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Drinks in upsell banner: TALL, sleek, and high-impact */
+.upsell-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 8px;
+  background: #FAF8F5;
+  border: 1.5px solid #DECBA8;
+  padding: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.upsell-art.art-pije {
+  width: 68px;
+  height: 96px;
+  min-height: 96px;
+  padding: 6px 4px;
+  background: #FAF8F5;
+}
+
+.upsell-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(26, 16, 8, 0.08));
+}
+
+.upsell-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-wrap: break-word;
+}
+
+.upsell-copy h4 {
+  font-family: var(--font-display);
+  font-size: clamp(15.5px, 3.8vw, 17px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #0D0703;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.upsell-variant-label {
+  font-size: 12.5px;
+  color: #4A3525;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.upsell-price {
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  font-weight: 900;
+  color: #9E3703;
+  margin-top: 2px;
+  line-height: 1;
+}
+
+.upsell-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Tactile mobile add button */
+.upsell-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 13px;
+  border-radius: 6px;
+  border: 1.5px solid #0D0703;
+  background: #BC4D08;
+  color: #FFFDF8;
+  font-size: 13.5px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2.5px 0 #0D0703;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 100ms ease, background 120ms ease;
+  user-select: none;
+}
+
+.upsell-add:hover {
+  background: #A04107;
+}
+
+.upsell-add:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #0D0703;
+}
+
+.upsell-add:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.upsell-add-label {
+  white-space: nowrap;
+}
+
+/* Dedicated full-width status & Zhbëj bar: 100% responsive, never overflows */
+.upsell-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #F1F8EB;
+  border: 1.5px solid #3B7A1C;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.upsell-status-bar.is-limit {
+  background: #FFF4E5;
+  border-color: #BC4D08;
+  color: #9E3703;
+  font-size: 12px;
+  font-weight: 800;
+  justify-content: center;
+}
+
+.upsell-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 900;
+  color: #1E4D00;
+  white-space: nowrap;
+}
+
+.upsell-badge svg {
+  flex-shrink: 0;
+  color: #1E4D00;
+}
+
+/* The Zhbëj button: dedicated, prominent, mobile thumb friendly */
+.upsell-undo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background: #FFF5F2;
+  border: 1.5px solid #9E3703;
+  color: #9E3703;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  white-space: nowrap;
+  box-shadow: 0 1px 0 #9E3703;
+  transition: transform 100ms ease, background 120ms ease;
+}
+
+.upsell-undo-btn:hover {
+  background: #FFE8E0;
+}
+
+.upsell-undo-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.upsell-undo-btn svg {
+  flex-shrink: 0;
+}
+
+/* Backward compatibility aliases if needed */
+.upsell-added {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #1E4D00;
+}
+
+.upsell-footer {
+  width: 100%;
+}
+
+.upsell-footer > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0D0703;
+}
+
+.upsell-footer strong {
+  white-space: nowrap;
+  color: #9E3703;
+  font-size: clamp(17px, 4vw, 19px);
+  font-weight: 900;
+}
+
+.upsell-footer > p {
+  font-size: 12px;
+  color: #4A3525;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 6px 0 12px;
+  overflow-wrap: break-word;
+}
+
+.upsell-details-heading {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0D0703;
+  margin-bottom: 12px;
+}
+
+@media(min-width: 560px) {
+  .upsell-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -46,29 +46,51 @@ export function UpsellSuggestions({ groups }: { groups: UpsellGroup[] }) {
               const atLimit = (existing?.quantity ?? 0) >= ORDER_CONFIG.maxQuantityPerLine ||
                 (!existing && lines.length >= ORDER_CONFIG.maxLinesPerOrder);
               return (
-                <li key={key} className="upsell-card" data-added={count > 0}>
-                  <span className={`upsell-art art-${item.category}`} aria-hidden="true"><ItemArt item={item} sizes="56px" /></span>
-                  <div className="upsell-copy">
-                    <h4>{item.name}</h4>
-                    <p>{display.variantLabel ?? (item.category === "pije" ? "E ftohtë" : "Porcion standard")}</p>
-                    {count > 0 ? (
-                      <span className="upsell-added">
-                        <Check size={13} aria-hidden="true" />
-                        {count} në shportë
-                        <button type="button" onClick={() => undo(suggestion)} aria-label={`Hiq një ${item.name}`}>
-                          <Undo2 size={12} aria-hidden="true" />Zhbëj
-                        </button>
-                      </span>
-                    ) : atLimit ? (
-                      <span className="upsell-added is-limit">U arrit kufiri</span>
-                    ) : null}
+                <li key={key} className="upsell-card" data-added={count > 0} data-category={item.category}>
+                  <div className="upsell-card-main">
+                    <span className={`upsell-art art-${item.category}`} aria-hidden="true">
+                      <ItemArt item={item} sizes="(max-width: 639px) 80px, 96px" />
+                    </span>
+                    <div className="upsell-copy">
+                      <h4>{item.name}</h4>
+                      <p className="upsell-variant-label">{display.variantLabel ?? (item.category === "pije" ? "E ftohtë" : "Porcion standard")}</p>
+                      <strong className="upsell-price tnum">{formatPrice(display.unitPriceCents)}</strong>
+                    </div>
+                    <div className="upsell-actions">
+                      <button
+                        type="button"
+                        className="upsell-add"
+                        disabled={atLimit}
+                        onClick={() => add(suggestion)}
+                        aria-label={`Shto ${item.name} (+${formatPrice(display.unitPriceCents)})`}
+                      >
+                        <Plus size={16} strokeWidth={2.8} aria-hidden="true" />
+                        <span className="upsell-add-label">{count > 0 ? "Më shumë" : "Shto"}</span>
+                      </button>
+                    </div>
                   </div>
-                  <button type="button" className="upsell-add" disabled={atLimit}
-                    onClick={() => add(suggestion)} aria-label={`Shto ${item.name} (+${formatPrice(display.unitPriceCents)})`}>
-                    {count ? <Check size={16} aria-hidden="true" className="upsell-check" /> : <Plus size={16} aria-hidden="true" />}
-                    <span className="upsell-add-label">Shto</span>
-                    <strong className="tnum">{formatPrice(display.unitPriceCents)}</strong>
-                  </button>
+
+                  {count > 0 ? (
+                    <div className="upsell-status-bar">
+                      <span className="upsell-badge">
+                        <Check size={13} strokeWidth={3} aria-hidden="true" />
+                        <span>{count} në shportë</span>
+                      </span>
+                      <button
+                        type="button"
+                        className="upsell-undo-btn"
+                        onClick={() => undo(suggestion)}
+                        aria-label={`Zhbëj ${item.name}`}
+                      >
+                        <Undo2 size={13} strokeWidth={2.4} aria-hidden="true" />
+                        <span>Zhbëj</span>
+                      </button>
+                    </div>
+                  ) : atLimit ? (
+                    <div className="upsell-status-bar is-limit">
+                      <span>U arrit kufiri i porosisë</span>
+                    </div>
+                  ) : null}
                 </li>
               );
             })}

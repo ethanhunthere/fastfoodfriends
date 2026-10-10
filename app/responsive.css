@@ -48,6 +48,9 @@ html,body{max-width:100%;overflow-x:clip}
 .desktop-cart{display:none}
 @container (min-width:520px){
   [data-category="pije"] .express-item-list{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+  .express-item-pije, .express-item[data-category="pije"]{min-height:295px!important}
+  .express-item-pije .express-food-art, .express-item[data-category="pije"] .express-food-art{height:190px!important;min-height:190px!important;max-height:190px!important}
+  .express-item-pije .express-food-img, .express-item[data-category="pije"] .express-food-img{max-height:175px!important}
 }
 @container (min-width:740px){
   .express-item-list{gap:12px}
@@ -61,6 +64,9 @@ html,body{max-width:100%;overflow-x:clip}
   .express-categories{grid-template-columns:repeat(2,minmax(120px,200px))}
   .express-categories button{font-size:15px;font-weight:900}
   [data-category="pije"] .express-item-list{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+  .express-item-pije, .express-item[data-category="pije"]{min-height:310px!important}
+  .express-item-pije .express-food-art, .express-item[data-category="pije"] .express-food-art{height:200px!important;min-height:200px!important;max-height:200px!important}
+  .express-item-pije .express-food-img, .express-item[data-category="pije"] .express-food-img{max-height:185px!important}
 }
 @media(min-width:640px){
   :root{--header-height:78px}

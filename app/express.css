@@ -677,7 +677,7 @@
   background: #FFFFFF !important;
   border: 1.5px solid #0D0703 !important;
   box-shadow: 0 2.5px 0 #0D0703 !important;
-  min-height: 220px !important;
+  min-height: 285px !important;
   height: 100% !important;
   transition: transform 100ms ease, box-shadow 100ms ease !important;
 }
@@ -691,9 +691,9 @@
 .express-item-pije .express-food-art,
 .express-item[data-category="pije"] .express-food-art {
   width: 100% !important;
-  height: 135px !important;
-  min-height: 135px !important;
-  max-height: 135px !important;
+  height: 180px !important;
+  min-height: 180px !important;
+  max-height: 180px !important;
   margin: 0 0 8px 0 !important;
   padding: 10px 8px !important;
   border-radius: 7px !important;
@@ -715,7 +715,7 @@
 .express-item[data-category="pije"] .express-food-img {
   width: 100% !important;
   height: 100% !important;
-  max-height: 120px !important;
+  max-height: 165px !important;
   object-fit: contain !important;
   filter: drop-shadow(0 2.5px 5px rgba(26, 16, 8, 0.08));
 }
