@@ -21,8 +21,8 @@ import { MAPS_URL, ORDER_CONFIG, RESTAURANT, getSiteUrl } from "./restaurant";
 export const SITE_URL = getSiteUrl();
 
 /** Placeholder imagery — swap for real 1200×630 photos of your own food. */
-export const SOCIAL_IMAGE = "/opengraph-image";
-export const LOGO_IMAGE = "/icon.svg";
+export const SOCIAL_IMAGE = "/opengraph-image.png";
+export const LOGO_IMAGE = "/icon.png";
 
 export const DEFAULT_DESCRIPTION = `${RESTAURANT.name}: ${RESTAURANT.description} Gjeni në ${RESTAURANT.address.street}, ${RESTAURANT.address.city} — ${RESTAURANT.landmarks}. Porosit online, konfirmo me telefon, dorëzim brenda ${ORDER_CONFIG.radiusKm} km.`;
 
@@ -67,9 +67,11 @@ export const rootMetadata: Metadata = {
     images: [
       {
         url: SOCIAL_IMAGE,
+        secureUrl: `${SITE_URL}${SOCIAL_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: `${RESTAURANT.name} — menu e hamburgerëve, hotdogëve dhe pomfritit`,
+        alt: `${RESTAURANT.name} — Porosi Fast Food në ${RESTAURANT.address.city}`,
+        type: "image/png",
       },
     ],
   },
@@ -78,6 +80,18 @@ export const rootMetadata: Metadata = {
     title: `${RESTAURANT.name} — Porosi Fast Food në ${RESTAURANT.address.city}`,
     description: DEFAULT_DESCRIPTION,
     images: [SOCIAL_IMAGE],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
   },
   robots: {
     index: true,
@@ -103,10 +117,10 @@ export const rootViewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#fbf6ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0a06" },
     { media: "(prefers-color-scheme: light)", color: "#fbf6ea" },
   ],
-  colorScheme: "light",
+  colorScheme: "dark light",
   viewportFit: "cover",
   interactiveWidget: "resizes-content",
   // Zoom stays enabled — blocking it hurts accessibility (WCAG 1.4.4).
@@ -128,22 +142,35 @@ export function buildPageMetadata({
   imageAlt,
   noIndex = false,
 }: PageMetadataInput): Metadata {
+  const fullTitle = `${title} | ${RESTAURANT.name}`;
+  const pageUrl = `${SITE_URL}${path === "/" ? "" : path}`;
   return {
     title,
     description,
     alternates: { canonical: path },
     openGraph: {
-      title: `${title} | ${RESTAURANT.name}`,
+      title: fullTitle,
       description,
-      url: `${SITE_URL}${path === "/" ? "" : path}`,
+      url: pageUrl,
+      siteName: RESTAURANT.name,
+      locale: "sq_AL",
+      type: "website",
       images: [
         {
           url: SOCIAL_IMAGE,
+          secureUrl: `${SITE_URL}${SOCIAL_IMAGE}`,
           width: 1200,
           height: 630,
-          alt: imageAlt ?? `${RESTAURANT.name} — ${title}`,
+          alt: imageAlt ?? fullTitle,
+          type: "image/png",
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [SOCIAL_IMAGE],
     },
     ...(noIndex ? { robots: { index: false, follow: false } } : {}),
   };
