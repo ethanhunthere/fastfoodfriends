@@ -57,7 +57,7 @@ export function ActiveOrderBanner() {
 
           <span className="flex items-center gap-1 font-semibold text-cream-100">
             <Clock className="h-3.5 w-3.5 text-cream-200" aria-hidden="true" />
-            Ora: <strong className="text-cream-50">{order.time}</strong>
+            Ora: <strong className="text-cream-50">{order.time.replace(/\s*(m\.d\.|p\.d\.|am|pm)\.?/gi, "").trim()}</strong>
           </span>
 
           <span className="flex items-center gap-1 font-semibold text-cream-100">

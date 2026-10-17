@@ -11,7 +11,7 @@
  */
 import { revalidatePath } from "next/cache";
 import { calculateTotals, parseCartPayload } from "@/lib/cart";
-import { createOrderNumber } from "@/lib/format";
+import { createOrderNumber, formatOrderTime } from "@/lib/format";
 import { calculateDeliveryEta } from "@/lib/eta";
 import { getItemById, resolveLine } from "@/lib/menu";
 import { dispatchOrderNotification } from "@/lib/ntfy";
@@ -157,11 +157,15 @@ export async function submitOrder(
     };
   }
 
-  const eta = await calculateDeliveryEta(mode, {
-    address: mode === "delivery" ? address : undefined,
-    latitude: Number.isFinite(customerLat) ? customerLat : undefined,
-    longitude: Number.isFinite(customerLng) ? customerLng : undefined,
-  });
+  const eta = await calculateDeliveryEta(
+    mode,
+    {
+      address: mode === "delivery" ? address : undefined,
+      latitude: Number.isFinite(customerLat) ? customerLat : undefined,
+      longitude: Number.isFinite(customerLng) ? customerLng : undefined,
+    },
+    lines,
+  );
 
   const receipt: OrderReceipt = {
     orderNumber: createOrderNumber(),
@@ -202,11 +206,10 @@ export async function submitOrder(
   revalidatePath("/faleminderit");
 
   const now = new Date();
-  const orderedAtTime = now.toLocaleTimeString("sq-AL", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: process.env.RESTAURANT_TIMEZONE || "Europe/Belgrade",
-  });
+  const orderedAtTime = formatOrderTime(
+    now,
+    process.env.RESTAURANT_TIMEZONE || "Europe/Belgrade",
+  );
 
   return {
     status: "success",

@@ -1,3 +1,4 @@
+import { getItemById } from "./menu";
 import { RESTAURANT } from "./restaurant";
 
 export interface EtaResult {
@@ -5,15 +6,70 @@ export interface EtaResult {
   maxMinutes: number;
   label: string;
   rideMinutes: number;
+  prepMinutes?: number;
   distanceKm?: number;
   mapsUrl: string;
   source: "google_routes" | "osrm" | "estimate" | "pickup";
+}
+
+export interface CookTimeEstimate {
+  prepMinMinutes: number;
+  prepMaxMinutes: number;
+  foodCount: number;
 }
 
 export interface LocationInput {
   address?: string;
   latitude?: number;
   longitude?: number;
+}
+
+/**
+ * Smart preparation time based on ordered items:
+ * - 1-2 burgers/food items: ~5 min
+ * - Up to 10 burgers/food items: ~10 min
+ * - Drinks only: ~2-4 min
+ */
+export function estimateCookTime(
+  items?: Array<{ itemId: string; quantity: number }>,
+): CookTimeEstimate {
+  if (!items || items.length === 0) {
+    return { prepMinMinutes: 5, prepMaxMinutes: 8, foodCount: 1 };
+  }
+
+  let foodCount = 0;
+  for (const line of items) {
+    const item = getItemById(line.itemId);
+    if (!item || item.category === "ushqime-kryesore") {
+      foodCount += line.quantity;
+    }
+  }
+
+  if (foodCount === 0) {
+    return { prepMinMinutes: 2, prepMaxMinutes: 4, foodCount: 0 };
+  }
+
+  let prepMinMinutes: number;
+  let prepMaxMinutes: number;
+
+  if (foodCount <= 2) {
+    prepMinMinutes = 5;
+    prepMaxMinutes = 8;
+  } else if (foodCount <= 4) {
+    prepMinMinutes = 6;
+    prepMaxMinutes = 9;
+  } else if (foodCount <= 7) {
+    prepMinMinutes = 8;
+    prepMaxMinutes = 11;
+  } else if (foodCount <= 10) {
+    prepMinMinutes = 10;
+    prepMaxMinutes = 14;
+  } else {
+    prepMinMinutes = Math.min(15, 10 + Math.floor((foodCount - 10) / 2));
+    prepMaxMinutes = prepMinMinutes + 4;
+  }
+
+  return { prepMinMinutes, prepMaxMinutes, foodCount };
 }
 
 /**
@@ -168,22 +224,25 @@ function haversineDistanceKm(
 
 /**
  * Measure delivery time with motorcycle from Fast Food Friends location to customer location.
- * Includes kitchen preparation time (10–15 min) + motorcycle travel time.
+ * Combines dynamic kitchen preparation time (based on items cooked) + motorcycle travel time.
  */
 export async function calculateDeliveryEta(
   mode: "delivery" | "pickup",
   location: LocationInput,
+  items?: Array<{ itemId: string; quantity: number }>,
 ): Promise<EtaResult> {
   const originLat = RESTAURANT.geo.latitude;
   const originLng = RESTAURANT.geo.longitude;
+  const { prepMinMinutes, prepMaxMinutes } = estimateCookTime(items);
 
   if (mode === "pickup") {
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${originLat},${originLng}`;
     return {
-      minMinutes: 10,
-      maxMinutes: 15,
-      label: "10–15 min",
+      minMinutes: prepMinMinutes,
+      maxMinutes: prepMaxMinutes,
+      label: `${prepMinMinutes}–${prepMaxMinutes} min`,
       rideMinutes: 0,
+      prepMinutes: prepMinMinutes,
       distanceKm: 0,
       mapsUrl,
       source: "pickup",
@@ -192,8 +251,8 @@ export async function calculateDeliveryEta(
 
   const apiKey = process.env.GOOGLE_MAPS_API_KEY?.trim();
 
-  let rideMinutes = 7; // Average motorcycle delivery ride across Pejë
-  let distanceKm = 2.5;
+  let rideMinutes = 5; // Typical motorcycle delivery ride across Pejë (fast, weaves through traffic)
+  let distanceKm = 2.0;
   let source: EtaResult["source"] = "estimate";
 
   let destLat = location.latitude;
@@ -241,18 +300,15 @@ export async function calculateDeliveryEta(
       } else {
         const hKm = haversineDistanceKm(originLat, originLng, destLat, destLng);
         distanceKm = Number(hKm.toFixed(1));
-        rideMinutes = Math.max(3, Math.round((distanceKm / 25) * 60));
+        rideMinutes = Math.max(3, Math.round((distanceKm / 28) * 60));
         source = "estimate";
       }
     }
   }
 
-  // Kitchen fast-food preparation time: ~10-15 min
-  const prepMin = 10;
-  const prepMax = 15;
-
-  const minMinutes = Math.max(15, prepMin + rideMinutes);
-  const maxMinutes = Math.max(minMinutes + 8, prepMax + rideMinutes + 3);
+  // Total delivery ETA = kitchen cooking duration + motorcycle ride
+  const minMinutes = prepMinMinutes + rideMinutes;
+  const maxMinutes = Math.max(minMinutes + 3, prepMaxMinutes + rideMinutes);
   const label = `${minMinutes}–${maxMinutes} min`;
 
   // Destination parameter for Google Maps navigation in motorcycle mode
@@ -268,8 +324,10 @@ export async function calculateDeliveryEta(
     maxMinutes,
     label,
     rideMinutes,
+    prepMinutes: prepMinMinutes,
     distanceKm,
     mapsUrl,
     source,
   };
 }
+

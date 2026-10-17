@@ -27,7 +27,7 @@ import { UpsellSuggestions } from "@/components/UpsellSuggestions";
 import { getUpsellGroups } from "@/lib/upsell";
 import { submitOrder } from "@/lib/actions/order";
 import { describeCartLine, serialiseCartPayload } from "@/lib/cart";
-import { formatPrice } from "@/lib/format";
+import { formatOrderTime, formatPrice, stripTimeSuffix } from "@/lib/format";
 import { validateKosovoMobile } from "@/lib/phone";
 import { MAPS_URL, ORDER_CONFIG, RESTAURANT, getRestaurantPhoneHref } from "@/lib/restaurant";
 import {
@@ -89,12 +89,9 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
       if (!cleared.current) {
         cleared.current = true;
         clearCart();
-        const orderedAt =
-          state.orderedAtTime ||
-          new Date().toLocaleTimeString("sq-AL", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
+        const orderedAt = stripTimeSuffix(
+          state.orderedAtTime || formatOrderTime(new Date()),
+        );
         const eta = state.etaMinutes || "25–40 min";
         try {
           window.localStorage.setItem(
@@ -570,13 +567,10 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
 
 /** Post-submit confirmation: order code, order time, estimated minutes, total. */
 function SuccessPanel({ state }: { state: OrderFormState }) {
-  const orderedAt =
-    state.orderedAtTime ||
-    new Date().toLocaleTimeString("sq-AL", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  const eta = state.etaMinutes || "25–40 min";
+  const orderedAt = stripTimeSuffix(
+    state.orderedAtTime || formatOrderTime(new Date()),
+  );
+  const eta = state.etaMinutes || "10–20 min";
 
   return (
     <div className="space-y-4">
@@ -637,8 +631,8 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
         <p className="text-base font-bold text-cream-50">Hapi tjetër</p>
         <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm font-medium text-cream-100">
           <li>Ju telefonojmë brenda 2 minutave për ta konfirmuar.</li>
-          <li>Porosia përgatitet dhe niset për dërgesë në {RESTAURANT.address.city}.</li>
-          <li>Pagesa bëhet me para në dorë (cash) ose kartelë në dorëzim.</li>
+          <li>Porosia përgatitet dhe niset për dërgesë.</li>
+          <li>Pagesa bëhet me para në dorë (cash).</li>
         </ol>
       </div>
     </div>

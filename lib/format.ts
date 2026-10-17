@@ -42,3 +42,32 @@ export function formatQuantityLabel(quantity: number, name: string): string {
 export function formatEtaRange(minMinutes: number, maxMinutes: number): string {
   return `${minMinutes}–${maxMinutes} min`;
 }
+
+/**
+ * Remove any trailing AM/PM or Albanian "m.d." / "p.d." from a time string.
+ */
+export function stripTimeSuffix(timeStr: string): string {
+  return (timeStr || "").replace(/\s*(m\.d\.|p\.d\.|am|pm)\.?/gi, "").trim();
+}
+
+/**
+ * Clean 24-hour time format (e.g. "14:35", "12:22") without any "m.d." / "p.d." or AM/PM suffixes.
+ */
+export function formatOrderTime(
+  date: Date = new Date(),
+  timeZone = "Europe/Belgrade",
+): string {
+  try {
+    const formatted = new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone,
+    }).format(date);
+    return stripTimeSuffix(formatted);
+  } catch {
+    const h = String(date.getHours()).padStart(2, "0");
+    const m = String(date.getMinutes()).padStart(2, "0");
+    return `${h}:${m}`;
+  }
+}
