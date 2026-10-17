@@ -65,39 +65,36 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   const itemLines = lines.map((line) => {
     const variant = line.variantLabel ? ` (${line.variantLabel})` : "";
     const modifiers = line.modifierLabels.length
-      ? `\n  - _${line.modifierLabels.join(", ")}_`
+      ? `\n   (${line.modifierLabels.join(", ")})`
       : "";
-    return `* **${line.quantity}x** ${line.name}${variant} — **${formatPrice(
+    return `${line.quantity}x ${line.name}${variant} — ${formatPrice(
       line.lineTotalCents,
-    )}**${modifiers}`;
+    )}${modifiers}`;
   });
 
   const rows: (string | null)[] = [
-    `### 📋 Fletë Porosie · ${modeTitle}`,
+    `POROSI E RE: #${orderNumber}`,
+    `Lloji: ${modeTitle}`,
     "",
-    `* **Klienti:** ${customer.fullName}`,
-    `* **Telefoni:** ${phoneDisplay}`,
+    "KLIENTI",
+    `Emri: ${customer.fullName}`,
+    `Telefoni: ${phoneDisplay}`,
     mode === "delivery"
-      ? `* **Adresa e Dërgesës:** ${customer.address}`
-      : `* **Mënyra:** Marrje në lokal (${RESTAURANT.name}, Pejë)`,
-    customer.notes.trim() ? `* **Shënime nga klienti:** _${customer.notes.trim()}_` : null,
+      ? `Adresa: ${customer.address}`
+      : `Marrje në lokal: ${RESTAURANT.name}`,
+    customer.notes.trim() ? `Shënime: ${customer.notes.trim()}` : null,
     "",
-    "---",
-    "",
-    "### 🧾 Artikujt e Porositur",
+    "ARTIKUJT",
     ...itemLines,
     "",
-    "---",
-    "",
-    "### 💰 Përmbledhja Financiare",
-    `* Nënshuma: **${formatPrice(pricing.subtotalCents)}**`,
-    `* Kosto e dërgesës: **${
+    "PAGESA",
+    `Nënshuma: ${formatPrice(pricing.subtotalCents)}`,
+    `Dërgesa: ${
       pricing.deliveryFeeCents === 0 ? "Falas" : formatPrice(pricing.deliveryFeeCents)
-    }**`,
-    `* **TOTALI PËR PAGESË: ${formatPrice(pricing.totalCents)}**`,
+    }`,
+    `TOTALI: ${formatPrice(pricing.totalCents)}`,
     "",
-    "---",
-    `*⏱ Koha e përafërt: ${receipt.etaLabel}*`,
+    `Koha e përafërt: ${receipt.etaLabel}`,
   ];
 
   const message = rows.filter((row): row is string => row !== null).join("\n");
@@ -109,7 +106,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   const actions: NtfyAction[] = [
     {
       action: "view",
-      label: `📞 Telefono Klientin (${prettyPhone || customer.phoneE164})`,
+      label: `Telefono: ${prettyPhone || customer.phoneE164}`,
       url: customerTel,
       clear: false,
     },
@@ -118,7 +115,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   if (mode === "delivery" && customer.address.trim()) {
     actions.push({
       action: "view",
-      label: "📍 Hap Adresën në Hartë",
+      label: "Hap Hartën",
       url: mapsUrl,
       clear: false,
     });
@@ -134,7 +131,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     body: message,
     priority: Number.isFinite(NTFY_PRIORITY) ? NTFY_PRIORITY : 5,
     tags: tagsList,
-    markdown: true,
+    markdown: false,
     actions,
   };
 }
@@ -176,7 +173,7 @@ export async function dispatchOrderNotification(
         title: payload.title,
         message: payload.message,
         priority: payload.priority,
-        markdown: true,
+        markdown: payload.markdown,
         ...(payload.tags && payload.tags.length > 0 ? { tags: payload.tags } : {}),
         actions: payload.actions,
       }),
