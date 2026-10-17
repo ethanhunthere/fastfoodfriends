@@ -12,6 +12,7 @@ import { useActionState, useEffect, useRef, useState, type ReactNode } from "rea
 import {
   CircleCheckBig,
   LoaderCircle,
+  LocateFixed,
   MapPin,
   Navigation,
   NotebookPen,
@@ -218,12 +219,44 @@ function CheckoutForm({
   phoneHint,
 }: CheckoutFormProps) {
   const errors = state.fieldErrors;
+  const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [locatingMsg, setLocatingMsg] = useState("");
+  const [addressValue, setAddressValue] = useState(state.values.address);
+
+  const handleGetGps = () => {
+    if (typeof window === "undefined" || !navigator.geolocation) {
+      setLocatingMsg("Pajisja juaj nuk e mbështet GPS.");
+      return;
+    }
+    setLocating(true);
+    setLocatingMsg("");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocating(false);
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        setCoords({ lat, lng });
+        setLocatingMsg("Lokacioni i saktë u mor me sukses nga GPS.");
+        if (!addressValue.trim()) {
+          setAddressValue(`📍 Lokacion i saktë nga GPS (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+        }
+      },
+      () => {
+        setLocating(false);
+        setLocatingMsg("Nuk mundëm të marrim GPS. Shkruaj adresën manualisht.");
+      },
+      { enableHighAccuracy: true, timeout: 8000 },
+    );
+  };
 
   return (
     <form id={CART_FORM_ID} action={formAction} className="express-checkout-form" noValidate>
       {/* Only item ids + quantities travel to the server; prices are recomputed there. */}
       <input type="hidden" name={CART_PAYLOAD_FIELD} value={serialisedCart} />
       <input type="hidden" name="mode" value={mode} />
+      <input type="hidden" name="customerLat" value={coords ? coords.lat : ""} />
+      <input type="hidden" name="customerLng" value={coords ? coords.lng : ""} />
 
       {/* Order summary — mirrors what the Server Action will re-price. */}
       <section
@@ -350,6 +383,18 @@ function CheckoutForm({
           error={errors.address}
           required
         >
+          <div className="mb-1.5 flex items-center justify-between">
+            <span className="text-xs font-semibold text-cream-200">Adresa e dorëzimit:</span>
+            <button
+              type="button"
+              onClick={handleGetGps}
+              disabled={locating}
+              className="inline-flex items-center gap-1 rounded bg-charcoal-800 px-2 py-0.5 text-xs font-bold text-flame-700 transition-colors hover:bg-charcoal-700 disabled:opacity-50"
+            >
+              <LocateFixed className="h-3 w-3" />
+              {locating ? "Po lokalizohet…" : coords ? "✅ GPS u ruajt" : "📍 Përdor GPS"}
+            </button>
+          </div>
           <textarea
             id="address"
             name="address"
@@ -357,12 +402,18 @@ function CheckoutForm({
             rows={2}
             autoComplete="street-address"
             enterKeyHint="next"
-            defaultValue={state.values.address}
+            value={addressValue}
+            onChange={(e) => setAddressValue(e.target.value)}
             aria-invalid={Boolean(errors.address)}
             aria-describedby="address-hint address-error"
             placeholder={`P.sh. Rr. Fadil Hoxha, hyrja B, kati 2, afër ${RESTAURANT.landmarkShort.toLowerCase()}`}
             className={`${inputClass(Boolean(errors.address))} resize-y`}
           />
+          {locatingMsg ? (
+            <p className={`mt-1 text-xs ${coords ? "font-semibold text-open-400" : "text-flame-700"}`}>
+              {locatingMsg}
+            </p>
+          ) : null}
         </Field>
       ) : (
         <p className="rounded-lg border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200">

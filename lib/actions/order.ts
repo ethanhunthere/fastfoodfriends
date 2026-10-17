@@ -11,7 +11,8 @@
  */
 import { revalidatePath } from "next/cache";
 import { calculateTotals, parseCartPayload } from "@/lib/cart";
-import { createOrderNumber, formatEtaRange } from "@/lib/format";
+import { createOrderNumber } from "@/lib/format";
+import { calculateDeliveryEta } from "@/lib/eta";
 import { getItemById, resolveLine } from "@/lib/menu";
 import { dispatchOrderNotification } from "@/lib/ntfy";
 import { prettyPhone, validateKosovoMobile } from "@/lib/phone";
@@ -47,6 +48,16 @@ export async function submitOrder(
   const address = readField(formData, "address");
   const notes = readField(formData, "notes");
   const cartPayload = readField(formData, CART_PAYLOAD_FIELD);
+  const customerLatRaw = formData.get("customerLat");
+  const customerLngRaw = formData.get("customerLng");
+  const customerLat =
+    typeof customerLatRaw === "string" && customerLatRaw.trim()
+      ? parseFloat(customerLatRaw)
+      : undefined;
+  const customerLng =
+    typeof customerLngRaw === "string" && customerLngRaw.trim()
+      ? parseFloat(customerLngRaw)
+      : undefined;
 
   const values: OrderFormState["values"] = {
     fullName,
@@ -146,6 +157,12 @@ export async function submitOrder(
     };
   }
 
+  const eta = await calculateDeliveryEta(mode, {
+    address: mode === "delivery" ? address : undefined,
+    latitude: Number.isFinite(customerLat) ? customerLat : undefined,
+    longitude: Number.isFinite(customerLng) ? customerLng : undefined,
+  });
+
   const receipt: OrderReceipt = {
     orderNumber: createOrderNumber(),
     receivedAtIso: new Date().toISOString(),
@@ -158,11 +175,10 @@ export async function submitOrder(
       phoneE164: phone.e164,
       address: mode === "delivery" ? address : "",
       notes,
+      latitude: Number.isFinite(customerLat) ? customerLat : undefined,
+      longitude: Number.isFinite(customerLng) ? customerLng : undefined,
     },
-    etaLabel: formatEtaRange(
-      ORDER_CONFIG.etaMinutes.min,
-      ORDER_CONFIG.etaMinutes.max,
-    ),
+    etaLabel: eta.label,
   };
 
   /* ------------------------------------------------------------------ *

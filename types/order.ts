@@ -54,6 +54,8 @@ export interface CustomerDetails {
   phoneE164: string;
   address: string;
   notes: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface OrderReceipt {

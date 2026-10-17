@@ -16,7 +16,7 @@
  */
 import { formatPrice } from "./format";
 import { telHref } from "./phone";
-import { RESTAURANT, getFormattedAddress } from "./restaurant";
+import { RESTAURANT } from "./restaurant";
 import type { OrderReceipt } from "../types/order";
 
 const NTFY_SERVER = (process.env.NTFY_SERVER ?? "https://ntfy.sh").replace(/\/+$/, "");
@@ -89,9 +89,13 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
 
   const message = rows.filter((row): row is string => row !== null).join("\n");
 
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    customer.address || getFormattedAddress(),
-  )}`;
+  const originCoords = `${RESTAURANT.geo.latitude},${RESTAURANT.geo.longitude}`;
+  const destCoords =
+    customer.latitude && customer.longitude
+      ? `${customer.latitude},${customer.longitude}`
+      : encodeURIComponent(`${customer.address || "Pejë"}, Pejë`);
+
+  const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${originCoords}&destination=${destCoords}&travelmode=two_wheeler`;
 
   const actions: NtfyAction[] = [
     {
@@ -102,10 +106,10 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     },
   ];
 
-  if (mode === "delivery" && customer.address.trim()) {
+  if (mode === "delivery" && (customer.address.trim() || (customer.latitude && customer.longitude))) {
     actions.push({
       action: "view",
-      label: "Hap Hartën",
+      label: "Hap Hartën (Motor)",
       url: mapsUrl,
       clear: false,
     });
