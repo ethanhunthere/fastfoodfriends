@@ -34,10 +34,9 @@ export function UpsellSuggestions({ groups }: { groups: UpsellGroup[] }) {
 
   return (
     <section className="upsell" aria-label="Plotëso porosinë">
-      <p className="upsell-intro">Pak krokante? Diçka të ftohtë? Vetëm nëse të shijon.</p>
       {groups.map(group => (
         <div key={group.kind} className="upsell-group">
-          <h3 className="upsell-group-header">{group.header}</h3>
+          {group.header ? <h3 className="upsell-group-header">{group.header}</h3> : null}
           <ul className="upsell-list">
             {group.suggestions.map(suggestion => {
               const { item, key, display } = suggestion;

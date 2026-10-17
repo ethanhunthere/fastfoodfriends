@@ -42,9 +42,9 @@ export function ActiveOrderBanner() {
   return (
     <aside
       aria-label="Porosia juaj aktive"
-      className="border-b-2 border-open-400 bg-charcoal-900 px-4 py-2.5 text-cream-50 shadow-md"
+      className="relative w-full border-b-2 border-open-400 bg-charcoal-900 px-4 py-2.5 text-cream-50 shadow-md"
     >
-      <div className="storefront-container relative flex flex-col items-center justify-center gap-2 text-center text-xs sm:text-sm sm:flex-row sm:justify-between sm:text-left pr-8 sm:pr-0">
+      <div className="storefront-container flex flex-col items-center justify-center gap-1.5 text-center text-xs sm:text-sm sm:flex-row sm:justify-between sm:text-left pr-9 sm:pr-11">
         <div className="flex items-center justify-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-open-400 opacity-75"></span>
@@ -73,21 +73,21 @@ export function ActiveOrderBanner() {
             ) : null}
           </span>
         </div>
-
-        <button
-          type="button"
-          onClick={() => {
-            try {
-              window.localStorage.removeItem("fff_active_order");
-            } catch {}
-            setOrder(null);
-          }}
-          className="absolute right-2 top-2 sm:static sm:ml-auto inline-flex items-center gap-1 p-1 text-xs font-semibold text-cream-200 transition-colors hover:text-white"
-          aria-label="Mbyll njoftimin e porosisë"
-        >
-          <X className="h-4 w-4" />
-        </button>
       </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          try {
+            window.localStorage.removeItem("fff_active_order");
+          } catch {}
+          setOrder(null);
+        }}
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-cream-200 transition-colors hover:bg-charcoal-800 hover:text-white touch-manipulation z-20"
+        aria-label="Mbyll njoftimin e porosisë"
+      >
+        <X className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+      </button>
     </aside>
   );
 }
