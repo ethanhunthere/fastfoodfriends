@@ -28,7 +28,7 @@ export function formatPriceMachine(cents: number): string {
 }
 
 /** 4-digit numeric order code, e.g. "4821". Random integer between 1000 and 9999. */
-export function createOrderNumber(_now: Date = new Date()): string {
+export function createOrderNumber(): string {
   const code = Math.floor(1000 + Math.random() * 9000);
   return String(code);
 }

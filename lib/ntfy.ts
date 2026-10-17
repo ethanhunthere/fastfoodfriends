@@ -54,7 +54,6 @@ export function isNotificationConfigured(): boolean {
 export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   const { customer, pricing, lines, mode, orderNumber } = receipt;
 
-  const modeTitle = mode === "delivery" ? "Dërgesë në Adresë" : "Marrje në Lokal";
   const customerTel = telHref(customer.phoneE164 || customer.phoneRaw);
   const prettyPhone = customer.phoneRaw.trim();
   const phoneDisplay =
@@ -66,31 +65,26 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     .map((line) => {
       const variant = line.variantLabel ? ` (${line.variantLabel})` : "";
       const modifiers = line.modifierLabels.length
-        ? `\n   (${line.modifierLabels.join(", ")})`
+        ? `\n│    (${line.modifierLabels.join(", ")})`
         : "";
-      return `${line.quantity}x ${line.name}${variant} — ${formatPrice(
+      return `│ ${line.quantity}x ${line.name}${variant} — ${formatPrice(
         line.lineTotalCents,
       )}${modifiers}`;
     })
-    .join("\n\n");
+    .join("\n│\n");
 
   const rows: (string | null)[] = [
-    `Lloji: ${modeTitle}`,
-    "",
     "KLIENTI",
     `Emri: ${customer.fullName}`,
     `Telefoni: ${phoneDisplay}`,
-    mode === "delivery"
-      ? `Adresa: ${customer.address}`
-      : `Marrje në lokal: ${RESTAURANT.name}`,
+    customer.address ? `Adresa: ${customer.address}` : null,
     customer.notes.trim() ? `Shënime: ${customer.notes.trim()}` : null,
     "",
-    "ARTIKUJT:",
+    "┌── ARTIKUJT ──────────────────────",
     itemBlocks,
+    "└──────────────────────────────────",
     "",
     `TOTALI: ${formatPrice(pricing.totalCents)}`,
-    "",
-    `Koha e përafërt: ${receipt.etaLabel}`,
   ];
 
   const message = rows.filter((row): row is string => row !== null).join("\n");
