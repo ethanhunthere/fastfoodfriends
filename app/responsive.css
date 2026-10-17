@@ -70,8 +70,8 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media(min-width:640px){
   :root{--header-height:78px}
-  .modal-overlay{align-items:flex-start;padding:24px}
-  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - 56px);margin-top:0;margin-bottom:0}
+  .modal-overlay{align-items:center;padding:24px}
+  .express-dialog{border-radius:12px!important;max-height:calc(100dvh - 56px);margin:auto}
 }
 @media(min-width:1200px){
   .storefront-layout{grid-template-columns:minmax(0,1fr) 340px;gap:28px}

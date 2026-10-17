@@ -6,7 +6,7 @@
   inset: 0;
   z-index: 100;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom));
   pointer-events: none;
@@ -14,9 +14,12 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.modal-overlay[data-variant="center"],
+.modal-overlay-center,
 .modal-overlay[data-variant="top"],
 .modal-overlay-top {
-  align-items: flex-start !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .modal-backdrop {
@@ -43,20 +46,24 @@
   pointer-events: auto;
   animation: banner-float-in 140ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
-  margin: 0;
-  margin-top: 0;
+  margin: auto;
 }
 
 @media (max-width: 639px) {
-  .modal-overlay {
-    align-items: flex-start !important;
-    justify-content: center;
-    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+  .modal-overlay,
+  .modal-overlay[data-variant="top"],
+  .modal-overlay-top,
+  .modal-overlay[data-variant="center"],
+  .modal-overlay-center {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
   }
   .express-dialog {
-    max-height: min(calc(100dvh - 16px), 94dvh);
-    margin: 0 !important;
-    margin-top: 0 !important;
+    max-height: min(calc(100dvh - 20px), 92dvh);
+    margin: auto !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
   }
   .modal-heading {
     padding: 12px 14px;

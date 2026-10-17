@@ -129,7 +129,7 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
       onClose={isPending ? () => {} : onClose}
       title={isSuccess ? "Porosia u pranua!" : showUpsell ? "Dëshiron të shtosh ndonjë gjë tjetër?" : "Të dhënat e porosisë"}
       titleId="checkout-title"
-      variant="top"
+      variant="center"
       footer={
         showUpsell ? (
           <div className="upsell-footer">

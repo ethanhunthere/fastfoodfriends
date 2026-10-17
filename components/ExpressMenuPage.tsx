@@ -11,7 +11,7 @@ export function ExpressMenuPage() {
   return (
     <>
       <section className="express-welcome" aria-labelledby="express-title">
-        <div className="express-welcome-content">
+        <div className="express-welcome-content w-full items-center text-center sm:items-start sm:text-left">
           <div className="express-welcome-badge">
             <span className="express-eyebrow">GOOD FOOD • GOOD FRIENDS</span>
           </div>
@@ -19,7 +19,7 @@ export function ExpressMenuPage() {
           <p>E freskët nga zgara, e përgatitur me dashuri në Pejë.</p>
         </div>
       </section>
-      <div className="express-service">
+      <div className="express-service justify-center sm:justify-start">
         <span className={`express-service-item ${status.isOpen ? "express-open" : "express-closed"}`}>
           <span className="express-status-label">{status.isOpen ? "HAPUR TANI" : "MBYLLUR"}</span>
         </span>
@@ -32,7 +32,7 @@ export function ExpressMenuPage() {
           <ArrowUpRight size={13} aria-hidden="true" />
         </Link>
       </div>
-      {!status.isOpen && <p className="express-closed-note">{status.detail}. Porosit tani; konfirmojmë sapo hapim.</p>}
+      {!status.isOpen && <p className="express-closed-note text-center sm:text-left">{status.detail}. Porosit tani; konfirmojmë sapo hapim.</p>}
       <div className="storefront-layout">
         <div id="menu-browse"><MenuSectionList /></div>
         <DesktopCart />

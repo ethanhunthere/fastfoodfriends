@@ -40,10 +40,10 @@ export function ClosedBanner({ status }: { status: OpeningStatus }) {
   return (
     <div
       role="status"
-      className="flex flex-col gap-3 rounded-card border-2 border-flame-600 bg-flame-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+      className="flex flex-col items-center text-center sm:text-left gap-3 rounded-card border-2 border-flame-600 bg-flame-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
     >
-      <div className="flex items-start gap-3">
-        <Clock aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-flame-600" />
+      <div className="flex flex-col sm:flex-row items-center gap-3">
+        <Clock aria-hidden="true" className="h-5 w-5 shrink-0 text-flame-600" />
         <div>
           <p className="font-extrabold text-flame-600">
             Mbyllur tani — {status.detail}
@@ -78,14 +78,14 @@ export function OpeningStatusPanel({
   return (
     <div className="min-h-16" aria-live="polite">
       {status.isOpen ? (
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
           <OpeningStatusBadge status={status} />
-      <Link
-        href="/#menu-browse"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
-      >
-        Porosit online
-      </Link>
+          <Link
+            href="/#menu-browse"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-charcoal-700 px-4 text-sm font-medium text-cream-100 transition-colors hover:border-flame-500 hover:text-flame-700"
+          >
+            Porosit online
+          </Link>
         </div>
       ) : showClosedBanner ? (
         <ClosedBanner status={status} />

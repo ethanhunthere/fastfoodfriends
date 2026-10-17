@@ -43,13 +43,13 @@ export function ActiveOrderBanner() {
       aria-label="Porosia juaj aktive"
       className="border-b-2 border-open-400 bg-charcoal-900 px-4 py-2.5 text-cream-50 shadow-md"
     >
-      <div className="storefront-container flex flex-wrap items-center justify-between gap-3 text-sm">
-        <div className="flex items-center gap-2">
+      <div className="storefront-container relative flex flex-col items-center justify-center gap-2.5 text-center text-sm sm:flex-row sm:justify-between sm:text-left">
+        <div className="flex items-center justify-center gap-2">
           <CircleCheckBig className="h-4 w-4 shrink-0 text-open-400" aria-hidden="true" />
           <span className="font-bold text-cream-50">Porosia u pranua!</span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span className="flex items-center gap-1 font-semibold text-cream-100">
             <Hash className="h-3.5 w-3.5 text-flame-700" aria-hidden="true" />
             Kodi: <strong className="font-display font-black text-flame-700">#{order.code}</strong>
@@ -73,7 +73,7 @@ export function ActiveOrderBanner() {
             } catch {}
             setOrder(null);
           }}
-          className="ml-auto inline-flex items-center gap-1 p-1 text-xs font-semibold text-cream-200 transition-colors hover:text-white"
+          className="absolute right-2 top-2 sm:static sm:ml-auto inline-flex items-center gap-1 p-1 text-xs font-semibold text-cream-200 transition-colors hover:text-white"
           aria-label="Mbyll njoftimin e porosisë"
         >
           <X className="h-4 w-4" />

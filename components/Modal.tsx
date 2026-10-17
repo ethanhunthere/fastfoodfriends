@@ -33,7 +33,7 @@ export interface ModalProps {
   children: ReactNode;
   /** Optional sticky footer (totals + primary action). */
   footer?: ReactNode;
-  /** 'top' anchors at the top of the viewport on mobile/desktop. */
+  /** Dialog placement — defaults to center. */
   variant?: "sheet" | "center" | "top";
 }
 
@@ -44,7 +44,7 @@ export function Modal({
   titleId = "modal-title",
   children,
   footer,
-  variant = "top",
+  variant = "center",
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);

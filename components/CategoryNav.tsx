@@ -25,7 +25,7 @@ export function CategoryNav() {
   return (
     <nav
       aria-label="Kategoritë e menujës"
-      className="mb-8 flex flex-wrap gap-2"
+      className="mb-8 flex flex-wrap justify-center sm:justify-start gap-2"
     >
       {sections
         .filter((section) => section.items.length > 0)
