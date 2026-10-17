@@ -17,6 +17,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { StickyOrderBar } from "@/components/StickyOrderBar";
 import { CartSheet } from "@/components/CartSheet";
 import { CheckoutModal } from "@/components/CheckoutModal";
+import { ActiveOrderBanner } from "@/components/ActiveOrderBanner";
 import {
   buildRestaurantJsonLd,
   buildWebSiteJsonLd,
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div id="storefront-shell">
           <SkipLink />
           <Header />
+          <ActiveOrderBanner />
           <main id="permbajtja" className="storefront-container flex-1">
             {children}
           </main>

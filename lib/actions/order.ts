@@ -185,6 +185,13 @@ export async function submitOrder(
   // Keeps the thank-you route fresh if it is ever cached.
   revalidatePath("/faleminderit");
 
+  const now = new Date();
+  const orderedAtTime = now.toLocaleTimeString("sq-AL", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: process.env.RESTAURANT_TIMEZONE || "Europe/Belgrade",
+  });
+
   return {
     status: "success",
     fieldErrors: {},
@@ -193,6 +200,8 @@ export async function submitOrder(
     totalCents: receipt.pricing.totalCents,
     notificationDelivered: notification.delivered,
     notificationNote: notification.note,
+    orderedAtTime,
+    etaMinutes: receipt.etaLabel,
     values: {
       fullName: "",
       phone: "",

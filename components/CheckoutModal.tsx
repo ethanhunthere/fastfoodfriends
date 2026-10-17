@@ -82,17 +82,46 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
   const totals = totalsFor(mode);
   const phoneHint = validateKosovoMobile(phoneValue);
 
-  /* Empty the basket exactly once, after a successful server round-trip. */
+  /* Empty the basket exactly once and persist active order after a successful server round-trip. */
   useEffect(() => {
-    if (state.status === "success") {
+    if (state.status === "success" && state.orderNumber) {
       if (!cleared.current) {
         cleared.current = true;
         clearCart();
+        const orderedAt =
+          state.orderedAtTime ||
+          new Date().toLocaleTimeString("sq-AL", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        const eta = state.etaMinutes || "25–40 min";
+        try {
+          window.localStorage.setItem(
+            "fff_active_order",
+            JSON.stringify({
+              code: state.orderNumber,
+              time: orderedAt,
+              eta,
+              totalCents: state.totalCents,
+              timestamp: Date.now(),
+            }),
+          );
+          window.dispatchEvent(new Event("fff_order_placed"));
+        } catch {
+          // storage disabled or quota full
+        }
       }
       return;
     }
     cleared.current = false;
-  }, [state.status, clearCart]);
+  }, [
+    state.status,
+    state.orderNumber,
+    state.orderedAtTime,
+    state.etaMinutes,
+    state.totalCents,
+    clearCart,
+  ]);
 
   const isSuccess = state.status === "success";
 
@@ -488,40 +517,60 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
   );
 }
 
-/** Post-submit confirmation: order number, total and the push-delivery status. */
+/** Post-submit confirmation: order code, order time, estimated minutes, total. */
 function SuccessPanel({ state }: { state: OrderFormState }) {
+  const orderedAt =
+    state.orderedAtTime ||
+    new Date().toLocaleTimeString("sq-AL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  const eta = state.etaMinutes || "25–40 min";
+
   return (
     <div className="space-y-4">
-      <div className="flex items-start gap-3 rounded-card border-2 border-open-400 bg-open-500/10 p-4">
-        <CircleCheckBig aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-open-400" />
-        <div>
-          <p className="font-display text-xl font-bold text-cream-50">
-            Porosia u pranua me sukses!
-          </p>
-          <p className="mt-1 text-sm font-semibold text-cream-100">
-            Ju telefonojmë brenda 2 minutave për ta konfirmuar.
-          </p>
+      {/* Primary Order Status Banner */}
+      <div className="overflow-hidden rounded-card border-2 border-open-400 bg-charcoal-900 shadow-xl">
+        <div className="flex items-center justify-between border-b border-charcoal-800 bg-open-500/15 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <CircleCheckBig aria-hidden="true" className="h-5 w-5 shrink-0 text-open-400" />
+            <p className="font-display text-lg font-bold text-cream-50">
+              Porosia u pranua me sukses!
+            </p>
+          </div>
+          <span className="rounded bg-open-400/20 px-2 py-0.5 text-xs font-bold text-open-400">
+            Aktiv
+          </span>
+        </div>
+
+        <div className="grid grid-cols-3 divide-x divide-charcoal-800 p-3.5 text-center">
+          <div className="px-1">
+            <span className="block text-xs font-semibold text-cream-200">Kodi</span>
+            <span className="mt-1 block tnum font-display text-xl font-black text-flame-700">
+              #{state.orderNumber}
+            </span>
+          </div>
+          <div className="px-1">
+            <span className="block text-xs font-semibold text-cream-200">Ora e porosisë</span>
+            <span className="mt-1 block tnum font-bold text-cream-50 text-base">
+              {orderedAt}
+            </span>
+          </div>
+          <div className="px-1">
+            <span className="block text-xs font-semibold text-cream-200">Koha e përafërt</span>
+            <span className="mt-1 block tnum font-bold text-open-400 text-base">
+              ~{eta}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-charcoal-800 bg-charcoal-850 px-4 py-2.5 text-sm">
+          <span className="font-bold text-cream-100">Totali për pagesë:</span>
+          <span className="tnum font-display text-lg font-black text-cream-50">
+            {formatPrice(state.totalCents)}
+          </span>
         </div>
       </div>
-
-      <dl className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm">
-        <div className="flex items-center justify-between">
-          <dt className="font-bold text-cream-100">Kodi i porosisë</dt>
-          <dd className="tnum font-display text-lg font-black text-flame-700">
-            {state.orderNumber}
-          </dd>
-        </div>
-        <div className="mt-2 flex items-center justify-between">
-          <dt className="font-bold text-cream-100">Totali</dt>
-          <dd className="tnum font-bold text-cream-50">{formatPrice(state.totalCents)}</dd>
-        </div>
-        <div className="mt-2 flex items-center justify-between">
-          <dt className="font-bold text-cream-100">Njoftimi push</dt>
-          <dd className={state.notificationDelivered ? "font-bold text-open-400" : "font-bold text-flame-700"}>
-            {state.notificationDelivered ? "U dërgua" : "Nuk u konfirmua"}
-          </dd>
-        </div>
-      </dl>
 
       {!state.notificationDelivered && state.notificationNote ? (
         <p
@@ -534,11 +583,11 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
       ) : null}
 
       <div className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm text-cream-100">
-        <p className="font-bold text-base text-cream-50">Hapi tjetër</p>
+        <p className="text-base font-bold text-cream-50">Hapi tjetër</p>
         <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm font-medium text-cream-100">
-          <li>Telefonojmë numrin që dhatë për të konfirmuar adresën dhe kohën.</li>
-          <li>Porosia përgatitet dhe niset brenda {RESTAURANT.address.city}.</li>
-          <li>Pagesa bëhet cash ose me kartelë në dorëzim.</li>
+          <li>Ju telefonojmë brenda 2 minutave për ta konfirmuar.</li>
+          <li>Porosia përgatitet dhe niset për dërgesë në {RESTAURANT.address.city}.</li>
+          <li>Pagesa bëhet me para në dorë (cash) ose kartelë në dorëzim.</li>
         </ol>
       </div>
     </div>

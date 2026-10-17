@@ -83,6 +83,10 @@ export interface OrderFormState {
   notificationDelivered: boolean;
   /** Human explanation for the UI when the push failed. */
   notificationNote: string;
+  /** Timestamp / minute when the order was submitted (e.g. "12:05"). */
+  orderedAtTime?: string;
+  /** Estimated delivery / preparation time window (e.g. "25–40 min"). */
+  etaMinutes?: string;
   /** Echoed back so the form is not wiped when validation fails. */
   values: {
     fullName: string;
