@@ -30,7 +30,7 @@ export type UpsellGroupKind = "drink" | "eat" | "side";
 const GROUP_HEADERS: Record<UpsellGroupKind, string> = {
   drink: "Përzgjidh një pije të ftohtë",
   eat: "Shto diçka për të ngrënë",
-  side: "Diçka për të përcjellë",
+  side: "Diçka tjetër?",
 };
 
 /** Which slots each group draws its suggestions from. */
