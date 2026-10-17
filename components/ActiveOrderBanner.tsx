@@ -7,6 +7,7 @@ interface ActiveOrder {
   code: string;
   time: string;
   eta: string;
+  clockTarget?: string;
   timestamp: number;
 }
 
@@ -45,8 +46,11 @@ export function ActiveOrderBanner() {
     >
       <div className="storefront-container relative flex flex-col items-center justify-center gap-2 text-center text-xs sm:text-sm sm:flex-row sm:justify-between sm:text-left pr-8 sm:pr-0">
         <div className="flex items-center justify-center gap-2">
-          <CircleCheckBig className="h-4 w-4 shrink-0 text-open-400" aria-hidden="true" />
-          <span className="font-bold text-cream-50">Porosia u pranua!</span>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-open-400 opacity-75"></span>
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-open-400"></span>
+          </span>
+          <span className="font-bold text-cream-50">Porosia po përgatitet!</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1">
@@ -61,7 +65,12 @@ export function ActiveOrderBanner() {
           </span>
 
           <span className="flex items-center gap-1 font-semibold text-cream-100">
-            Koha e përafërt: <strong className="text-open-400">~{order.eta}</strong>
+            <span>🏍️</span>
+            Koha e arritjes:{" "}
+            <strong className="text-open-400">~{order.eta}</strong>
+            {order.clockTarget ? (
+              <span className="text-cream-200 font-medium">({order.clockTarget})</span>
+            ) : null}
           </span>
         </div>
 

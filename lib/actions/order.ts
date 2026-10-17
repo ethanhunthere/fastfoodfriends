@@ -171,6 +171,7 @@ export async function submitOrder(
       longitude: eta.destLongitude,
     },
     etaLabel: eta.label,
+    etaClockTarget: eta.clockTarget,
     mapsUrl: eta.mapsUrl,
   };
 
@@ -210,6 +211,13 @@ export async function submitOrder(
     notificationNote: notification.note,
     orderedAtTime,
     etaMinutes: receipt.etaLabel,
+    etaClockTarget: eta.clockTarget,
+    etaBreakdown: {
+      prepMinutes: eta.prepMinutes,
+      rideMinutes: eta.rideMinutes,
+      distanceKm: eta.distanceKm,
+      matchedPlaceName: eta.matchedPlaceName,
+    },
     values: {
       fullName: "",
       phone: "",

@@ -49,7 +49,7 @@ export const ORDER_CONFIG = {
   minimumOrderCents: 500,
   /** Delivery radius used in copy + structured data. */
   radiusKm: 5,
-  etaMinutes: { min: 25, max: 40 },
+  etaMinutes: { min: 10, max: 20 },
   /** Hard limits to keep notifications readable and abuse bounded. */
   maxQuantityPerLine: 20,
   maxLinesPerOrder: 30,

@@ -71,3 +71,19 @@ export function formatOrderTime(
     return `${h}:${m}`;
   }
 }
+
+/**
+ * Computes projected arrival time range in 24-hour format, e.g. "14:45 – 14:50".
+ */
+export function formatTargetClock(
+  minMinutes: number,
+  maxMinutes: number,
+  baseDate: Date = new Date(),
+  timeZone = "Europe/Belgrade",
+): string {
+  const minDate = new Date(baseDate.getTime() + minMinutes * 60000);
+  const maxDate = new Date(baseDate.getTime() + maxMinutes * 60000);
+  const t1 = formatOrderTime(minDate, timeZone);
+  const t2 = formatOrderTime(maxDate, timeZone);
+  return `${t1} – ${t2}`;
+}

@@ -26,6 +26,7 @@ import { UpsellSuggestions } from "@/components/UpsellSuggestions";
 import { getUpsellGroups } from "@/lib/upsell";
 import { submitOrder } from "@/lib/actions/order";
 import { describeCartLine, serialiseCartPayload } from "@/lib/cart";
+import { estimateQuickEta } from "@/lib/eta";
 import { formatOrderTime, formatPrice, stripTimeSuffix } from "@/lib/format";
 import { validateKosovoMobile } from "@/lib/phone";
 import { MAPS_URL, ORDER_CONFIG, RESTAURANT, getRestaurantPhoneHref } from "@/lib/restaurant";
@@ -91,7 +92,7 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
         const orderedAt = stripTimeSuffix(
           state.orderedAtTime || formatOrderTime(new Date()),
         );
-        const eta = state.etaMinutes || "25–40 min";
+        const eta = state.etaMinutes || "10–20 min";
         try {
           window.localStorage.setItem(
             "fff_active_order",
@@ -99,6 +100,7 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
               code: state.orderNumber,
               time: orderedAt,
               eta,
+              clockTarget: state.etaClockTarget,
               totalCents: state.totalCents,
               timestamp: Date.now(),
             }),
@@ -116,6 +118,7 @@ function CheckoutSession({ open, onClose }: { open: boolean; onClose: () => void
     state.orderNumber,
     state.orderedAtTime,
     state.etaMinutes,
+    state.etaClockTarget,
     state.totalCents,
     clearCart,
   ]);
@@ -216,6 +219,12 @@ function CheckoutForm({
 }: CheckoutFormProps) {
   const errors = state.fieldErrors;
   const [addressValue, setAddressValue] = useState(state.values.address);
+
+  const quickEta = estimateQuickEta(
+    mode,
+    addressValue,
+    lines.map((l) => ({ itemId: l.itemId, quantity: l.quantity })),
+  );
 
   return (
     <form id={CART_FORM_ID} action={formAction} className="express-checkout-form" noValidate>
@@ -362,21 +371,60 @@ function CheckoutForm({
             placeholder="P.sh. Rruga Mbretëresha Teutë, ose Dardania, afër shkollës…"
             className={`${inputClass(Boolean(errors.address))} resize-y`}
           />
+          {/* Live Smart ETA Pill */}
+          <div className="mt-2 flex items-center justify-between rounded-lg border border-charcoal-700 bg-charcoal-850 px-3 py-2 text-xs shadow-sm">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-full bg-flame-500/15 text-xs" aria-hidden="true">
+                🏍️
+              </span>
+              <div className="min-w-0">
+                <p className="truncate font-bold text-cream-50 text-[11px] sm:text-xs">
+                  {quickEta.placeName
+                    ? `Destinacioni: ${quickEta.placeName}`
+                    : "Dërgesë me motor në Pejë"}
+                </p>
+                <p className="text-[10px] text-cream-200">
+                  Zgara: ~{quickEta.prepMinutes} min · Motori: ~{quickEta.rideMinutes} min
+                  {quickEta.distanceKm ? ` (${quickEta.distanceKm} km)` : ""}
+                </p>
+              </div>
+            </div>
+            <div className="text-right shrink-0 pl-2">
+              <span className="block text-[10px] font-semibold text-cream-200">Koha e arritjes</span>
+              <span className="tnum font-extrabold text-open-400 text-xs sm:text-sm">
+                ~{quickEta.label}
+              </span>
+            </div>
+          </div>
         </Field>
       ) : (
-        <p className="rounded-lg border border-charcoal-800 bg-charcoal-850 px-3 py-2.5 text-sm text-cream-200">
-          <Store aria-hidden="true" className="mr-2 inline h-4 w-4 text-flame-700" />
-          Marrje në lokal: {RESTAURANT.address.street}, {RESTAURANT.address.city} —{" "}
-          {RESTAURANT.landmarkShort}. Të telefonojmë kur porosia të jetë gati.{" "}
-          <a
-            href={MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-semibold text-flame-700 underline underline-offset-4"
-          >
-            Navigo <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
-          </a>
-        </p>
+        <div className="rounded-lg border border-charcoal-800 bg-charcoal-850 p-3 text-sm text-cream-200 space-y-2">
+          <div className="flex items-start gap-2">
+            <Store aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-flame-700" />
+            <div>
+              <p className="font-bold text-cream-50">
+                Marrje në lokal: {RESTAURANT.address.street}, {RESTAURANT.address.city}
+              </p>
+              <p className="text-xs text-cream-200">
+                {RESTAURANT.landmarkShort}. Të telefonojmë kur porosia të jetë gati.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center justify-between border-t border-charcoal-800 pt-2 text-xs">
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-semibold text-flame-700 underline underline-offset-4"
+            >
+              Navigo me hartë <Navigation aria-hidden="true" className="h-3.5 w-3.5" />
+            </a>
+            <div className="text-right">
+              <span className="text-cream-200">Gati në lokal për: </span>
+              <strong className="tnum font-extrabold text-open-400">~{quickEta.label}</strong>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Kitchen notes — always visible, never collapsed. This is where guests
@@ -522,6 +570,8 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
     state.orderedAtTime || formatOrderTime(new Date()),
   );
   const eta = state.etaMinutes || "10–20 min";
+  const clockTarget = state.etaClockTarget;
+  const breakdown = state.etaBreakdown;
 
   return (
     <div className="space-y-4">
@@ -529,7 +579,10 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
       <div className="overflow-hidden rounded-card border-2 border-open-400 bg-charcoal-900 shadow-xl">
         <div className="flex items-center justify-between border-b border-charcoal-800 bg-open-500/15 px-3 py-2.5 sm:px-4 sm:py-3">
           <div className="flex items-center gap-2">
-            <CircleCheckBig aria-hidden="true" className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-open-400" />
+            <span className="relative flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-open-400 opacity-75"></span>
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-open-400"></span>
+            </span>
             <p className="font-display text-base sm:text-lg font-bold text-cream-50">
               Porosia u pranua me sukses!
             </p>
@@ -553,11 +606,50 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
             </span>
           </div>
           <div className="px-1">
-            <span className="block text-[11px] sm:text-xs font-semibold text-cream-200">Koha e përafërt</span>
+            <span className="block text-[11px] sm:text-xs font-semibold text-cream-200">Koha e arritjes</span>
             <span className="mt-1 block tnum font-bold text-open-400 text-sm sm:text-base">
               ~{eta}
             </span>
+            {clockTarget ? (
+              <span className="mt-0.5 block text-[10px] sm:text-[11px] font-semibold text-cream-200">
+                ({clockTarget})
+              </span>
+            ) : null}
           </div>
+        </div>
+
+        {/* Live Delivery Progress Tracker */}
+        <div className="border-t border-charcoal-800 bg-charcoal-850/60 p-3 sm:p-3.5 text-left">
+          <div className="grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="rounded-lg border border-open-500/30 bg-open-500/10 p-2">
+              <span className="block text-base mb-0.5">📋</span>
+              <strong className="block font-bold text-cream-50 text-[11px] sm:text-xs">U regjistrua</strong>
+              <span className="text-[10px] text-open-400 font-semibold">{orderedAt}</span>
+            </div>
+            <div className="rounded-lg border border-flame-500/40 bg-flame-500/10 p-2 animate-pulse">
+              <span className="block text-base mb-0.5">👨‍🍳</span>
+              <strong className="block font-bold text-cream-50 text-[11px] sm:text-xs">Në zgarë</strong>
+              <span className="text-[10px] text-cream-200 font-medium">
+                {breakdown ? `~${breakdown.prepMinutes} min` : "E freskët"}
+              </span>
+            </div>
+            <div className="rounded-lg border border-charcoal-700 bg-charcoal-900/90 p-2">
+              <span className="block text-base mb-0.5">🏍️</span>
+              <strong className="block font-bold text-cream-100 text-[11px] sm:text-xs">
+                {state.values.mode === "pickup" ? "Në lokal" : "Me motor"}
+              </strong>
+              <span className="text-[10px] text-cream-200 font-medium">
+                {state.values.mode === "pickup"
+                  ? "Gati"
+                  : breakdown
+                    ? `~${breakdown.rideMinutes} min`
+                    : "Nisja"}
+              </span>
+            </div>
+          </div>
+          <p className="mt-2 text-center sm:text-left text-[11px] text-cream-200">
+            📞 Motoristi ju merr në telefon sapo të arrijë në adresën tuaj.
+          </p>
         </div>
 
         <div className="flex items-center justify-between border-t border-charcoal-800 bg-charcoal-850 px-4 py-2.5 text-sm">

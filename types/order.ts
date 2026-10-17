@@ -67,6 +67,8 @@ export interface OrderReceipt {
   customer: CustomerDetails;
   /** Copy shown in the UI, e.g. `"25–40 min"`. */
   etaLabel: string;
+  /** Clock arrival window, e.g. `"14:15 – 14:20"`. */
+  etaClockTarget?: string;
   /** Motorcycle navigation link to the customer road/coordinates. */
   mapsUrl?: string;
 }
@@ -91,6 +93,15 @@ export interface OrderFormState {
   orderedAtTime?: string;
   /** Estimated delivery / preparation time window (e.g. "25–40 min"). */
   etaMinutes?: string;
+  /** Projected arrival clock time window (e.g. "14:15 – 14:20"). */
+  etaClockTarget?: string;
+  /** Detailed prep and ride breakdown. */
+  etaBreakdown?: {
+    prepMinutes: number;
+    rideMinutes: number;
+    distanceKm?: number;
+    matchedPlaceName?: string;
+  };
   /** Echoed back so the form is not wiped when validation fails. */
   values: {
     fullName: string;

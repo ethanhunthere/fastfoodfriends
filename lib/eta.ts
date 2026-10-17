@@ -1,3 +1,4 @@
+import { formatTargetClock } from "./format";
 import { getItemById } from "./menu";
 import { RESTAURANT } from "./restaurant";
 
@@ -5,14 +6,16 @@ export interface EtaResult {
   minMinutes: number;
   maxMinutes: number;
   label: string;
+  clockTarget: string;
   rideMinutes: number;
-  prepMinutes?: number;
-  distanceKm?: number;
+  prepMinutes: number;
+  distanceKm: number;
   mapsUrl: string;
   source: "google_routes" | "osrm" | "estimate" | "pickup";
   destLatitude?: number;
   destLongitude?: number;
   cleanAddress?: string;
+  matchedPlaceName?: string;
 }
 
 export interface CookTimeEstimate {
@@ -374,6 +377,7 @@ export async function calculateDeliveryEta(
       minMinutes: prepMinMinutes,
       maxMinutes: prepMaxMinutes,
       label: `${prepMinMinutes}–${prepMaxMinutes} min`,
+      clockTarget: formatTargetClock(prepMinMinutes, prepMaxMinutes),
       rideMinutes: 0,
       prepMinutes: prepMinMinutes,
       distanceKm: 0,
@@ -388,6 +392,7 @@ export async function calculateDeliveryEta(
   let rideMinutes = 5; // Typical motorcycle delivery ride across Pejë (fast, weaves through traffic)
   let distanceKm = 2.0;
   let source: EtaResult["source"] = "estimate";
+  let matchedPlaceName: string | undefined;
 
   let destLat = location.latitude;
   let destLng = location.longitude;
@@ -418,6 +423,7 @@ export async function calculateDeliveryEta(
       if (geo) {
         destLat = geo.latitude;
         destLng = geo.longitude;
+        matchedPlaceName = geo.name;
       }
     }
 
@@ -444,6 +450,7 @@ export async function calculateDeliveryEta(
   const minMinutes = prepMinMinutes + rideMinutes;
   const maxMinutes = Math.max(minMinutes + 3, prepMaxMinutes + rideMinutes);
   const label = `${minMinutes}–${maxMinutes} min`;
+  const clockTarget = formatTargetClock(minMinutes, maxMinutes);
 
   // Destination parameter for Google Maps navigation in motorcycle mode:
   // If coordinates were found: destination is "lat,lng"
@@ -459,6 +466,7 @@ export async function calculateDeliveryEta(
     minMinutes,
     maxMinutes,
     label,
+    clockTarget,
     rideMinutes,
     prepMinutes: prepMinMinutes,
     distanceKm,
@@ -467,6 +475,73 @@ export async function calculateDeliveryEta(
     destLatitude: destLat,
     destLongitude: destLng,
     cleanAddress: cleanStreet,
+    matchedPlaceName,
+  };
+}
+
+/**
+ * Instant, client-safe preview of delivery/pickup ETA based on current basket and address.
+ * Calculates in 0ms without network round-trips using the Pejë local dictionary.
+ */
+export function estimateQuickEta(
+  mode: "delivery" | "pickup",
+  address = "",
+  items?: Array<{ itemId: string; quantity: number }>,
+): {
+  minMinutes: number;
+  maxMinutes: number;
+  label: string;
+  clockTarget: string;
+  prepMinutes: number;
+  rideMinutes: number;
+  distanceKm: number;
+  placeName?: string;
+} {
+  const { prepMinMinutes, prepMaxMinutes } = estimateCookTime(items);
+
+  if (mode === "pickup") {
+    return {
+      minMinutes: prepMinMinutes,
+      maxMinutes: prepMaxMinutes,
+      label: `${prepMinMinutes}–${prepMaxMinutes} min`,
+      clockTarget: formatTargetClock(prepMinMinutes, prepMaxMinutes),
+      prepMinutes: prepMinMinutes,
+      rideMinutes: 0,
+      distanceKm: 0,
+    };
+  }
+
+  let rideMinutes = 4; // average motorcycle ride across urban Pejë
+  let distanceKm = 1.8;
+  let placeName: string | undefined;
+
+  if (address.trim()) {
+    const local = findPejeLocalPlace(address);
+    if (local) {
+      placeName = local.name;
+      const dist = haversineDistanceKm(
+        RESTAURANT.geo.latitude,
+        RESTAURANT.geo.longitude,
+        local.lat,
+        local.lng,
+      );
+      distanceKm = Number(dist.toFixed(1));
+      rideMinutes = Math.max(3, Math.min(10, Math.round((dist / 28) * 60) + 1));
+    }
+  }
+
+  const minMinutes = prepMinMinutes + rideMinutes;
+  const maxMinutes = Math.max(minMinutes + 3, prepMaxMinutes + rideMinutes);
+
+  return {
+    minMinutes,
+    maxMinutes,
+    label: `${minMinutes}–${maxMinutes} min`,
+    clockTarget: formatTargetClock(minMinutes, maxMinutes),
+    prepMinutes: prepMinMinutes,
+    rideMinutes,
+    distanceKm,
+    placeName,
   };
 }
 
