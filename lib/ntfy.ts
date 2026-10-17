@@ -112,7 +112,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   if (mode === "delivery" && (customer.address.trim() || (customer.latitude && customer.longitude))) {
     actions.push({
       action: "view",
-      label: "Hap Hartën (Motor)",
+      label: "Hap Hartën",
       url: mapsUrl,
       clear: false,
     });
