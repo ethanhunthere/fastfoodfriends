@@ -138,7 +138,8 @@ async function queryGoogleRoutes(
 }
 
 /**
- * Open Source Routing Machine (OSRM) driving/motorcycle fallback.
+ * Open Source Routing Machine (OSRM) motorcycle route calculator.
+ * 100% Free, Open-Source, No API key, No credit card.
  */
 async function queryOsrmRoutes(
   origin: { latitude: number; longitude: number },
@@ -147,14 +148,14 @@ async function queryOsrmRoutes(
   try {
     const url = `https://router.project-osrm.org/route/v1/driving/${origin.longitude},${origin.latitude};${dest.longitude},${dest.latitude}?overview=false`;
     const res = await fetch(url, {
-      headers: { "User-Agent": "FastFoodFriends/1.0" },
+      headers: { "User-Agent": "FastFoodFriends-Peje/1.0" },
       signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return null;
     const data = await res.json();
     if (data?.routes?.[0]) {
-      // Motorcycles in Pejë travel faster through traffic than average cars
-      const durationSeconds = Math.round(data.routes[0].duration * 0.85);
+      // Motorcycles in Pejë travel faster through traffic than average cars (0.75 factor)
+      const durationSeconds = Math.max(120, Math.round(data.routes[0].duration * 0.75));
       const distanceMeters = Math.round(data.routes[0].distance);
       return { durationSeconds, distanceMeters };
     }
@@ -165,38 +166,67 @@ async function queryOsrmRoutes(
 }
 
 /**
- * Geocode text address in Pejë using OpenStreetMap Nominatim.
+ * Geocode text address in Pejë using OpenStreetMap (Nominatim & Photon).
+ * 100% Free & Open-Source.
  */
 async function geocodePejeAddress(
   address: string,
 ): Promise<{ latitude: number; longitude: number } | null> {
   if (!address.trim()) return null;
-  try {
-    const cleanQuery = address
-      .replace(/[\n\r]+/g, " ")
-      .replace(/hyrja.*?(\s|$)/gi, " ")
-      .replace(/kati.*?(\s|$)/gi, " ")
-      .trim();
+  const cleanQuery = address
+    .replace(/[\n\r]+/g, " ")
+    .replace(/hyrja.*?(\s|$)/gi, " ")
+    .replace(/kati.*?(\s|$)/gi, " ")
+    .replace(/afër.*?(\s|$)/gi, " ")
+    .trim();
 
+  // 1. OpenStreetMap Nominatim
+  try {
     const q = encodeURIComponent(`${cleanQuery}, Pejë, Kosovë`);
     const res = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1`,
       {
-        headers: { "User-Agent": "FastFoodFriendsApp/1.0" },
-        signal: AbortSignal.timeout(3000),
+        headers: { "User-Agent": "FastFoodFriends-Peje/1.0" },
+        signal: AbortSignal.timeout(2500),
       },
     );
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (data && data[0] && data[0].lat && data[0].lon) {
-      return {
-        latitude: parseFloat(data[0].lat),
-        longitude: parseFloat(data[0].lon),
-      };
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data[0] && data[0].lat && data[0].lon) {
+        return {
+          latitude: parseFloat(data[0].lat),
+          longitude: parseFloat(data[0].lon),
+        };
+      }
     }
   } catch {
-    // ignore
+    // try secondary OpenStreetMap provider
   }
+
+  // 2. OpenStreetMap Photon (Komoot engine) fallback
+  try {
+    const q = encodeURIComponent(`${cleanQuery} Peje`);
+    const res = await fetch(
+      `https://photon.komoot.io/api/?q=${q}&lat=42.6629&lon=20.3016&limit=1`,
+      {
+        headers: { "User-Agent": "FastFoodFriends-Peje/1.0" },
+        signal: AbortSignal.timeout(2000),
+      },
+    );
+    if (res.ok) {
+      const data = await res.json();
+      const coords = data?.features?.[0]?.geometry?.coordinates;
+      if (coords && coords.length >= 2) {
+        return {
+          latitude: coords[1],
+          longitude: coords[0],
+        };
+      }
+    }
+  } catch {
+    // fallback
+  }
+
   return null;
 }
 
