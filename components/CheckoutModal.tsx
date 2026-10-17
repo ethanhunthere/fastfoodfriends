@@ -506,7 +506,7 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
 
       <dl className="rounded-card border border-charcoal-800 bg-charcoal-850 p-4 text-sm">
         <div className="flex items-center justify-between">
-          <dt className="font-bold text-cream-100">Numri i porosisë</dt>
+          <dt className="font-bold text-cream-100">Kodi i porosisë</dt>
           <dd className="tnum font-display text-lg font-black text-flame-700">
             {state.orderNumber}
           </dd>

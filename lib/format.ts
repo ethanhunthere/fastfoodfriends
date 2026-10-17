@@ -27,17 +27,10 @@ export function formatPriceMachine(cents: number): string {
   return (safe / 100).toFixed(2);
 }
 
-/** Stable, human-friendly order reference, e.g. `FFF-7K3M`. */
-export function createOrderNumber(now: Date = new Date()): string {
-  const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no I/O/0/1 ambiguity
-  let suffix = "";
-  for (let i = 0; i < 4; i += 1) {
-    suffix += ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-  }
-  const stamp = `${String(now.getHours()).padStart(2, "0")}${String(
-    now.getMinutes(),
-  ).padStart(2, "0")}`;
-  return `FFF-${stamp}${suffix}`;
+/** 4-digit numeric order code, e.g. "4821". Random integer between 1000 and 9999. */
+export function createOrderNumber(_now: Date = new Date()): string {
+  const code = Math.floor(1000 + Math.random() * 9000);
+  return String(code);
 }
 
 /** `1` → `"1x Hamburger"`. */

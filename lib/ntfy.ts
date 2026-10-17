@@ -75,7 +75,6 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     .join("\n\n");
 
   const rows: (string | null)[] = [
-    `POROSI E RE: #${orderNumber}`,
     `Lloji: ${modeTitle}`,
     "",
     "KLIENTI",
@@ -123,7 +122,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     : [];
 
   return {
-    title: `Porosi e Re: #${orderNumber} (${formatPrice(pricing.totalCents)})`,
+    title: `Porosi e Re: ${orderNumber}`,
     message,
     body: message,
     priority: Number.isFinite(NTFY_PRIORITY) ? NTFY_PRIORITY : 5,
