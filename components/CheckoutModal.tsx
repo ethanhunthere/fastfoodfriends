@@ -380,15 +380,15 @@ function CheckoutForm({
           error={errors.address}
           required
         >
-          <div className="mb-1.5 flex items-center justify-between">
+          <div className="mb-1.5 flex items-center justify-between gap-2">
             <span className="text-xs font-semibold text-cream-200">Adresa e dorëzimit:</span>
             <button
               type="button"
               onClick={handleGetGps}
               disabled={locating}
-              className="inline-flex items-center gap-1 rounded bg-charcoal-800 px-2 py-0.5 text-xs font-bold text-flame-700 transition-colors hover:bg-charcoal-700 disabled:opacity-50"
+              className="inline-flex min-h-8 items-center gap-1.5 rounded-md bg-charcoal-800 px-2.5 py-1 text-xs font-bold text-flame-700 transition-colors hover:bg-charcoal-700 disabled:opacity-50 touch-manipulation"
             >
-              <LocateFixed className="h-3 w-3" />
+              <LocateFixed className="h-3.5 w-3.5" />
               {locating ? "Po lokalizohet…" : coords ? "✅ GPS u ruajt" : "📍 Përdor GPS"}
             </button>
           </div>
@@ -539,7 +539,7 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
   return (
     <label
       htmlFor={inputId}
-      className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 transition-colors ${
+      className={`flex min-h-14 cursor-pointer items-center gap-2 sm:gap-3 rounded-lg border px-2.5 sm:px-3.5 py-2.5 transition-colors ${
         checked
           ? "border-flame-500 bg-flame-500/10"
           : "border-charcoal-700 bg-charcoal-850 hover:border-charcoal-600"
@@ -552,14 +552,14 @@ function ModeOption({ value, checked, onChange, icon, label, hint }: ModeOptionP
         value={value}
         checked={checked}
         onChange={() => onChange(value)}
-        className="h-4 w-4 accent-flame-500"
+        className="h-4 w-4 shrink-0 accent-flame-500"
       />
       <span className="flex min-w-0 flex-col">
-        <span className="flex items-center gap-2 text-sm font-bold text-cream-50">
-          {icon}
-          {label}
+        <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-cream-50 leading-tight">
+          <span className="shrink-0">{icon}</span>
+          <span>{label}</span>
         </span>
-        <span className="tnum text-xs font-semibold text-cream-100">{hint}</span>
+        <span className="tnum text-[11px] sm:text-xs font-semibold text-cream-100 mt-0.5">{hint}</span>
       </span>
     </label>
   );
@@ -576,34 +576,34 @@ function SuccessPanel({ state }: { state: OrderFormState }) {
     <div className="space-y-4">
       {/* Primary Order Status Banner */}
       <div className="overflow-hidden rounded-card border-2 border-open-400 bg-charcoal-900 shadow-xl">
-        <div className="flex items-center justify-between border-b border-charcoal-800 bg-open-500/15 px-4 py-3">
+        <div className="flex items-center justify-between border-b border-charcoal-800 bg-open-500/15 px-3 py-2.5 sm:px-4 sm:py-3">
           <div className="flex items-center gap-2">
-            <CircleCheckBig aria-hidden="true" className="h-5 w-5 shrink-0 text-open-400" />
-            <p className="font-display text-lg font-bold text-cream-50">
+            <CircleCheckBig aria-hidden="true" className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-open-400" />
+            <p className="font-display text-base sm:text-lg font-bold text-cream-50">
               Porosia u pranua me sukses!
             </p>
           </div>
-          <span className="rounded bg-open-400/20 px-2 py-0.5 text-xs font-bold text-open-400">
+          <span className="rounded bg-open-400/20 px-2 py-0.5 text-[11px] sm:text-xs font-bold text-open-400 shrink-0">
             Aktiv
           </span>
         </div>
 
-        <div className="grid grid-cols-3 divide-x divide-charcoal-800 p-3.5 text-center">
+        <div className="grid grid-cols-3 divide-x divide-charcoal-800 p-2.5 sm:p-3.5 text-center">
           <div className="px-1">
-            <span className="block text-xs font-semibold text-cream-200">Kodi</span>
-            <span className="mt-1 block tnum font-display text-xl font-black text-flame-700">
+            <span className="block text-[11px] sm:text-xs font-semibold text-cream-200">Kodi</span>
+            <span className="mt-1 block tnum font-display text-lg sm:text-xl font-black text-flame-700">
               #{state.orderNumber}
             </span>
           </div>
           <div className="px-1">
-            <span className="block text-xs font-semibold text-cream-200">Ora e porosisë</span>
-            <span className="mt-1 block tnum font-bold text-cream-50 text-base">
+            <span className="block text-[11px] sm:text-xs font-semibold text-cream-200">Ora e porosisë</span>
+            <span className="mt-1 block tnum font-bold text-cream-50 text-sm sm:text-base">
               {orderedAt}
             </span>
           </div>
           <div className="px-1">
-            <span className="block text-xs font-semibold text-cream-200">Koha e përafërt</span>
-            <span className="mt-1 block tnum font-bold text-open-400 text-base">
+            <span className="block text-[11px] sm:text-xs font-semibold text-cream-200">Koha e përafërt</span>
+            <span className="mt-1 block tnum font-bold text-open-400 text-sm sm:text-base">
               ~{eta}
             </span>
           </div>

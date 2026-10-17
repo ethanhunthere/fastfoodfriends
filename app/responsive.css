@@ -14,7 +14,8 @@ html,body{max-width:100%;overflow-x:clip}
 
 .express-brand,.express-location,.express-service a,.express-footer a{min-height:44px;display:inline-flex;align-items:center}
 .express-brand{min-width:118px}.express-header-cart{flex-shrink:0}.express-service{flex-wrap:wrap;padding-block:0;min-height:44px;gap:8px 14px}
-.express-footer{row-gap:0}.express-footer nav{flex-wrap:wrap;gap:0 16px}
+.express-footer{row-gap:8px}@media(max-width:639px){.express-footer{text-align:center;justify-content:center}.express-footer nav{justify-content:center;width:100%}}
+.express-footer nav{flex-wrap:wrap;gap:0 16px}
 .storefront-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start}
 #menu-browse{min-width:0;scroll-margin-top:var(--header-height);container-type:inline-size}
 .express-categories{top:var(--header-height);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -24,6 +25,8 @@ html,body{max-width:100%;overflow-x:clip}
 .express-item-copy p{margin:0}
 .express-item{height:100%;min-width:0}
 .express-item-copy{overflow-wrap:anywhere}
+.express-item-foot{flex-wrap:wrap;gap:6px}
+.express-action-wrapper{margin-left:auto;flex-shrink:0}
 .express-item-tag{font-size:11.5px;font-weight:800}
 .express-food-art{width:80px;height:80px;min-width:0}
 .express-food-art span{font-size:32px;filter:none}
@@ -91,12 +94,14 @@ html,body{max-width:100%;overflow-x:clip}
   body:has(.desktop-cart) .express-cart-bar,body:has(.desktop-cart) .cart-bar-spacer{display:none}
 }
 @media(max-width:359px){
-  .express-food-art{width:88px;height:88px}.express-food-art span{font-size:30px}
-  .express-item{gap:8px;padding:10px}
+  .express-food-art{width:72px;height:72px}.express-food-art span{font-size:28px}
+  .express-item{gap:8px;padding:8px;grid-template-columns:72px minmax(0,1fr)}
   .express-categories button{font-size:13px;font-weight:900}.express-categories svg{width:15px;height:15px}
   .express-cart-count{min-width:32px;height:38px;padding:0 6px;font-size:16px}.express-cart-review{gap:8px}
-  .express-cart-review strong{font-size:18px}.express-cart-bar .express-primary{min-height:52px;font-size:14.5px;font-weight:900}
+  .express-cart-review strong{font-size:18px}.express-cart-bar .express-primary{min-height:50px;font-size:14px;font-weight:900}
   .express-primary{padding-inline:10px}
+  .express-customizer-footer{grid-template-columns:1fr;gap:8px}
+  .express-quantity{justify-content:center}
 }
 @media(max-height:540px){
   .modal-overlay{padding:4px;align-items:flex-start}
