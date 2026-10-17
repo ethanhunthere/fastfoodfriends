@@ -14,7 +14,7 @@
  * ASCII-safe (emoji only in `Tags`), while the UTF-8 *body* renders the full
  * Albanian text with ë/ç.
  */
-import { formatPrice, formatPriceMachine } from "./format";
+import { formatPrice } from "./format";
 import { telHref } from "./phone";
 import { RESTAURANT, getFormattedAddress } from "./restaurant";
 import type { OrderReceipt } from "../types/order";
@@ -23,95 +23,119 @@ const NTFY_SERVER = (process.env.NTFY_SERVER ?? "https://ntfy.sh").replace(/\/+$
 const NTFY_TOPIC = process.env.NTFY_TOPIC ?? "";
 const NTFY_TOKEN = process.env.NTFY_TOKEN ?? "";
 const NTFY_PRIORITY = 5; // Always urgent for incoming orders.
-const NTFY_TAGS =
-  process.env.NTFY_TAGS ?? "rotating_light,hamburger,phone,heavy_check_mark";
+const NTFY_TAGS = process.env.NTFY_TAGS ?? "";
 const REQUEST_TIMEOUT_MS = Number(process.env.NTFY_TIMEOUT_MS ?? "8000");
+
+export interface NtfyAction {
+  action: "view";
+  label: string;
+  url: string;
+  clear?: boolean;
+}
 
 export interface NtfyPayload {
   title: string;
+  message: string;
   body: string;
   priority: number;
-  tags: string;
-  click: string;
-  actions: string;
+  tags?: string[];
+  markdown: boolean;
+  actions: NtfyAction[];
 }
 
 export function isNotificationConfigured(): boolean {
   return NTFY_TOPIC.trim().length > 0;
 }
 
-/** ASCII-safe: strips anything outside ISO-8859-1 for use inside headers. */
-function toHeaderSafe(value: string): string {
-  return value.replace(/[^\x20-\x7E\xA0-\xFF]/g, "").trim();
-}
-
 /**
  * Build the notification content for an order.
- * Kept separate from the transport so it can be unit-tested and reused
- * (e.g. by a future WhatsApp/SMS layer).
+ * Kept separate from the transport so it can be unit-tested and reused.
  */
 export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
   const { customer, pricing, lines, mode, orderNumber } = receipt;
 
-  const modeLabel = mode === "delivery" ? "DORËZIM" : "MARRJE NË LOKAL";
+  const modeTitle = mode === "delivery" ? "Dërgesë në Adresë" : "Marrje në Lokal";
+  const customerTel = telHref(customer.phoneE164 || customer.phoneRaw);
+  const prettyPhone = customer.phoneRaw.trim();
+  const phoneDisplay =
+    prettyPhone && prettyPhone !== customer.phoneE164
+      ? `${prettyPhone} (${customer.phoneE164})`
+      : customer.phoneE164 || prettyPhone;
 
   const itemLines = lines.map((line) => {
     const variant = line.variantLabel ? ` (${line.variantLabel})` : "";
     const modifiers = line.modifierLabels.length
-      ? `\n      • ${line.modifierLabels.join(", ")}`
+      ? `\n  - _${line.modifierLabels.join(", ")}_`
       : "";
-    return `  ${line.quantity}x ${line.name}${variant} — ${formatPrice(
+    return `* **${line.quantity}x** ${line.name}${variant} — **${formatPrice(
       line.lineTotalCents,
-    )}${modifiers}`;
+    )}**${modifiers}`;
   });
 
   const rows: (string | null)[] = [
-    `POROSI E RE: ${orderNumber} · ${modeLabel}`,
+    `### 📋 Fletë Porosie · ${modeTitle}`,
     "",
-    `👤 Emri: ${customer.fullName}`,
-    `📞 Telefoni: ${customer.phoneE164} (${customer.phoneRaw.trim()})`,
+    `* **Klienti:** ${customer.fullName}`,
+    `* **Telefoni:** ${phoneDisplay}`,
     mode === "delivery"
-      ? `📍 Adresa: ${customer.address}`
-      : `🏬 Marrje në lokal: ${getFormattedAddress()}`,
+      ? `* **Adresa e Dërgesës:** ${customer.address}`
+      : `* **Mënyra:** Marrje në lokal (${RESTAURANT.name}, Pejë)`,
+    customer.notes.trim() ? `* **Shënime nga klienti:** _${customer.notes.trim()}_` : null,
     "",
-    "🧾 Porosia:",
+    "---",
+    "",
+    "### 🧾 Artikujt e Porositur",
     ...itemLines,
     "",
-    `Nënshuma: ${formatPrice(pricing.subtotalCents)}`,
-    `Dorëzimi: ${
-      pricing.deliveryFeeCents === 0 ? "Falas" : formatPrice(pricing.deliveryFeeCents)
-    }`,
-    `TOTALI: ${formatPrice(pricing.totalCents)}`,
-    customer.notes.trim() ? "" : null,
-    customer.notes.trim() ? `📝 Shënime: ${customer.notes.trim()}` : null,
+    "---",
     "",
-    `⏱ Koha e pritshme: ${receipt.etaLabel}`,
-    "☎️ Konfirmo porosinë me telefon.",
+    "### 💰 Përmbledhja Financiare",
+    `* Nënshuma: **${formatPrice(pricing.subtotalCents)}**`,
+    `* Kosto e dërgesës: **${
+      pricing.deliveryFeeCents === 0 ? "Falas" : formatPrice(pricing.deliveryFeeCents)
+    }**`,
+    `* **TOTALI PËR PAGESË: ${formatPrice(pricing.totalCents)}**`,
+    "",
+    "---",
+    `*⏱ Koha e përafërt: ${receipt.etaLabel}*`,
   ];
 
-  const body = rows.filter((row): row is string => row !== null).join("\n");
+  const message = rows.filter((row): row is string => row !== null).join("\n");
 
-  const customerTel = telHref(customer.phoneE164 || customer.phoneRaw);
-
-  // ntfy action buttons: `action, label, url, [clear=true]`, joined with ";".
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     customer.address || getFormattedAddress(),
   )}`;
 
-  const actions = [
-    `view, Telefono Klientin, ${customerTel}, clear=true`,
-    `view, Harta, ${mapsUrl}`,
-  ].join("; ");
+  const actions: NtfyAction[] = [
+    {
+      action: "view",
+      label: `📞 Telefono Klientin (${prettyPhone || customer.phoneE164})`,
+      url: customerTel,
+      clear: false,
+    },
+  ];
+
+  if (mode === "delivery" && customer.address.trim()) {
+    actions.push({
+      action: "view",
+      label: "📍 Hap Adresën në Hartë",
+      url: mapsUrl,
+      clear: false,
+    });
+  }
+
+  const tagsList = NTFY_TAGS.trim()
+    ? NTFY_TAGS.split(",").map((t) => t.trim()).filter(Boolean)
+    : [];
 
   return {
-    title: toHeaderSafe(
-      `POROSI E RE ${orderNumber} - ${formatPriceMachine(pricing.totalCents)} EUR - ${customer.phoneE164}`,
-    ),
-    body,
+    title: `Porosi e Re: #${orderNumber} (${formatPrice(pricing.totalCents)})`,
+    message,
+    body: message,
     priority: Number.isFinite(NTFY_PRIORITY) ? NTFY_PRIORITY : 5,
-    tags: toHeaderSafe(NTFY_TAGS),
-    click: customerTel,
-    actions: toHeaderSafe(actions),
+    tags: tagsList,
+    markdown: true,
+    actions,
   };
 }
 
@@ -122,11 +146,7 @@ export interface DispatchResult {
 }
 
 /**
- * POST the notification to ntfy.sh.
- *
- * Never throws: an order must never be lost because a push failed. The caller
- * surfaces `delivered: false` and the UI shows the "call the store now" fallback
- * CTA instead.
+ * POST the notification to ntfy.sh using the clean JSON publishing API.
  */
 export async function dispatchOrderNotification(
   receipt: OrderReceipt,
@@ -145,18 +165,21 @@ export async function dispatchOrderNotification(
   }
 
   try {
-    const response = await fetch(`${NTFY_SERVER}/${encodeURIComponent(topic)}`, {
+    const response = await fetch(NTFY_SERVER, {
       method: "POST",
       headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        Title: payload.title,
-        Priority: String(payload.priority),
-        Tags: payload.tags,
-        Click: payload.click,
-        Actions: payload.actions,
+        "Content-Type": "application/json; charset=utf-8",
         ...(NTFY_TOKEN ? { Authorization: `Bearer ${NTFY_TOKEN}` } : {}),
       },
-      body: payload.body,
+      body: JSON.stringify({
+        topic,
+        title: payload.title,
+        message: payload.message,
+        priority: payload.priority,
+        markdown: true,
+        ...(payload.tags && payload.tags.length > 0 ? { tags: payload.tags } : {}),
+        actions: payload.actions,
+      }),
       cache: "no-store",
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
