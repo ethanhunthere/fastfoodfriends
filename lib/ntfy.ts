@@ -62,15 +62,17 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
       ? `${prettyPhone} (${customer.phoneE164})`
       : customer.phoneE164 || prettyPhone;
 
-  const itemLines = lines.map((line) => {
-    const variant = line.variantLabel ? ` (${line.variantLabel})` : "";
-    const modifiers = line.modifierLabels.length
-      ? `\n   (${line.modifierLabels.join(", ")})`
-      : "";
-    return `${line.quantity}x ${line.name}${variant} — ${formatPrice(
-      line.lineTotalCents,
-    )}${modifiers}`;
-  });
+  const itemBlocks = lines
+    .map((line) => {
+      const variant = line.variantLabel ? ` (${line.variantLabel})` : "";
+      const modifiers = line.modifierLabels.length
+        ? `\n   (${line.modifierLabels.join(", ")})`
+        : "";
+      return `${line.quantity}x ${line.name}${variant} — ${formatPrice(
+        line.lineTotalCents,
+      )}${modifiers}`;
+    })
+    .join("\n\n");
 
   const rows: (string | null)[] = [
     `POROSI E RE: #${orderNumber}`,
@@ -84,14 +86,9 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
       : `Marrje në lokal: ${RESTAURANT.name}`,
     customer.notes.trim() ? `Shënime: ${customer.notes.trim()}` : null,
     "",
-    "ARTIKUJT",
-    ...itemLines,
+    "ARTIKUJT:",
+    itemBlocks,
     "",
-    "PAGESA",
-    `Nënshuma: ${formatPrice(pricing.subtotalCents)}`,
-    `Dërgesa: ${
-      pricing.deliveryFeeCents === 0 ? "Falas" : formatPrice(pricing.deliveryFeeCents)
-    }`,
     `TOTALI: ${formatPrice(pricing.totalCents)}`,
     "",
     `Koha e përafërt: ${receipt.etaLabel}`,
