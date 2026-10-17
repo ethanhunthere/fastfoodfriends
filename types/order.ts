@@ -67,6 +67,8 @@ export interface OrderReceipt {
   customer: CustomerDetails;
   /** Copy shown in the UI, e.g. `"25–40 min"`. */
   etaLabel: string;
+  /** Motorcycle navigation link to the customer road/coordinates. */
+  mapsUrl?: string;
 }
 
 /** Field-level validation errors keyed by form field name. */

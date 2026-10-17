@@ -48,16 +48,6 @@ export async function submitOrder(
   const address = readField(formData, "address");
   const notes = readField(formData, "notes");
   const cartPayload = readField(formData, CART_PAYLOAD_FIELD);
-  const customerLatRaw = formData.get("customerLat");
-  const customerLngRaw = formData.get("customerLng");
-  const customerLat =
-    typeof customerLatRaw === "string" && customerLatRaw.trim()
-      ? parseFloat(customerLatRaw)
-      : undefined;
-  const customerLng =
-    typeof customerLngRaw === "string" && customerLngRaw.trim()
-      ? parseFloat(customerLngRaw)
-      : undefined;
 
   const values: OrderFormState["values"] = {
     fullName,
@@ -84,9 +74,9 @@ export async function submitOrder(
   }
 
   if (mode === "delivery") {
-    if (address.length < 6) {
+    if (address.length < 3) {
       fieldErrors.address =
-        "Shkruaj adresën e saktë (rruga, numri, kati/hyrja) që dorëzuesi të të gjejë shpejt.";
+        "Shkruaj rrugën ose lagjen në Pejë (p.sh. Rruga Mbretëresha Teutë, ose Dardania).";
     } else if (address.length > ORDER_CONFIG.maxAddressLength) {
       fieldErrors.address = `Adresa është shumë e gjatë (max. ${ORDER_CONFIG.maxAddressLength} karaktere).`;
     }
@@ -161,8 +151,6 @@ export async function submitOrder(
     mode,
     {
       address: mode === "delivery" ? address : undefined,
-      latitude: Number.isFinite(customerLat) ? customerLat : undefined,
-      longitude: Number.isFinite(customerLng) ? customerLng : undefined,
     },
     lines,
   );
@@ -179,10 +167,11 @@ export async function submitOrder(
       phoneE164: phone.e164,
       address: mode === "delivery" ? address : "",
       notes,
-      latitude: Number.isFinite(customerLat) ? customerLat : undefined,
-      longitude: Number.isFinite(customerLng) ? customerLng : undefined,
+      latitude: eta.destLatitude,
+      longitude: eta.destLongitude,
     },
     etaLabel: eta.label,
+    mapsUrl: eta.mapsUrl,
   };
 
   /* ------------------------------------------------------------------ *

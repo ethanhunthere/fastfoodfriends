@@ -10,6 +10,9 @@ export interface EtaResult {
   distanceKm?: number;
   mapsUrl: string;
   source: "google_routes" | "osrm" | "estimate" | "pickup";
+  destLatitude?: number;
+  destLongitude?: number;
+  cleanAddress?: string;
 }
 
 export interface CookTimeEstimate {
@@ -166,25 +169,123 @@ async function queryOsrmRoutes(
 }
 
 /**
- * Geocode text address in Pejë using OpenStreetMap (Nominatim & Photon).
- * 100% Free & Open-Source.
+ * Strips building/apartment noise (hyrja, kati, banesa, etc.) and punctuation,
+ * returning the clean street or neighborhood name in Pejë for routing and mapping.
  */
-async function geocodePejeAddress(
-  address: string,
-): Promise<{ latitude: number; longitude: number } | null> {
-  if (!address.trim()) return null;
-  const cleanQuery = address
-    .replace(/[\n\r]+/g, " ")
-    .replace(/hyrja.*?(\s|$)/gi, " ")
-    .replace(/kati.*?(\s|$)/gi, " ")
-    .replace(/afër.*?(\s|$)/gi, " ")
+export function cleanPejeAddress(raw: string): string {
+  if (!raw) return "";
+  let text = raw
+    .replace(/[\n\r\t]+/g, " ")
+    .replace(/,\s*/g, " ")
     .trim();
 
-  // 1. OpenStreetMap Nominatim
+  // Strip common building noise: "hyrja 2", "h. 2", "kati 3", "kat 3", "k 3", "banesa 14", "b 14", "nr 12", "ap 5"
+  text = text.replace(
+    /\b(hyrja|hyrje|h|kati|kat|k|banesa|banese|b|nr|numri|ap|apartament|apartamenti)\s*[:.]?\s*\d+[a-zA-Z]?\b/gi,
+    " ",
+  );
+
+  // Strip standalone numbers like "15", "2B", "14/2"
+  text = text.replace(/\b\d+([a-zA-Z]|\/\d+)?\b/g, " ");
+
+  // Normalize whitespace
+  text = text.replace(/\s+/g, " ").trim();
+  return text || raw.trim();
+}
+
+interface PejePlace {
+  keywords: string[];
+  lat: number;
+  lng: number;
+  name: string;
+}
+
+function normalizeAlbanian(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Curated offline dictionary of all prominent Pejë neighbourhoods, roads, and landmarks.
+ * Instant 0ms lookup, 100% reliable, zero API rate limits or network failures.
+ */
+export const PEJE_LOCAL_PLACES: PejePlace[] = [
+  { keywords: ["kapeshnic", "kapeshnice"], lat: 42.6564, lng: 20.2831, name: "Kapeshnicë" },
+  { keywords: ["dardani", "dardania", "banesat e bardha"], lat: 42.6593, lng: 20.2885, name: "Dardania" },
+  { keywords: ["karagac", "karagaq", "karagaci"], lat: 42.6561, lng: 20.2918, name: "Karagaç" },
+  { keywords: ["zatra"], lat: 42.6469, lng: 20.2791, name: "Zatra" },
+  { keywords: ["xhemajl kada", "xhemajlkada"], lat: 42.6682, lng: 20.2985, name: "Xhemajl Kada" },
+  { keywords: ["fidanishte", "fidanishtja"], lat: 42.6678, lng: 20.3068, name: "Fidanishte" },
+  { keywords: ["asllan qeshme", "asllan ceshme"], lat: 42.6659, lng: 20.2862, name: "Asllan Qeshme" },
+  { keywords: ["vitomiric", "vitomirica", "vitomirice"], lat: 42.7009, lng: 20.3464, name: "Vitomiricë" },
+  { keywords: ["bellopoj", "bellopoja", "bellopoje"], lat: 42.6385, lng: 20.2978, name: "Bellopojë" },
+  { keywords: ["qendra", "sheshi", "korzo", "qender"], lat: 42.6595, lng: 20.2882, name: "Qendra" },
+  { keywords: ["spital", "spitali"], lat: 42.6621, lng: 20.2732, name: "Spitali Rajonal i Pejës" },
+  { keywords: ["peja city mall", "city mall"], lat: 42.6685, lng: 20.3150, name: "Peja City Mall" },
+  { keywords: ["elkos", "etc"], lat: 42.6811, lng: 20.3194, name: "ETC Pejë" },
+  { keywords: ["carshia", "carshi", "çarshia"], lat: 42.6606, lng: 20.2950, name: "Çarshia e Vjetër" },
+  { keywords: ["rrokaqiell", "rrokaqielli"], lat: 42.6633, lng: 20.3007, name: "Lagjja Rrokaqielli" },
+  { keywords: ["7 shtatori", "shtatori"], lat: 42.6620, lng: 20.3120, name: "7 Shtatori" },
+  { keywords: ["fadil hoxha"], lat: 42.6612, lng: 20.2995, name: "Rruga Fadil Hoxha" },
+  { keywords: ["william walker"], lat: 42.6651, lng: 20.3082, name: "Rruga William Walker" },
+  { keywords: ["eliot engel"], lat: 42.6596, lng: 20.2926, name: "Rruga Eliot Engel" },
+  { keywords: ["mbreteresha teute", "teuta"], lat: 42.6620, lng: 20.2956, name: "Rruga Mbretëresha Teutë" },
+  { keywords: ["adem jashari"], lat: 42.6645, lng: 20.2994, name: "Rruga Adem Jashari" },
+  { keywords: ["vellezerit gervalla", "gervalla"], lat: 42.6629, lng: 20.3016, name: "Rruga Vëllezërit Gërvalla" },
+  { keywords: ["nene tereza"], lat: 42.6605, lng: 20.2830, name: "Rruga Nënë Tereza" },
+  { keywords: ["tahir zemaj"], lat: 42.6450, lng: 20.2850, name: "Rruga Tahir Zemaj" },
+  { keywords: ["haxhi zeka"], lat: 42.6630, lng: 20.2920, name: "Rruga Haxhi Zeka" },
+  { keywords: ["bekim fehmiu"], lat: 42.6625, lng: 20.2940, name: "Rruga Bekim Fehmiu" },
+  { keywords: ["leke dukagjini"], lat: 42.6640, lng: 20.2910, name: "Rruga Lekë Dukagjini" },
+  { keywords: ["banesat e zeza"], lat: 42.6600, lng: 20.2890, name: "Banesat e Zeza" },
+];
+
+export function findPejeLocalPlace(address: string): PejePlace | null {
+  const norm = normalizeAlbanian(address);
+  for (const place of PEJE_LOCAL_PLACES) {
+    for (const kw of place.keywords) {
+      if (norm.includes(normalizeAlbanian(kw))) {
+        return place;
+      }
+    }
+  }
+  return null;
+}
+
+/**
+ * Geocode text address in Pejë:
+ * 1. Fast local dictionary check for Pejë neighborhoods and roads.
+ * 2. OpenStreetMap Nominatim with strict Pejë viewbox bounding (20.23,42.70,20.36,42.63).
+ * 3. OpenStreetMap Photon (Komoot) with Pejë coordinate bias.
+ * 100% Free & Open-Source, no API key, zero cost.
+ */
+export async function geocodePejeAddress(
+  address: string,
+): Promise<{ latitude: number; longitude: number; name?: string } | null> {
+  if (!address.trim()) return null;
+
+  // 1. Check local Pejë dictionary
+  const localMatch = findPejeLocalPlace(address);
+  if (localMatch) {
+    return {
+      latitude: localMatch.lat,
+      longitude: localMatch.lng,
+      name: localMatch.name,
+    };
+  }
+
+  const cleanQuery = cleanPejeAddress(address);
+
+  // 2. OpenStreetMap Nominatim with strict Pejë bounding box
   try {
-    const q = encodeURIComponent(`${cleanQuery}, Pejë, Kosovë`);
+    const q = encodeURIComponent(`${cleanQuery}, Pejë`);
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1`,
+      `https://nominatim.openstreetmap.org/search?q=${q}&format=json&viewbox=20.23,42.70,20.36,42.63&bounded=1&limit=1`,
       {
         headers: { "User-Agent": "FastFoodFriends-Peje/1.0" },
         signal: AbortSignal.timeout(2500),
@@ -196,14 +297,15 @@ async function geocodePejeAddress(
         return {
           latitude: parseFloat(data[0].lat),
           longitude: parseFloat(data[0].lon),
+          name: data[0].display_name,
         };
       }
     }
   } catch {
-    // try secondary OpenStreetMap provider
+    // fallback
   }
 
-  // 2. OpenStreetMap Photon (Komoot engine) fallback
+  // 3. OpenStreetMap Photon (Komoot engine) with Pejë bias
   try {
     const q = encodeURIComponent(`${cleanQuery} Peje`);
     const res = await fetch(
@@ -220,6 +322,7 @@ async function geocodePejeAddress(
         return {
           latitude: coords[1],
           longitude: coords[0],
+          name: data?.features?.[0]?.properties?.name,
         };
       }
     }
@@ -279,6 +382,7 @@ export async function calculateDeliveryEta(
     };
   }
 
+  const cleanStreet = location.address ? cleanPejeAddress(location.address) : "";
   const apiKey = process.env.GOOGLE_MAPS_API_KEY?.trim();
 
   let rideMinutes = 5; // Typical motorcycle delivery ride across Pejë (fast, weaves through traffic)
@@ -307,7 +411,7 @@ export async function calculateDeliveryEta(
     }
   }
 
-  // 2. If not resolved via Google, try OSRM routing with coordinates
+  // 2. If not resolved via Google, try OpenStreetMap + OSRM motorcycle routing
   if (source === "estimate") {
     if ((!destLat || !destLng) && location.address) {
       const geo = await geocodePejeAddress(location.address);
@@ -341,11 +445,13 @@ export async function calculateDeliveryEta(
   const maxMinutes = Math.max(minMinutes + 3, prepMaxMinutes + rideMinutes);
   const label = `${minMinutes}–${maxMinutes} min`;
 
-  // Destination parameter for Google Maps navigation in motorcycle mode
+  // Destination parameter for Google Maps navigation in motorcycle mode:
+  // If coordinates were found: destination is "lat,lng"
+  // If not: destination is the clean street name in Pejë so Google Maps drives directly there
   const destinationQuery =
     destLat && destLng
       ? `${destLat},${destLng}`
-      : encodeURIComponent(`${location.address || "Pejë"}, Pejë`);
+      : encodeURIComponent(`${cleanStreet || location.address || "Pejë"}, Pejë`);
 
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${originLat},${originLng}&destination=${destinationQuery}&travelmode=two_wheeler`;
 
@@ -358,6 +464,9 @@ export async function calculateDeliveryEta(
     distanceKm,
     mapsUrl,
     source,
+    destLatitude: destLat,
+    destLongitude: destLng,
+    cleanAddress: cleanStreet,
   };
 }
 

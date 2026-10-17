@@ -79,6 +79,7 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
     `Telefoni: ${phoneDisplay}`,
     customer.address ? `Adresa: ${customer.address}` : null,
     customer.notes.trim() ? `Shënime: ${customer.notes.trim()}` : null,
+    receipt.etaLabel ? `Koha e përafërt: ~${receipt.etaLabel}` : null,
     "",
     "┌── ARTIKUJT ──────────────────────",
     itemBlocks,
@@ -95,7 +96,9 @@ export function buildOrderNotification(receipt: OrderReceipt): NtfyPayload {
       ? `${customer.latitude},${customer.longitude}`
       : encodeURIComponent(`${customer.address || "Pejë"}, Pejë`);
 
-  const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${originCoords}&destination=${destCoords}&travelmode=two_wheeler`;
+  const mapsUrl =
+    receipt.mapsUrl ||
+    `https://www.google.com/maps/dir/?api=1&origin=${originCoords}&destination=${destCoords}&travelmode=two_wheeler`;
 
   const actions: NtfyAction[] = [
     {
